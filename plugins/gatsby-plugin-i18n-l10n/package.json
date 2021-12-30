@@ -1,0 +1,30 @@
+{
+  "name": "gatsby-plugin-i18n-l10n",
+  "version": "1.0.0",
+  "description": "Providing i18n and l10n to Gatsby.",
+  "author": "openscript",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
+  "peerDependencies": {
+    "gatsby": "^4.0.x",
+    "react-helmet": "^6.1.x",
+    "react-intl": "^5.20.x"
+  },
+  "devDependencies": {
+    "@babel/preset-typescript": "^7.16.0",
+    "@types/jest": "^27.0.2",
+    "@types/react-helmet": "^6.1.4",
+    "@types/react-test-renderer": "^17.0.1",
+    "babel-jest": "^27.3.1",
+    "babel-preset-gatsby": "^2.1.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^27.3.1",
+    "react-test-renderer": "^17.0.2"
+  },
+  "dependencies": {
+    "limax": "^3.0.0",
+    "path-browserify": "^1.0.1"
+  }
+}
