@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-i18n-l10n",
-  "version": "1.0.0",
+  "version": "4.4.0",
   "description": "Providing i18n and l10n to Gatsby.",
   "author": "openscript",
   "license": "MIT",
