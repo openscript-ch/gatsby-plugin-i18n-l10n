@@ -19,7 +19,6 @@ export default function I18nHead({ currentLocale, translations, pathname }: I18n
       }
     }
   `);
-  console.log(data);
 
   return (
     <Helmet>
