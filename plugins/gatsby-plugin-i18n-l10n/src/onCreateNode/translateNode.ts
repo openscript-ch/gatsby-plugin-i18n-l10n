@@ -42,6 +42,13 @@ const findLocale = (estimatedLocale: string, options: PluginOptions) => {
   );
 };
 
+/**
+ * Find siblings (files which are translations of the given file)
+ *
+ * @param absolutePath to the file for which siblings should be searched
+ * @param options is the configuration of the current plugin instance
+ * @returns siblings paths
+ */
 const findTranslations = async (absolutePath: string, options: PluginOptions) => {
   const fileSiblings = await fs.readdir(path.dirname(absolutePath));
   const { filename } = parseFilename(path.basename(absolutePath), options.defaultLocale);
@@ -58,18 +65,28 @@ const findTranslations = async (absolutePath: string, options: PluginOptions) =>
   return siblings;
 };
 
+/**
+ * Translates paths based on filename, location, locale and plugin options
+ *
+ * @param filename of the designated file
+ * @param relativeDirectory of the relative directory where the designated file resides in
+ * @param locale of the designated file
+ * @param options is the configuration of the current plugin instance
+ * @param title which was read from frontmatter or elsewhere which belongs to this file
+ * @returns a translated slug, a kind (relativeDirectory) and its filepath
+ */
 const translatePath = (filename: string, relativeDirectory: string, locale: string, options: PluginOptions, title?: string) => {
   let slug = '';
   if (filename.indexOf('index') === -1) {
     slug = title ? convertToSlug(title) : filename;
   }
-  const kind = relativeDirectory.split('/')[0] || '';
 
+  // 'relativeDirectory' is a synonym of 'kind'
   const localeOption = options.locales.find(l => l.locale === locale);
   let filepath = addLocalePrefix(path.join('/', relativeDirectory, slug), locale, localeOption?.prefix || '', options.defaultLocale);
-  if (kind && localeOption) {
-    filepath = filepath.replace(`/${kind}`, localeOption.slugs[`/${kind}`] || `/${kind}`);
+  if (relativeDirectory && localeOption) {
+    filepath = filepath.replace(`/${relativeDirectory}`, localeOption.slugs[`/${relativeDirectory}`] || `/${relativeDirectory}`);
   }
 
-  return { slug, kind, filepath };
+  return { slug, kind: relativeDirectory, filepath };
 };
