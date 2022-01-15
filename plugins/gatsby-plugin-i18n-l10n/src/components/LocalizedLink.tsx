@@ -8,9 +8,11 @@ import { PageContext } from '../wrapPageElement';
 type LocalizedLinkProps = React.PropsWithChildren<{
   className?: string;
   to: string;
+  activeClassName?: string;
+  partiallyActive?: boolean;
 }>;
 
-export default function LocalizedLink({ to, children, className }: LocalizedLinkProps) {
+export default function LocalizedLink({ to, children, className, activeClassName = 'active', partiallyActive = true }: LocalizedLinkProps) {
   const pageContext = useContext(PageContext);
   const prefix = pageContext.prefix ?? '';
   const intl = useIntl();
@@ -18,7 +20,7 @@ export default function LocalizedLink({ to, children, className }: LocalizedLink
   const localizedPath = to !== '/' ? getSlug() : '/';
   const prefixedPath = intl.defaultLocale === intl.locale ? localizedPath : trimRightSlash(path.join('/', prefix, localizedPath));
   return (
-    <Link to={prefixedPath} className={className} activeClassName="active" partiallyActive={true}>
+    <Link to={prefixedPath} className={className} activeClassName={activeClassName} partiallyActive={partiallyActive}>
       {children}
     </Link>
   );
