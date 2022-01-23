@@ -1,4 +1,4 @@
-import nodePath from 'path';
+import nodePath from 'path/posix';
 import { PluginOptions } from '../../types';
 
 export const trimRightSlash = (path: string) => {
