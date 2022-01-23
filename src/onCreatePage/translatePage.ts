@@ -1,7 +1,7 @@
-import { onCreatePage } from '../../types';
+import { OnCreatePage } from '../../types';
 import { generatePageContext, translatePagePaths } from '../utils/path';
 
-export const translatePage: onCreatePage = async ({ page, actions }, options) => {
+export const translatePage: OnCreatePage = async ({ page, actions }, options) => {
   const { createPage, deletePage } = actions;
 
   // Only for pages created by stateful create pages like `/src/pages`
@@ -10,9 +10,9 @@ export const translatePage: onCreatePage = async ({ page, actions }, options) =>
 
     deletePage(page);
 
-    paths.forEach(path => {
-      const translations = paths.filter(p => p.locale !== path.locale);
-      const locale = options.locales.find(l => l.locale === path.locale);
+    paths.forEach((path) => {
+      const translations = paths.filter((p) => p.locale !== path.locale);
+      const locale = options.locales.find((l) => l.locale === path.locale);
       const context = { ...page.context, locale: path.locale, translations, prefix: locale?.prefix };
       createPage({ ...page, path: path.path, context });
     });

@@ -14,7 +14,7 @@ export const pluginOptionsSchema: GatsbyNode['pluginOptionsSchema'] = ({ Joi }) 
           prefix: Joi.string().required().description('Defines the corresponding url prefix.'),
           slugs: Joi.object().required().description('Contains the translated slugs.'),
           messages: Joi.object().required().description('Contains the translated messages.'),
-        })
+        }),
       ),
   });
 };

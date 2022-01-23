@@ -1,8 +1,8 @@
-jest.mock('fs/promises');
-
+import fs from 'fs/promises';
 import { PluginOptions } from '../../types';
 import { translateNode } from './translateNode';
-import fs from 'fs/promises';
+
+jest.mock('fs/promises');
 
 describe('translateNode', () => {
   it('should create nodes with translation information', async () => {
