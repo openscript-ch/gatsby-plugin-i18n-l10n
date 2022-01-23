@@ -1,7 +1,18 @@
 {
   "name": "gatsby-plugin-i18n-l10n",
   "version": "4.4.0",
-  "description": "Providing i18n and l10n to Gatsby.",
+  "description": "Providing i18n and l10n to Gatsby with react-intl and react-helmet. Besides translating pages and labels, you can also translate the slugs and paths and still link between translated sibling pages.",
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "gatsby-plugin-intl",
+    "i18n",
+    "l10n",
+    "intl",
+    "react-intl",
+    "react-helmet"
+  ],
+  "homepage": "https://github.com/openscript-ch/gatsby-plugin-i18n-l10n",
   "author": "openscript",
   "license": "MIT",
   "scripts": {
