@@ -69,7 +69,11 @@
     "react": "^17.0.2",
     "react-test-renderer": "^17.0.2",
     "standard-version": "^9.3.2",
-    "typescript": "^4.5.5"
+    "typescript": "^4.5.5",
+    "gatsby": "^4.x",
+    "gatsby-source-filesystem": "^4.x",
+    "react-helmet": "^6.1.x",
+    "react-intl": "^5.20.x"
   },
   "dependencies": {
     "limax": "^3.0.0",
