@@ -1,7 +1,7 @@
 import { FileSystemNode } from 'gatsby-source-filesystem';
 import convertToSlug from 'limax';
 import fs from 'fs/promises';
-import path from 'path/posix';
+import { posix as path } from 'path';
 import { OnCreateNode, PluginOptions } from '../../types';
 import { addLocalePrefix, trimRightSlash } from '../utils/path';
 import { findClosestLocale, parseFilename } from '../utils/i18n';
