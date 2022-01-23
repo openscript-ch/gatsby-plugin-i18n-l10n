@@ -5,26 +5,37 @@
   "keywords": [
     "gatsby",
     "gatsby-plugin",
-    "gatsby-plugin-intl",
+    "gatsby-plugin-i18n-l10n",
     "i18n",
     "l10n",
     "intl",
+    "internationalization",
+    "translate",
     "react-intl",
     "react-helmet"
   ],
   "homepage": "https://github.com/openscript-ch/gatsby-plugin-i18n-l10n",
   "author": "openscript",
   "license": "MIT",
+  "files": ["dist"],
+  "main": "./dist/index.js",
   "scripts": {
+    "build": "tsc",
     "check:format": "eslint . --max-warnings 0",
     "check:types": "tsc --noEmit",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "test": "jest"
   },
   "peerDependencies": {
-    "gatsby": "^4.0.x",
+    "gatsby": "^4.x",
+    "gatsby-source-filesystem": "^4.x",
     "react-helmet": "^6.1.x",
     "react-intl": "^5.20.x"
+  },
+  "peerDependenciesMeta": {
+    "gatsby-source-filesystem": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.16.0",
