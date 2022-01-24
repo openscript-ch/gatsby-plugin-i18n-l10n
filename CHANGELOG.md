@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.4.2](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.4.1...v4.4.2) (2022-01-24)
+
 ### 4.4.1 (2022-01-23)
 
 
