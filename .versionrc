@@ -25,6 +25,10 @@
       "section": "🌍 Internationalization"
     },
     {
+      "type": "build",
+      "section": "🏗️ Dependencies and other build configuration"
+    },
+    {
       "type": "ci",
       "hidden": true
     }
