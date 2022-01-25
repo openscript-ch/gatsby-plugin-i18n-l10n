@@ -2,8 +2,8 @@
   "include": ["./src/**/*", "./*.ts"],
   "compilerOptions": {
     "outDir": "dist",
-    "target": "ESNext",
-    "module": "ESNext",
+    "target": "ES6",
+    "module": "CommonJS",
     "lib": ["dom", "ES2017", "ES2019"],
     // "allowJs": true,
     // "checkJs": true,
@@ -15,7 +15,6 @@
     "emitDecoratorMetadata": true,
     "noEmit": false,
     "skipLibCheck": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true
+    "moduleResolution": "node"
   }
 }
