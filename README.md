@@ -17,6 +17,8 @@ Providing i18n and l10n to Gatsby with react-intl and react-helmet. Besides tran
      options: {
        // default locale won't be prefixed
        defaultLocale: `de-CH`,
+       // absolute site url
+       siteUrl: `https://example.com,
        locales: [
          {
            // IETF BCP 47 language tag
