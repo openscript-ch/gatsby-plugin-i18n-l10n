@@ -35,6 +35,7 @@ describe('translateNode', () => {
 
     const options: PluginOptions = {
       defaultLocale: `en-US`,
+      siteUrl: '',
       locales: [
         {
           locale: `en-US`,
@@ -104,6 +105,7 @@ describe('translateNode', () => {
 
     const options: PluginOptions = {
       defaultLocale: `en-US`,
+      siteUrl: '',
       locales: [
         {
           locale: `en-US`,
