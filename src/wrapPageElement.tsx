@@ -24,7 +24,7 @@ export const wrapPageElement: WrapPageElement = ({ element, props }, options) =>
     // eslint-disable-next-line react/jsx-no-constructed-context-values
     <PageContext.Provider value={{ locale, prefix }}>
       <IntlProvider defaultLocale={options.defaultLocale} locale={locale} messages={currentMessages}>
-        <I18nHead currentLocale={locale} translations={translations} pathname={props.location.pathname} />
+        <I18nHead currentLocale={locale} translations={translations} pathname={props.location.pathname} siteUrl={options.siteUrl} />
         {element}
       </IntlProvider>
     </PageContext.Provider>

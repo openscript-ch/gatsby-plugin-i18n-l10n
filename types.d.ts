@@ -22,6 +22,7 @@ export type SitePageContext = {
 
 export type PluginOptions = {
   defaultLocale: string;
+  siteUrl: string;
   locales: {
     locale: string;
     prefix: string;

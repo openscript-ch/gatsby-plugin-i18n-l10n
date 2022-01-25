@@ -6,6 +6,7 @@ import { PluginOptions } from './types';
 export const pluginOptionsSchema: GatsbyNode['pluginOptionsSchema'] = ({ Joi }) => {
   return Joi.object({
     defaultLocale: Joi.string().description('Sets the default locale'),
+    siteUrl: Joi.string().required().description('Sets the absolute site url'),
     locales: Joi.array()
       .required()
       .items(
