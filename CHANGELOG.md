@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.4.10](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.4.9...v4.4.10) (2022-01-25)
+
+
+### 🚀 Features
+
+* Make site url configuratable ([d8b87a7](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/d8b87a7391f3db489882bbf27cfaa297b76cef54))
+
+
+### 🐛 Bug Fixes
+
+* **test:** translateNode ([076d3f5](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/076d3f5702a422e3768cbb61f9de43d2010dfaab))
+
+
+### 📚 Documentations
+
+* add siteurl to example ([747d6f3](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/747d6f356392d7721f4455bca2755be00a5e6509))
+
 ### [4.4.9](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.4.8...v4.4.9) (2022-01-25)
 
 ### [4.4.8](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.4.7...v4.4.8) (2022-01-25)
