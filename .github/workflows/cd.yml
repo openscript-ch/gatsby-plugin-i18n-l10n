@@ -31,6 +31,6 @@ jobs:
           CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Publish package on npmjs.org
-        run: npm publish --access public
+        run: npm publish --access public dist
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
