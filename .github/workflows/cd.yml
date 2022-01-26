@@ -25,10 +25,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Create Github release
-        run: npm run release:create-github-release
-        env:
-          CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      #      - name: Create Github release
+      #        run: npm run release:create-github-release
+      #        env:
+      #          CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Publish package on npmjs.org
         run: npm publish ./dist --access public
