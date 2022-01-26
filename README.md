@@ -5,6 +5,17 @@ Providing i18n and l10n to Gatsby with `react-intl` and `react-helmet`. Besides 
 - [**react-intl**](https://formatjs.io/docs/react-intl/): Wrapping the pages with a provider, which makes translation available throughout the app.
 - [**react-helmet**](https://github.com/nfl/react-helmet): Injecting meta tags into the head element, which links translated sibling pages.
 
+## Features
+
+- Generates translated versions of a page.
+  - For example, if you have a page `src/pages/about.tsx` and the languages `en-US` and `de-CH` configured, then it will create an `en-US` and `de-CH` version of this page. Via the page context of the translated pages, you get to know the locale.
+- Puts prefixes into the page paths, but not when it's the default locale.
+- Picks up locale from Markdown file names and provides the context via custom fields in GraphQL.
+- Maps path to pages to different translated paths.
+- Makes it easy to navigate between the translations of a page.
+- Sets meta tags to provide locale information to crawlers and other machines.
+- Provides useful components like `<LocalizedLink>` and `<LanguageSwitcher>`.
+
 ## Usage
 
 1. Make sure the peer dependencies `"gatsby": "^4.x"`, `"react-helmet": "^6.1.x"` and `"react-intl": "^5.20.x"` are dependencies of your Gatsby project.
