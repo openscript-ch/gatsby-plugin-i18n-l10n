@@ -1,9 +1,7 @@
-import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { SitePageContext, Translation, WrapPageElement } from '../types';
 import I18nHead from './components/I18nHead';
-
-export const PageContext = React.createContext<SitePageContext>({});
+import { I18nL10nContext } from './contexts/I18nL10nContext';
 
 export const wrapPageElement: WrapPageElement = ({ element, props }, options) => {
   const pageContext = props.pageContext as SitePageContext;
@@ -22,11 +20,11 @@ export const wrapPageElement: WrapPageElement = ({ element, props }, options) =>
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <PageContext.Provider value={{ locale, prefix }}>
+    <I18nL10nContext.Provider value={{ locale, prefix }}>
       <IntlProvider defaultLocale={options.defaultLocale} locale={locale} messages={currentMessages}>
         <I18nHead currentLocale={locale} translations={translations} pathname={props.location.pathname} siteUrl={options.siteUrl} />
         {element}
       </IntlProvider>
-    </PageContext.Provider>
+    </I18nL10nContext.Provider>
   );
 };

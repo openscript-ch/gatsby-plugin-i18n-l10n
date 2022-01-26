@@ -1,11 +1,11 @@
 import { Link } from 'gatsby';
 import path from 'path';
-import React, { useContext } from 'react';
+import { PropsWithChildren } from 'react';
 import { useIntl } from 'react-intl';
+import { useI18nL10nContext } from '../contexts/I18nL10nContext';
 import { trimRightSlash } from '../utils/path';
-import { PageContext } from '../wrapPageElement';
 
-type LocalizedLinkProps = React.PropsWithChildren<{
+type LocalizedLinkProps = PropsWithChildren<{
   className?: string;
   to: string;
   activeClassName?: string;
@@ -13,7 +13,7 @@ type LocalizedLinkProps = React.PropsWithChildren<{
 }>;
 
 export default function LocalizedLink({ to, children, className, activeClassName = 'active', partiallyActive = true }: LocalizedLinkProps) {
-  const pageContext = useContext(PageContext);
+  const pageContext = useI18nL10nContext();
   const prefix = pageContext.prefix ?? '';
   const intl = useIntl();
   const getSlug = () => (intl.messages[to] ? intl.formatMessage({ id: to }) : to);
