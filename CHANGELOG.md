@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.5.0](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/issues/compare/v4.4.10...v4.5.0) (2022-01-26)
+
+
+### 🚀 Features
+
+* add language switcher component ([d8e7544](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/issues/commit/d8e7544064a36b55f7ffe339fa5983bbb0b20af4))
+* Make I18nL10n context available ([68d565b](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/issues/commit/68d565b5f3ac462305afc74cd9804518c212150f))
+
+
+### 🏗️ Dependencies and other build configuration
+
+* configure format on save ([957d5cc](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/issues/commit/957d5cc90266d4cd0e5fa9596a8e374304f0a20e))
+* **package.json:** add repo and bugs url ([58348e5](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/issues/commit/58348e52d7578a22560620e61909d84846a14799))
+* publish readme from npm package ([4218bea](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/issues/commit/4218bead54e257ca675e397028e1b069c3aa0d15))
+* upgrade dependencies ([2b2e8b9](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/issues/commit/2b2e8b9e3e3a2cbe38af5ad08eb01fa69ccf0ebe))
+
+
+### 📚 Documentations
+
+* **readme:** add features section ([0e140c6](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/issues/commit/0e140c6674088aba3ac357ee1c0f157b612f3ef4))
+* **readme:** enhance usage section ([1bc3308](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/issues/commit/1bc3308eefd3fafb42e8e50e67dee534ee36e862))
+
 ### [4.4.10](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.4.9...v4.4.10) (2022-01-25)
 
 
