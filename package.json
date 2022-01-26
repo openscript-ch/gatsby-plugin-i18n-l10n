@@ -15,7 +15,14 @@
     "react-helmet"
   ],
   "homepage": "https://github.com/openscript-ch/gatsby-plugin-i18n-l10n",
-  "author": "openscript",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/issues"
+  },
+  "bugs": {
+    "url": "https://github.com/gatsbyjs/gatsby/issues"
+  },
+  "author": "openscript GmbH <hi+npm@openscript.ch>",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
