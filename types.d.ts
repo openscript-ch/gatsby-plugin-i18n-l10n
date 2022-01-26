@@ -16,6 +16,7 @@ export type Translation = {
 };
 
 export type SitePageContext = {
+  translations?: Translation[];
   locale?: string;
   prefix?: string;
 };
