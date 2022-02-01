@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
 
       - name: Configure node for npmjs.org as registry
         uses: actions/setup-node@v2
@@ -25,10 +27,10 @@ jobs:
       - name: Build
         run: npm run build
 
-      #      - name: Create Github release
-      #        run: npm run release:create-github-release
-      #        env:
-      #          CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Create Github release
+        run: npm run release:create-github-release
+        env:
+          CONVENTIONAL_GITHUB_RELEASER_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Publish package on npmjs.org
         run: npm publish ./dist --access public
