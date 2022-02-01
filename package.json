@@ -17,7 +17,7 @@
   "homepage": "https://github.com/openscript-ch/gatsby-plugin-i18n-l10n",
   "repository": {
     "type": "git",
-    "url": "https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/issues"
+    "url": "https://github.com/openscript-ch/gatsby-plugin-i18n-l10n"
   },
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
