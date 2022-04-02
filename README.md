@@ -61,3 +61,9 @@ Providing i18n and l10n to Gatsby with `react-intl` and `react-helmet`. Besides 
      },
    }
    ```
+
+## Alternatives
+
+- [gatsby-theme-i18n](https://www.gatsbyjs.com/plugins/gatsby-theme-i18n)
+- [gatsby-plugin-i18n](https://github.com/angeloocana/gatsby-plugin-i18n)
+- [gatsby-plugin-intl](https://www.gatsbyjs.com/plugins/gatsby-plugin-intl)
