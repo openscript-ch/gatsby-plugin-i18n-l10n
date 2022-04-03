@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.6.1](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.6.0...v4.6.1) (2022-04-03)
+
+
+### 📚 Documentations
+
+* **readme:** add language switcher section ([514220b](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/514220b1f6a76b8939b03e584309dc98aba80fb7))
+
+
+### 🚀 Features
+
+* pass inline styles to link ([b4eced2](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/b4eced2c706fd8fc05f02cf0f37607c4234851e9))
+
 ## [4.6.0](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.5.3...v4.6.0) (2022-04-02)
 
 
