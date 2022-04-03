@@ -9,10 +9,18 @@ type LocalizedLinkProps = PropsWithChildren<{
   className?: string;
   to: string;
   activeClassName?: string;
+  activeStyle?: object;
   partiallyActive?: boolean;
 }>;
 
-export default function LocalizedLink({ to, children, className, activeClassName = 'active', partiallyActive = true }: LocalizedLinkProps) {
+export default function LocalizedLink({
+  to,
+  children,
+  className,
+  activeClassName = 'active',
+  activeStyle = {},
+  partiallyActive = true,
+}: LocalizedLinkProps) {
   const pageContext = useI18nL10nContext();
   const prefix = pageContext.prefix ?? '';
   const intl = useIntl();
@@ -20,7 +28,13 @@ export default function LocalizedLink({ to, children, className, activeClassName
   const localizedPath = to !== '/' ? getSlug() : '/';
   const prefixedPath = intl.defaultLocale === intl.locale ? localizedPath : trimRightSlash(path.join('/', prefix, localizedPath));
   return (
-    <Link to={prefixedPath} className={className} activeClassName={activeClassName} partiallyActive={partiallyActive}>
+    <Link
+      to={prefixedPath}
+      className={className}
+      activeClassName={activeClassName}
+      activeStyle={activeStyle}
+      partiallyActive={partiallyActive}
+    >
       {children}
     </Link>
   );
