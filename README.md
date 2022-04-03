@@ -1,20 +1,21 @@
 # gatsby-plugin-i18n-l10n
 
-Providing i18n and l10n to Gatsby with `react-intl` and `react-helmet`. Besides translating pages and labels, you can also translate the slugs and paths and still link between translated sibling pages. The plugin builts on two dependencies:
+Providing i18n and l10n to Gatsby. Besides translating pages and Markdown files, you can also translate the slugs and paths and still link between translated sibling pages. Batteries like a language switcher component are included. The plugin is written in Typescript, has some tests and builts on these two dependencies:
 
 - [**react-intl**](https://formatjs.io/docs/react-intl/): Wrapping the pages with a provider, which makes translation available throughout the app.
 - [**react-helmet**](https://github.com/nfl/react-helmet): Injecting meta tags into the head element, which links translated sibling pages.
 
 ## Features
 
-- Generates translated versions of a page.
+- **Generates translated** versions of a **page**.
   - For example, if you have a page `src/pages/about.tsx` and the languages `en-US` and `de-CH` configured, then it will create an `en-US` and `de-CH` version of this page. Via the page context of the translated pages, you get to know the locale.
-- Puts prefixes into the page paths, but not when it's the default locale.
-- Picks up locale from Markdown file names and provides the context via custom fields in GraphQL.
-- Maps path to pages to different translated paths.
-- Makes it easy to navigate between the translations of a page.
-- Sets meta tags to provide locale information to crawlers and other machines.
-- Provides useful components like `<LocalizedLink>` and `<LanguageSwitcher>`.
+- Puts **prefixes** into the page paths, but not when it's the **default locale**.
+- **Picks up locale** from Markdown file names and provides it via custom fields in GraphQL.
+  - It works with `gatsby-transformer-remark` and `gatsby-plugin-mdx`.
+- Makes it easy to **navigate between the translations** of a page.
+- Sets **meta tags** to provide locale information to crawlers and other machines.
+- Provides **useful components** like `<LocalizedLink>` and `<LanguageSwitcher>`.
+- Helps to **translate paths**, while keeping the possibility to navigate between the translations of a page.
 
 ## Usage
 
@@ -61,6 +62,16 @@ Providing i18n and l10n to Gatsby with `react-intl` and `react-helmet`. Besides 
      },
    }
    ```
+
+### `<LanguageSwitcher>`
+
+With the built-in `<LanguageSwitcher>` component, as user can change between the locales. With `resolveLanguageName` the language names can be provided to the component.
+
+```jsx
+<LanguageSwitcher 
+  resolveLanguageName={locale => intl.formatMessage({ id: `languages.${locale}` })}
+/>
+```
 
 ## Alternatives
 
