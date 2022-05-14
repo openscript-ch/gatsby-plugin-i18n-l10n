@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.6.2](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.6.1...v4.6.2) (2022-05-14)
+
+
+### 🏗️ Dependencies and other build configuration
+
+* **coverage:** add coverage reporting ([af23241](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/af2324101eb3adebf893ab32b2fbecf0a0286db8))
+
 ### [4.6.1](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.6.0...v4.6.1) (2022-04-03)
 
 
