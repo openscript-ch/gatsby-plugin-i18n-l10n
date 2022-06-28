@@ -56,7 +56,12 @@ const translatePath = (filename: string, relativeDirectory: string, locale: stri
 
   // 'relativeDirectory' is a synonym of 'kind'
   const localeOption = options.locales.find((l) => l.locale === locale);
-  let filepath = addLocalePrefix(path.join('/', relativeDirectory, slug), locale, localeOption?.prefix || '', options.defaultLocale);
+  const currentPath = path.join('/', relativeDirectory, slug);
+
+  let filepath = addLocalePrefix(currentPath, locale, localeOption?.prefix || '', options.defaultLocale);
+  // remove segments which are on the path blacklist
+  filepath = options.pathBlacklist?.reduce((prev, curr) => prev.replace(curr, ''), filepath) || filepath;
+  // replace segments with slugs
   if (relativeDirectory && localeOption) {
     filepath = filepath.replace(`/${relativeDirectory}`, localeOption.slugs[`/${relativeDirectory}`] || `/${relativeDirectory}`);
   }

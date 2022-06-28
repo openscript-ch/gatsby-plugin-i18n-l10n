@@ -30,6 +30,7 @@ export type PluginOptions = {
     slugs: Record<string, string>;
     messages: Record<string, string>;
   }[];
+  pathBlacklist?: string[];
 } & GatsbyPluginOptions;
 
 type GatsbyNodeOnCreatePage = NonNullable<GatsbyNode['onCreatePage']>;

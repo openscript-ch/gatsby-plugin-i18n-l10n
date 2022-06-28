@@ -17,6 +17,7 @@ export const pluginOptionsSchema: GatsbyNode['pluginOptionsSchema'] = ({ Joi }) 
           messages: Joi.object().required().description('Contains the translated messages.'),
         }),
       ),
+    pathBlacklist: Joi.array().description('Omit certain path segments'),
   });
 };
 
