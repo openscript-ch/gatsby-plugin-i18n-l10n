@@ -8,7 +8,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        node: ['14.x', '16.x']
+        node: ['16.x', '18.x']
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
@@ -35,7 +35,7 @@ jobs:
 
       - name: Submit coverage
         uses: codecov/codecov-action@v3
-        if: matrix.os == 'ubuntu-latest' && matrix.node == '16.x'
+        if: matrix.os == 'ubuntu-latest' && matrix.node == '18.x'
 
       - name: Build
         run: npm run build
