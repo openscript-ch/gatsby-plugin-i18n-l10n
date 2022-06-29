@@ -1,4 +1,5 @@
-import { addLocalePrefix, parsePathPrefix, trimRightSlash, trimSlashes } from './path';
+import { PluginOptions } from '../../types';
+import { addLocalePrefix, parsePathPrefix, translatePagePaths, trimRightSlash, trimSlashes } from './path';
 
 describe('trimRightSlash', () => {
   it('should trim the right slash', () => {
@@ -56,5 +57,45 @@ describe('parsePathPrefix', () => {
   it('returns the default prefix on empty path', () => {
     const prefix = parsePathPrefix('./', 'de');
     expect(prefix).toBe('de');
+  });
+});
+
+describe('translatePagePaths', () => {
+  it('returns an array of translated page paths', () => {
+    const path = '/imprint';
+    const options: PluginOptions = {
+      defaultLocale: `en-US`,
+      siteUrl: '',
+      locales: [
+        {
+          locale: `en-US`,
+          prefix: `en`,
+          slugs: {},
+          messages: {},
+        },
+        {
+          locale: `de-CH`,
+          prefix: `de`,
+          slugs: {
+            '/imprint': '/impressum',
+          },
+          messages: {},
+        },
+        {
+          locale: `zh-CN`,
+          prefix: `zh`,
+          slugs: {},
+          messages: {},
+        },
+      ],
+      plugins: [],
+    };
+
+    const pagePathTranslations = translatePagePaths(path, options);
+    expect(pagePathTranslations).toEqual([
+      { locale: 'en-US', path: '/imprint' },
+      { locale: 'de-CH', path: '/de/impressum' },
+      { locale: 'zh-CN', path: '/zh/imprint' },
+    ]);
   });
 });
