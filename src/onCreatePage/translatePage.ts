@@ -20,8 +20,12 @@ export const translatePage: OnCreatePage = async ({ page, actions }, options) =>
 
   if (options && !page.isCreatedByStatefulCreatePages) {
     deletePage(page);
+
+    const paths = translatePagePaths(page.path, options);
     const locale = generatePageContext(page.path, options);
-    const context = { ...page.context, ...locale };
+    const translations = paths.filter((p) => p.locale !== locale.locale);
+    const context = { ...page.context, ...locale, translations };
+
     createPage({ ...page, context });
   }
 };
