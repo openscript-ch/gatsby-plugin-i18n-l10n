@@ -1,4 +1,3 @@
-import path from 'path';
 import { Helmet } from 'react-helmet';
 import { Translation } from '../../types';
 
@@ -7,16 +6,17 @@ type I18nHeadProps = {
   pathname: string;
   siteUrl: string;
   translations: Translation[];
+  defaultLocale: string;
 };
 
-export default function I18nHead({ currentLocale, translations, siteUrl, pathname }: I18nHeadProps) {
+export default function I18nHead({ currentLocale, translations, siteUrl, pathname, defaultLocale }: I18nHeadProps) {
   return (
     <Helmet>
       <html lang={currentLocale} />
       <link rel="alternate" hrefLang="x-default" href={siteUrl} />
-      <link rel="alternate" hrefLang={currentLocale} href={path.join(siteUrl, pathname)} />
+      {defaultLocale !== currentLocale && <link rel="alternate" hrefLang={currentLocale} href={`${siteUrl}${pathname}`} />}
       {translations.map((t) => (
-        <link key={t.locale} rel="alternate" hrefLang={t.locale} href={path.join(siteUrl, t.path)} />
+        <link key={t.locale} rel="alternate" hrefLang={t.locale} href={`${siteUrl}${t.path}`} />
       ))}
       <meta property="og:locale" content={currentLocale.replace(`-`, `_`)} />
       {translations.map((t) => (
