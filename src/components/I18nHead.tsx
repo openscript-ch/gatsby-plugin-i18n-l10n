@@ -13,7 +13,7 @@ export default function I18nHead({ currentLocale, translations, siteUrl, pathnam
   return (
     <Helmet>
       <html lang={currentLocale} />
-      <link rel="alternate" hrefLang="x-default" href={siteUrl} />
+      <link rel="alternate" hrefLang="x-default" href={`${siteUrl}/`} />
       {defaultLocale !== currentLocale && <link rel="alternate" hrefLang={currentLocale} href={`${siteUrl}${pathname}`} />}
       {translations
         .filter((t) => t.locale !== `${defaultLocale}`)
