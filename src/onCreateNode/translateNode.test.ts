@@ -4,20 +4,51 @@ import { translateNode } from './translateNode';
 
 jest.mock('fs/promises');
 
-describe('translateNode', () => {
-  it('should create nodes with translation information', async () => {
-    const createNodeField = jest.fn();
-    fs.readdir = jest.fn().mockReturnValue(['page.en.md', 'page.zh-CN.md']);
+const options: PluginOptions = {
+  defaultLocale: `en-US`,
+  siteUrl: '',
+  locales: [
+    {
+      locale: `en-US`,
+      prefix: `en`,
+      slugs: {},
+      messages: {},
+    },
+    {
+      locale: `de-CH`,
+      prefix: `de`,
+      slugs: {},
+      messages: {},
+    },
+    {
+      locale: `zh-CN`,
+      prefix: `zh`,
+      slugs: {},
+      messages: {},
+    },
+  ],
+  plugins: [],
+};
 
-    const node = {
-      parent: '1',
-      internal: {
-        type: 'MarkdownRemark',
-      },
-      frontmatter: {
-        title: '',
-      },
-    };
+const node = {
+  parent: '1',
+  internal: {
+    type: 'MarkdownRemark',
+  },
+  frontmatter: {
+    title: '',
+  },
+};
+
+let createNodeField = jest.fn();
+
+describe('translateNode', () => {
+  beforeEach(() => {
+    createNodeField = jest.fn();
+  });
+
+  it('should create nodes with translation information', async () => {
+    fs.readdir = jest.fn().mockReturnValue(['page.en.md', 'page.zh-CN.md']);
 
     const parentNode = {
       name: 'page.de.md',
@@ -33,40 +64,15 @@ describe('translateNode', () => {
       },
     };
 
-    const options: PluginOptions = {
-      defaultLocale: `en-US`,
-      siteUrl: '',
-      locales: [
-        {
-          locale: `en-US`,
-          prefix: `en`,
-          slugs: {},
-          messages: {},
-        },
-        {
-          locale: `de-CH`,
-          prefix: `de`,
-          slugs: {},
-          messages: {},
-        },
-        {
-          locale: `zh-CN`,
-          prefix: `zh`,
-          slugs: {},
-          messages: {},
-        },
-      ],
-      plugins: [],
-    };
-
     await translateNode(args, options);
 
-    expect(createNodeField).toHaveBeenCalledWith({ node, name: 'locale', value: 'de-CH' });
-    expect(createNodeField).toHaveBeenCalledWith({ node, name: 'filename', value: 'page' });
-    expect(createNodeField).toHaveBeenCalledWith({ node, name: 'kind', value: 'pages' });
-    expect(createNodeField).toHaveBeenCalledWith({ node, name: 'slug', value: 'page' });
-    expect(createNodeField).toHaveBeenCalledWith({ node, name: 'path', value: '/de/pages/page' });
-    expect(createNodeField).toHaveBeenCalledWith({
+    expect(createNodeField).toHaveBeenNthCalledWith(1, { node, name: 'locale', value: 'de-CH' });
+    expect(createNodeField).toHaveBeenNthCalledWith(2, { node, name: 'filename', value: 'page' });
+    expect(createNodeField).toHaveBeenNthCalledWith(3, { node, name: 'kind', value: 'pages' });
+    expect(createNodeField).toHaveBeenNthCalledWith(4, { node, name: 'slug', value: 'page' });
+    expect(createNodeField).toHaveBeenNthCalledWith(5, { node, name: 'path', value: '/de/pages/page' });
+    expect(createNodeField).toHaveBeenNthCalledWith(6, { node, name: 'pathPrefix', value: 'de' });
+    expect(createNodeField).toHaveBeenNthCalledWith(7, {
       node,
       name: 'translations',
       value: [
@@ -76,18 +82,7 @@ describe('translateNode', () => {
     });
   });
   it('should create nodes with accurate kind description', async () => {
-    const createNodeField = jest.fn();
     fs.readdir = jest.fn().mockReturnValue(['section.en.md', 'section.zh-CN.md']);
-
-    const node = {
-      parent: '1',
-      internal: {
-        type: 'MarkdownRemark',
-      },
-      frontmatter: {
-        title: '',
-      },
-    };
 
     const parentNode = {
       name: 'section.de.md',
@@ -103,40 +98,15 @@ describe('translateNode', () => {
       },
     };
 
-    const options: PluginOptions = {
-      defaultLocale: `en-US`,
-      siteUrl: '',
-      locales: [
-        {
-          locale: `en-US`,
-          prefix: `en`,
-          slugs: {},
-          messages: {},
-        },
-        {
-          locale: `de-CH`,
-          prefix: `de`,
-          slugs: {},
-          messages: {},
-        },
-        {
-          locale: `zh-CN`,
-          prefix: `zh`,
-          slugs: {},
-          messages: {},
-        },
-      ],
-      plugins: [],
-    };
-
     await translateNode(args, options);
 
-    expect(createNodeField).toHaveBeenCalledWith({ node, name: 'locale', value: 'de-CH' });
-    expect(createNodeField).toHaveBeenCalledWith({ node, name: 'filename', value: 'section' });
-    expect(createNodeField).toHaveBeenCalledWith({ node, name: 'kind', value: 'sections/special' });
-    expect(createNodeField).toHaveBeenCalledWith({ node, name: 'slug', value: 'section' });
-    expect(createNodeField).toHaveBeenCalledWith({ node, name: 'path', value: '/de/sections/special/section' });
-    expect(createNodeField).toHaveBeenCalledWith({
+    expect(createNodeField).toHaveBeenNthCalledWith(1, { node, name: 'locale', value: 'de-CH' });
+    expect(createNodeField).toHaveBeenNthCalledWith(2, { node, name: 'filename', value: 'section' });
+    expect(createNodeField).toHaveBeenNthCalledWith(3, { node, name: 'kind', value: 'sections/special' });
+    expect(createNodeField).toHaveBeenNthCalledWith(4, { node, name: 'slug', value: 'section' });
+    expect(createNodeField).toHaveBeenNthCalledWith(5, { node, name: 'path', value: '/de/sections/special/section' });
+    expect(createNodeField).toHaveBeenNthCalledWith(6, { node, name: 'pathPrefix', value: 'de' });
+    expect(createNodeField).toHaveBeenNthCalledWith(7, {
       node,
       name: 'translations',
       value: [
@@ -146,18 +116,7 @@ describe('translateNode', () => {
     });
   });
   it('should take the path blacklist into account when translating nodes', async () => {
-    const createNodeField = jest.fn();
     fs.readdir = jest.fn().mockReturnValue(['page.en.md', 'page.zh-CN.md']);
-
-    const node = {
-      parent: '1',
-      internal: {
-        type: 'MarkdownRemark',
-      },
-      frontmatter: {
-        title: '',
-      },
-    };
 
     const parentNode = {
       name: 'page.de.md',
@@ -173,41 +132,20 @@ describe('translateNode', () => {
       },
     };
 
-    const options: PluginOptions = {
-      defaultLocale: `en-US`,
-      siteUrl: '',
-      locales: [
-        {
-          locale: `en-US`,
-          prefix: `en`,
-          slugs: {},
-          messages: {},
-        },
-        {
-          locale: `de-CH`,
-          prefix: `de`,
-          slugs: {},
-          messages: {},
-        },
-        {
-          locale: `zh-CN`,
-          prefix: `zh`,
-          slugs: {},
-          messages: {},
-        },
-      ],
+    const currentOptions: PluginOptions = {
+      ...options,
       pathBlacklist: [`/pages`],
-      plugins: [],
     };
 
-    await translateNode(args, options);
+    await translateNode(args, currentOptions);
 
-    expect(createNodeField).toHaveBeenCalledWith({ node, name: 'locale', value: 'de-CH' });
-    expect(createNodeField).toHaveBeenCalledWith({ node, name: 'filename', value: 'page' });
-    expect(createNodeField).toHaveBeenCalledWith({ node, name: 'kind', value: 'pages' });
-    expect(createNodeField).toHaveBeenCalledWith({ node, name: 'slug', value: 'page' });
-    expect(createNodeField).toHaveBeenCalledWith({ node, name: 'path', value: '/de/page' });
-    expect(createNodeField).toHaveBeenCalledWith({
+    expect(createNodeField).toHaveBeenNthCalledWith(1, { node, name: 'locale', value: 'de-CH' });
+    expect(createNodeField).toHaveBeenNthCalledWith(2, { node, name: 'filename', value: 'page' });
+    expect(createNodeField).toHaveBeenNthCalledWith(3, { node, name: 'kind', value: 'pages' });
+    expect(createNodeField).toHaveBeenNthCalledWith(4, { node, name: 'slug', value: 'page' });
+    expect(createNodeField).toHaveBeenNthCalledWith(5, { node, name: 'path', value: '/de/page' });
+    expect(createNodeField).toHaveBeenNthCalledWith(6, { node, name: 'pathPrefix', value: 'de' });
+    expect(createNodeField).toHaveBeenNthCalledWith(7, {
       node,
       name: 'translations',
       value: [
