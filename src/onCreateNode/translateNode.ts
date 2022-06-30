@@ -58,12 +58,19 @@ const translatePath = (filename: string, relativeDirectory: string, locale: stri
   const localeOption = options.locales.find((l) => l.locale === locale);
   const currentPath = path.join('/', relativeDirectory, slug);
 
+  // add locale prefix to path
   let filepath = addLocalePrefix(currentPath, locale, localeOption?.prefix || '', options.defaultLocale);
-  // remove segments which are on the path blacklist
+
+  // remove path segments which are on the path blacklist
   filepath = options.pathBlacklist?.reduce((prev, curr) => prev.replace(curr, ''), filepath) || filepath;
-  // replace segments with slugs
-  if (relativeDirectory && localeOption) {
-    filepath = filepath.replace(`/${relativeDirectory}`, localeOption.slugs[`/${relativeDirectory}`] || `/${relativeDirectory}`);
+
+  // replace path segments with slugs
+  if (localeOption) {
+    const keys = Object.keys(localeOption.slugs);
+    if (keys.length > 0) {
+      const exp = new RegExp(keys.join('|'), 'g');
+      filepath = filepath.replace(exp, (match) => localeOption.slugs[match]);
+    }
   }
 
   return { slug, kind: relativeDirectory, filepath };

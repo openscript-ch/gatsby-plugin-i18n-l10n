@@ -81,6 +81,7 @@ describe('translateNode', () => {
       ],
     });
   });
+
   it('should create nodes with accurate kind description', async () => {
     fs.readdir = jest.fn().mockReturnValue(['section.en.md', 'section.zh-CN.md']);
 
@@ -115,7 +116,8 @@ describe('translateNode', () => {
       ],
     });
   });
-  it('should take the path blacklist into account when translating nodes', async () => {
+
+  it('should remote blacklisted path segments when translating nodes', async () => {
     fs.readdir = jest.fn().mockReturnValue(['page.en.md', 'page.zh-CN.md']);
 
     const parentNode = {
@@ -151,6 +153,71 @@ describe('translateNode', () => {
       value: [
         { locale: 'en-US', path: '/page' },
         { locale: 'zh-CN', path: '/zh/page' },
+      ],
+    });
+  });
+
+  it('should translate slugs', async () => {
+    fs.readdir = jest.fn().mockReturnValue(['imprint.en.md', 'imprint.fr.md']);
+
+    const parentNode = {
+      name: 'imprint.de.md',
+      relativeDirectory: 'pages',
+      absolutePath: '/tmp/project/content/pages/imprint.de.md',
+    };
+
+    const args: any = {
+      getNode: jest.fn().mockReturnValue(parentNode),
+      node,
+      actions: {
+        createNodeField,
+      },
+    };
+
+    const currentOptions: PluginOptions = {
+      defaultLocale: `en-US`,
+      siteUrl: '',
+      locales: [
+        {
+          locale: `en-US`,
+          prefix: `en`,
+          slugs: {},
+          messages: {},
+        },
+        {
+          locale: `de-CH`,
+          prefix: `de`,
+          slugs: {
+            '/imprint': '/impressum',
+          },
+          messages: {},
+        },
+        {
+          locale: `fr-FR`,
+          prefix: `fr`,
+          slugs: {
+            '/imprint': '/imprimer',
+          },
+          messages: {},
+        },
+      ],
+      plugins: [],
+    };
+
+    await translateNode(args, currentOptions);
+
+    expect(createNodeField).toHaveBeenNthCalledWith(1, { node, name: 'locale', value: 'de-CH' });
+    expect(createNodeField).toHaveBeenNthCalledWith(2, { node, name: 'filename', value: 'imprint' });
+    expect(createNodeField).toHaveBeenNthCalledWith(3, { node, name: 'kind', value: 'pages' });
+    expect(createNodeField).toHaveBeenNthCalledWith(4, { node, name: 'slug', value: 'imprint' });
+    expect(createNodeField).toHaveBeenNthCalledWith(5, { node, name: 'path', value: '/de/pages/impressum' });
+    expect(createNodeField).toHaveBeenNthCalledWith(6, { node, name: 'pathPrefix', value: 'de' });
+    expect(createNodeField).toHaveBeenNthCalledWith(7, {
+      node,
+      name: 'translations',
+      value: [
+        { locale: 'en-US', path: '/pages/imprint' },
+        { locale: 'fr-FR', path: '/fr/pages/imprimer' },
       ],
     });
   });

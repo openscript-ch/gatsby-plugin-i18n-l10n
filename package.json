@@ -29,6 +29,7 @@
     "build": "tsc",
     "check:format": "eslint . --max-warnings 0",
     "check:types": "tsc --noEmit",
+    "dev:test": "jest --watch",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "postbuild": "node ./postbuild.js",
     "release:major": "standard-version --release-as major && git push --follow-tags",
