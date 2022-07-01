@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.17.5](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.17.4...v4.17.5) (2022-07-01)
+
+
+### 📚 Documentations
+
+* **readme:** add some shield badges ([3c02172](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/3c021726ad36e3af9018afb5b08d59c74c13553a))
+* **readme:** link badges ([f68eb57](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/f68eb572e8ed905caa392c3611b8bbc55047688d))
+
+
+### 🐛 Bug Fixes
+
+* **I18nHead:** meta locale urls ([#38](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/issues/38)) ([c473237](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/c4732373b42af6a3577ae4a80bc9c3bb618b525e))
+
 ### [4.17.4](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.17.3...v4.17.4) (2022-06-30)
 
 ### 🐛 Bug Fixes
