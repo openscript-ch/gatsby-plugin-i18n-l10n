@@ -1,5 +1,7 @@
 # gatsby-plugin-i18n-l10n
 
+[![Codecov](https://img.shields.io/codecov/c/github/openscript-ch/gatsby-plugin-i18n-l10n)](https://app.codecov.io/gh/openscript-ch/gatsby-plugin-i18n-l10n) [![GitHub Workflow Status](https://img.shields.io/github/workflow/status/openscript-ch/gatsby-plugin-i18n-l10n/Continuous%20integration)](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/actions/workflows/ci.yml) [![npm](https://img.shields.io/npm/v/gatsby-plugin-i18n-l10n)](https://www.npmjs.com/package/gatsby-plugin-i18n-l10n) [![npm](https://img.shields.io/npm/dm/gatsby-plugin-i18n-l10n)](https://www.npmjs.com/package/gatsby-plugin-i18n-l10n)
+
 Providing i18n and l10n to Gatsby. Besides translating pages and Markdown files, you can also translate the slugs and paths and still link between translated sibling pages. Batteries like a language switcher component are included. The plugin is written in Typescript, has some tests and builts on these two dependencies:
 
 - [**react-intl**](https://formatjs.io/docs/react-intl/): Wrapping the pages with a provider, which makes translation available throughout the app.
