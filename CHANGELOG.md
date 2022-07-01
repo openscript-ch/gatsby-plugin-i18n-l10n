@@ -4,7 +4,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### [4.17.4](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.17.3...v4.17.4) (2022-06-30)
 
-
 ### 🐛 Bug Fixes
 
 * slug translation ([355c0d7](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/355c0d7c8e7cc68d8aa404011681edd230f71d3e))
