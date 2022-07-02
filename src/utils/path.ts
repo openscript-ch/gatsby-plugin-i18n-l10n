@@ -27,7 +27,10 @@ export const parsePathPrefix = (path: string, defaultPrefix: string) => {
     return defaultPrefix;
   }
 
-  const splittedPath = path.match(/(?<=^\/)\w{2}(-\w{2})?(?=\/)/g);
+  // Regex literals are evaluated when the script is loaded, whereas the RegExp instantiation is done when it's reached during execution. Safari doesn't support look behinds, which causes an error when the script is loaded. This is only needed in SSG.
+  // eslint-disable-next-line prefer-regex-literals
+  const splitPathExpression = new RegExp('(?<=^/)\\w{2}(-\\w{2})?(?=/)', 'g');
+  const splittedPath = path.match(splitPathExpression);
   return splittedPath && splittedPath[0] ? splittedPath[0] : defaultPrefix;
 };
 
