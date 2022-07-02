@@ -34,7 +34,7 @@ export const parsePathPrefix = (path: string, defaultPrefix: string) => {
   return splittedPath && splittedPath[0] ? splittedPath[0] : defaultPrefix;
 };
 
-export const generatePageContext = (path: string, options: PluginOptions) => {
+export const generatePageContextByPath = (path: string, options: PluginOptions) => {
   const defaultPrefix = options.locales.find((l) => l.locale === options.defaultLocale)?.prefix;
   const parsedPrefix = parsePathPrefix(path, defaultPrefix ?? '');
   const locale = options.locales.find((l) => l.prefix === parsedPrefix);

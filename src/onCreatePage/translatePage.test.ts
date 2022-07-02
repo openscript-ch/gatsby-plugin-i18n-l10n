@@ -104,7 +104,7 @@ describe('translatePage', () => {
     });
   });
 
-  it('should translate unstateful created pages', () => {
+  it('should translate unstateful created pages by path with default language', () => {
     const page: Page = {
       path: '/imprint',
       component: {} as any,
@@ -120,6 +120,48 @@ describe('translatePage', () => {
       context: {
         locale: 'en-US',
         prefix: 'en',
+      },
+    });
+  });
+
+  it('should translate unstateful created pages by prefix in path', () => {
+    const page: Page = {
+      path: '/de/imprint',
+      component: {} as any,
+      context: {},
+      isCreatedByStatefulCreatePages: false,
+    };
+    translatePage({ page, actions } as any, options);
+
+    expect(actions.deletePage).toBeCalledWith(page);
+    expect(actions.createPage).toHaveBeenCalledTimes(1);
+    expect(actions.createPage).toHaveBeenNthCalledWith(1, {
+      ...page,
+      context: {
+        locale: 'de-CH',
+        prefix: 'de',
+      },
+    });
+  });
+
+  it('should translate unstateful created pages by locale in context', () => {
+    const page: Page = {
+      path: '/imprint',
+      component: {} as any,
+      context: {
+        locale: 'de-CH',
+      },
+      isCreatedByStatefulCreatePages: false,
+    };
+    translatePage({ page, actions } as any, options);
+
+    expect(actions.deletePage).toBeCalledWith(page);
+    expect(actions.createPage).toHaveBeenCalledTimes(1);
+    expect(actions.createPage).toHaveBeenNthCalledWith(1, {
+      ...page,
+      context: {
+        locale: 'de-CH',
+        prefix: 'de',
       },
     });
   });
