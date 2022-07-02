@@ -1,5 +1,5 @@
 import { Link } from 'gatsby';
-import path from 'path';
+import { posix as nodePath } from 'path';
 import { PropsWithChildren } from 'react';
 import { useIntl } from 'react-intl';
 import { useI18nL10nContext } from '../contexts/I18nL10nContext';
@@ -26,7 +26,7 @@ export default function LocalizedLink({
   const intl = useIntl();
   const getSlug = () => (intl.messages[to] ? intl.formatMessage({ id: to }) : to);
   const localizedPath = to !== '/' ? getSlug() : '/';
-  const prefixedPath = intl.defaultLocale === intl.locale ? localizedPath : trimRightSlash(path.join('/', prefix, localizedPath));
+  const prefixedPath = intl.defaultLocale === intl.locale ? localizedPath : trimRightSlash(nodePath.join('/', prefix, localizedPath));
   return (
     <Link
       to={prefixedPath}
