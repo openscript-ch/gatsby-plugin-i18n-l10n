@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.17.6](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.17.5...v4.17.6) (2022-07-02)
+
+
+### 🐛 Bug Fixes
+
+* unsupported regex eval in Safari error [#34](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/issues/34) ([4e4f2b7](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/4e4f2b737266fc103d63cd4a36e76e62b6732fdf))
+
 ### [4.17.5](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.17.4...v4.17.5) (2022-07-01)
 
 
