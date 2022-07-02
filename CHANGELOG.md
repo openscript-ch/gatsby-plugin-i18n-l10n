@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.17.7](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.17.6...v4.17.7) (2022-07-02)
+
+
+### 🚀 Features
+
+* use provided context for page translation ([14f3a22](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/14f3a2228eae6b0c571cccf5211c7ee8d29160db))
+
+
+### 🐛 Bug Fixes
+
+* path joins in LocalizedLink on Windows ([0a982e9](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/0a982e98367187bed6e4df8cd7f38b1109a8f94b))
+
 ### [4.17.6](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.17.5...v4.17.6) (2022-07-02)
 
 
