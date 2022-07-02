@@ -6,7 +6,7 @@ import I18nHead from './I18nHead';
 describe('<I18nHead />', () => {
   afterEach(cleanup);
 
-  it('should render current language in lang attribute of the html tag', async () => {
+  it('should render localized meta information', async () => {
     const currentLocale = 'de-CH';
     const translations: Translation[] = [
       { locale: 'en-GB', path: '/imprint' },
