@@ -1,5 +1,6 @@
 {
   "include": ["./src/**/*", "./*.ts"],
+  "exclude": ["./src/**/*.test*"],
   "compilerOptions": {
     "outDir": "dist",
     "target": "ES6",
