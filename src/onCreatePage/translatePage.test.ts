@@ -2,42 +2,48 @@ import { Page } from 'gatsby';
 import { PluginOptions } from '../../types';
 import { translatePage } from './translatePage';
 
+const options: PluginOptions = {
+  defaultLocale: `en-US`,
+  siteUrl: '',
+  locales: [
+    {
+      locale: `en-US`,
+      prefix: `en`,
+      slugs: {},
+      messages: {},
+    },
+    {
+      locale: `de-CH`,
+      prefix: `de`,
+      slugs: {},
+      messages: {},
+    },
+    {
+      locale: `zh-CN`,
+      prefix: `zh`,
+      slugs: {},
+      messages: {},
+    },
+  ],
+  plugins: [],
+};
+
+let actions: any;
+
 describe('translatePage', () => {
+  beforeEach(() => {
+    actions = {
+      createPage: jest.fn(),
+      deletePage: jest.fn(),
+    };
+  });
+
   it('should translate stateful created pages', () => {
     const page: Page = {
       path: '/imprint',
       component: {} as any,
       context: {},
       isCreatedByStatefulCreatePages: true,
-    };
-    const actions = {
-      createPage: jest.fn(),
-      deletePage: jest.fn(),
-    };
-    const options: PluginOptions = {
-      defaultLocale: `en-US`,
-      siteUrl: '',
-      locales: [
-        {
-          locale: `en-US`,
-          prefix: `en`,
-          slugs: {},
-          messages: {},
-        },
-        {
-          locale: `de-CH`,
-          prefix: `de`,
-          slugs: {},
-          messages: {},
-        },
-        {
-          locale: `zh-CN`,
-          prefix: `zh`,
-          slugs: {},
-          messages: {},
-        },
-      ],
-      plugins: [],
     };
     translatePage({ page, actions } as any, options);
 
@@ -104,35 +110,6 @@ describe('translatePage', () => {
       component: {} as any,
       context: {},
       isCreatedByStatefulCreatePages: false,
-    };
-    const actions = {
-      createPage: jest.fn(),
-      deletePage: jest.fn(),
-    };
-    const options: PluginOptions = {
-      defaultLocale: `en-US`,
-      siteUrl: '',
-      locales: [
-        {
-          locale: `en-US`,
-          prefix: `en`,
-          slugs: {},
-          messages: {},
-        },
-        {
-          locale: `de-CH`,
-          prefix: `de`,
-          slugs: {},
-          messages: {},
-        },
-        {
-          locale: `zh-CN`,
-          prefix: `zh`,
-          slugs: {},
-          messages: {},
-        },
-      ],
-      plugins: [],
     };
     translatePage({ page, actions } as any, options);
 
