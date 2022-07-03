@@ -9,8 +9,26 @@ export const trimSlashes = (path: string) => {
   return path === '/' ? path : path.replace(/^\/|\/$/g, '');
 };
 
-export const addLocalePrefix = (currentPath: string, locale: string, prefix: string, defaultLocale: string) => {
-  return locale !== defaultLocale ? trimRightSlash(`/${nodePath.join(prefix, currentPath)}`) : currentPath;
+export const replaceSegmentsWithSlugs = (path: string, slugs: Record<string, string>) => {
+  const keys = Object.keys(slugs);
+  if (keys.length > 0) {
+    const exp = new RegExp(keys.join('|'), 'g');
+    return path.replace(exp, (match) => slugs[match]);
+  }
+  return path;
+};
+
+export const addLocalePrefix = (path: string, locale: string, prefix: string, defaultLocale: string) => {
+  return locale !== defaultLocale ? trimRightSlash(`/${nodePath.join(prefix, path)}`) : path;
+};
+
+export const translatePagePath = (path: string, slugs: Record<string, string>, locale: string, prefix: string, defaultLocale: string) => {
+  let translatedPath = path;
+
+  translatedPath = replaceSegmentsWithSlugs(translatedPath, slugs);
+  translatedPath = addLocalePrefix(translatedPath, locale, prefix, defaultLocale);
+
+  return translatedPath;
 };
 
 export const translatePagePaths = (path: string, options: PluginOptions) => {
@@ -27,7 +45,11 @@ export const parsePathPrefix = (path: string, defaultPrefix: string) => {
     return defaultPrefix;
   }
 
-  // Regex literals are evaluated when the script is loaded, whereas the RegExp instantiation is done when it's reached during execution. Safari doesn't support look behinds, which causes an error when the script is loaded. This is only needed in SSG.
+  // Regex literals are evaluated when the script is loaded,
+  // whereas the RegExp instantiation is done when it's reached
+  // during execution. Safari doesn't support look behinds,
+  // which causes an error when the script is loaded. This is
+  // only needed in SSG.
   // eslint-disable-next-line prefer-regex-literals
   const splitPathExpression = new RegExp('(?<=^/)\\w{2}(-\\w{2})?(?=/)', 'g');
   const splittedPath = path.match(splitPathExpression);

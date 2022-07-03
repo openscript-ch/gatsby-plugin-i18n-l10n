@@ -15,7 +15,9 @@ const options: PluginOptions = {
     {
       locale: `de-CH`,
       prefix: `de`,
-      slugs: {},
+      slugs: {
+        '/imprint': '/impressum',
+      },
       messages: {},
     },
     {
@@ -57,7 +59,7 @@ describe('translatePage', () => {
         translations: [
           {
             locale: 'de-CH',
-            path: '/de/imprint',
+            path: '/de/impressum',
           },
           {
             locale: 'zh-CN',
@@ -82,7 +84,7 @@ describe('translatePage', () => {
           },
         ],
       },
-      path: '/de/imprint',
+      path: '/de/impressum',
     });
     expect(actions.createPage).toHaveBeenNthCalledWith(3, {
       ...page,
@@ -96,7 +98,7 @@ describe('translatePage', () => {
           },
           {
             locale: 'de-CH',
-            path: '/de/imprint',
+            path: '/de/impressum',
           },
         ],
       },
@@ -166,7 +168,7 @@ describe('translatePage', () => {
     });
   });
 
-  it('should translate unstateful created pages and generate translations if requested', () => {
+  it('should translate unstateful created pages and refer translations', () => {
     const page: Page = {
       path: '/imprint',
       component: {} as any,
@@ -188,7 +190,42 @@ describe('translatePage', () => {
         translations: [
           {
             locale: 'de-CH',
-            path: '/de/imprint',
+            path: '/de/impressum',
+          },
+        ],
+      },
+    });
+  });
+
+  it('should translate unstateful created pages and adjust the path', () => {
+    const page: Page = {
+      path: '/imprint',
+      component: {} as any,
+      context: {
+        locale: 'de-CH',
+        referTranslations: ['en-US', 'zh-CN'],
+        adjustPath: true,
+      },
+      isCreatedByStatefulCreatePages: false,
+    };
+    translatePage({ page, actions } as any, options);
+
+    expect(actions.deletePage).toBeCalledWith(page);
+    expect(actions.createPage).toHaveBeenCalledTimes(1);
+    expect(actions.createPage).toHaveBeenNthCalledWith(1, {
+      ...page,
+      path: '/de/impressum',
+      context: {
+        locale: 'de-CH',
+        prefix: 'de',
+        translations: [
+          {
+            locale: 'en-US',
+            path: '/imprint',
+          },
+          {
+            locale: 'zh-CN',
+            path: '/zh/imprint',
           },
         ],
       },

@@ -1,5 +1,5 @@
 import { OnCreatePage } from '../../types';
-import { generatePageContextByPath, translatePagePaths } from '../utils/path';
+import { generatePageContextByPath, translatePagePath, translatePagePaths } from '../utils/path';
 
 export const translatePage: OnCreatePage = async ({ page, actions }, options) => {
   const { createPage, deletePage } = actions;
@@ -22,18 +22,20 @@ export const translatePage: OnCreatePage = async ({ page, actions }, options) =>
   if (options && !page.isCreatedByStatefulCreatePages) {
     deletePage(page);
 
-    const { referTranslations, ...restContext } = page.context;
+    const { referTranslations, adjustPath, ...restContext } = page.context;
+    let { path } = page;
     let context = restContext;
 
     // Add locale and prefix from context or path
     const contextLocale = page.context.locale as string | undefined;
-    const optionsLocale = options.locales.find((l) => l.locale === contextLocale);
+    let optionsLocale = options.locales.find((l) => l.locale === contextLocale);
     const localeAndPrefixContext = optionsLocale
       ? { locale: optionsLocale.locale, prefix: optionsLocale.prefix }
       : generatePageContextByPath(page.path, options);
     context = { ...context, ...localeAndPrefixContext };
+    optionsLocale = options.locales.find((l) => l.locale === localeAndPrefixContext.locale);
 
-    // Add translations if requested
+    // Refer translations if requested
     if (referTranslations && Array.isArray(referTranslations) && referTranslations.length > 0) {
       const translations = translatePagePaths(page.path, options).filter(
         (p) => p.locale !== localeAndPrefixContext.locale && referTranslations.includes(p.locale),
@@ -41,6 +43,11 @@ export const translatePage: OnCreatePage = async ({ page, actions }, options) =>
       context = { ...context, translations };
     }
 
-    createPage({ ...page, context });
+    // Translate page path if requested
+    if (adjustPath && typeof context.locale === 'string' && typeof context.prefix === 'string' && optionsLocale) {
+      path = translatePagePath(path, optionsLocale.slugs, context.locale, context.prefix, options.defaultLocale);
+    }
+
+    createPage({ ...page, context, path });
   }
 };

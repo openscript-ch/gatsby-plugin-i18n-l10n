@@ -3,7 +3,7 @@ import convertToSlug from 'limax';
 import fs from 'fs/promises';
 import { posix as path } from 'path';
 import { OnCreateNode, PluginOptions } from '../../types';
-import { addLocalePrefix, trimRightSlash } from '../utils/path';
+import { addLocalePrefix, replaceSegmentsWithSlugs, trimRightSlash } from '../utils/path';
 import { findClosestLocale, parseFilename } from '../utils/i18n';
 
 const findLocale = (estimatedLocale: string, options: PluginOptions) => {
@@ -66,11 +66,7 @@ const translatePath = (filename: string, relativeDirectory: string, locale: stri
 
   // replace path segments with slugs
   if (localeOption) {
-    const keys = Object.keys(localeOption.slugs);
-    if (keys.length > 0) {
-      const exp = new RegExp(keys.join('|'), 'g');
-      filepath = filepath.replace(exp, (match) => localeOption.slugs[match]);
-    }
+    filepath = replaceSegmentsWithSlugs(filepath, localeOption.slugs);
   }
 
   return { slug, kind: relativeDirectory, filepath };
