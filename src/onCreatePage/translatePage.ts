@@ -31,13 +31,13 @@ export const translatePage: OnCreatePage = async ({ page, actions }, options) =>
     let optionsLocale = options.locales.find((l) => l.locale === contextLocale);
     const localeAndPrefixContext = optionsLocale
       ? { locale: optionsLocale.locale, prefix: optionsLocale.prefix }
-      : generatePageContextByPath(page.path, options);
+      : generatePageContextByPath(path, options);
     context = { ...context, ...localeAndPrefixContext };
     optionsLocale = options.locales.find((l) => l.locale === localeAndPrefixContext.locale);
 
     // Refer translations if requested
     if (referTranslations && Array.isArray(referTranslations) && referTranslations.length > 0) {
-      const translations = translatePagePaths(page.path, options).filter(
+      const translations = translatePagePaths(path, options).filter(
         (p) => p.locale !== localeAndPrefixContext.locale && referTranslations.includes(p.locale),
       );
       context = { ...context, translations };
