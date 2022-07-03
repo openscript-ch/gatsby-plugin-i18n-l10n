@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.17.8](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.17.7...v4.17.8) (2022-07-03)
+
+
+### 🚀 Features
+
+* add adjustPath option to translatePage ([62ff2eb](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/62ff2eb0bc460c4b8df64b72f465a91a98c8ee3a))
+* add referTranslations option to translatePage ([7afd0ea](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/7afd0eaa77f2fa80ef1e019251d49aaf72755eea))
+
 ### [4.17.7](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.17.6...v4.17.7) (2022-07-02)
 
 
