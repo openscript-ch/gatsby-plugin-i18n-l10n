@@ -165,4 +165,33 @@ describe('translatePage', () => {
       },
     });
   });
+
+  it('should translate unstateful created pages and generate translations if requested', () => {
+    const page: Page = {
+      path: '/imprint',
+      component: {} as any,
+      context: {
+        locale: 'en-US',
+        referTranslations: ['de-CH'],
+      },
+      isCreatedByStatefulCreatePages: false,
+    };
+    translatePage({ page, actions } as any, options);
+
+    expect(actions.deletePage).toBeCalledWith(page);
+    expect(actions.createPage).toHaveBeenCalledTimes(1);
+    expect(actions.createPage).toHaveBeenNthCalledWith(1, {
+      ...page,
+      context: {
+        locale: 'en-US',
+        prefix: 'en',
+        translations: [
+          {
+            locale: 'de-CH',
+            path: '/de/imprint',
+          },
+        ],
+      },
+    });
+  });
 });

@@ -80,6 +80,13 @@ With the built-in `<LanguageSwitcher>` component, as user can change between the
 />
 ```
 
+### `createPage()`
+
+When you create pages programmatically with `createPage()` by default the page will only try to set the locale and prefix to the context. With the following options you can instruct the plugin to internationalize the context further:
+
+ - `referTranslations: string[]`: Refers translations for given locales.
+
+
 ## Alternatives
 
 - [gatsby-theme-i18n](https://www.gatsbyjs.com/plugins/gatsby-theme-i18n)
