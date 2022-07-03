@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.17.10](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.17.9...v4.17.10) (2022-07-03)
+
+
+### 🐛 Bug Fixes
+
+* createPage args collision ([234ca06](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/234ca064643821188746da3f81883ebb5885c90d))
+
 ### [4.17.9](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.17.8...v4.17.9) (2022-07-03)
 
 
