@@ -23,8 +23,8 @@ export const translatePage: OnCreatePage = async ({ page, actions }, options) =>
     deletePage(page);
 
     const { referTranslations, adjustPath, ...restContext } = page.context;
-    let { path } = page;
     let context = restContext;
+    let path = (context.path as string) || page.path;
 
     // Add locale and prefix from context or path
     const contextLocale = page.context.locale as string | undefined;
