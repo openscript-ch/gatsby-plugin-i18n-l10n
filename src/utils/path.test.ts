@@ -6,6 +6,11 @@ describe('trimRightSlash', () => {
     const trimmed = trimRightSlash('https://example.com/');
     expect(trimmed).toBe('https://example.com');
   });
+
+  it("shouldn't trim the right slash if its only slash", () => {
+    const trimmed = trimRightSlash('/');
+    expect(trimmed).toBe('/');
+  });
 });
 
 describe('trimSlashes', () => {
