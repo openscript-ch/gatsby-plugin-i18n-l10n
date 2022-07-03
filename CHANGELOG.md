@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.17.9](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.17.8...v4.17.9) (2022-07-03)
+
+
+### 🚀 Features
+
+* read path from context ([7c5eb4d](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/7c5eb4d94d7b6932c3d656e52b53d310d64a7fc4))
+
 ### [4.17.8](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.17.7...v4.17.8) (2022-07-03)
 
 
