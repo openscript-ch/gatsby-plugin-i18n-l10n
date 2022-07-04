@@ -221,4 +221,103 @@ describe('translateNode', () => {
       ],
     });
   });
+
+  it('should translate slugs and using the frontmatter titles', async () => {
+    fs.readdir = jest.fn().mockReturnValue(['imprint.en.md', 'imprint.fr.md']);
+
+    const parentNode = {
+      name: 'imprint.de.md',
+      relativeDirectory: 'pages',
+      absolutePath: '/tmp/project/content/pages/imprint.de.md',
+    };
+
+    const allNodes = [
+      {
+        name: 'another.de.md',
+        relativeDirectory: 'pages',
+        absolutePath: '/tmp/project/content/pages/another.de.md',
+      },
+      {
+        name: 'imprint.de.md',
+        relativeDirectory: 'pages',
+        absolutePath: '/tmp/project/content/pages/imprint.de.md',
+        frontmatter: {
+          title: 'Impressum',
+        },
+      },
+      {
+        name: 'imprint.en.md',
+        relativeDirectory: 'pages',
+        absolutePath: '/tmp/project/content/pages/imprint.en.md',
+        frontmatter: {
+          title: 'Imprint',
+        },
+      },
+      {
+        name: 'imprint.fr.md',
+        relativeDirectory: 'pages',
+        absolutePath: '/tmp/project/content/pages/imprint.fr.md',
+        frontmatter: {
+          title: 'Imprimer',
+        },
+      },
+      {
+        name: 'more.de.md',
+        relativeDirectory: 'pages',
+        absolutePath: '/tmp/project/content/pages/more.de.md',
+      },
+    ];
+
+    const args: any = {
+      getNode: jest.fn().mockReturnValue(parentNode),
+      getNodes: jest.fn().mockReturnValue(allNodes),
+      node,
+      actions: {
+        createNodeField,
+      },
+    };
+
+    const currentOptions: PluginOptions = {
+      defaultLocale: `en-US`,
+      siteUrl: '',
+      locales: [
+        {
+          locale: `en-US`,
+          prefix: `en`,
+          slugs: {},
+          messages: {},
+        },
+        {
+          locale: `de-CH`,
+          prefix: `de`,
+          slugs: {},
+          messages: {},
+        },
+        {
+          locale: `fr-FR`,
+          prefix: `fr`,
+          slugs: {},
+          messages: {},
+        },
+      ],
+      plugins: [],
+    };
+
+    await translateNode(args, currentOptions);
+
+    expect(createNodeField).toHaveBeenNthCalledWith(1, { node, name: 'locale', value: 'de-CH' });
+    expect(createNodeField).toHaveBeenNthCalledWith(2, { node, name: 'filename', value: 'imprint' });
+    expect(createNodeField).toHaveBeenNthCalledWith(3, { node, name: 'kind', value: 'pages' });
+    expect(createNodeField).toHaveBeenNthCalledWith(4, { node, name: 'slug', value: 'imprint' });
+    expect(createNodeField).toHaveBeenNthCalledWith(5, { node, name: 'path', value: '/de/pages/impressum' });
+    expect(createNodeField).toHaveBeenNthCalledWith(6, { node, name: 'pathPrefix', value: 'de' });
+    expect(createNodeField).toHaveBeenNthCalledWith(7, {
+      node,
+      name: 'translations',
+      value: [
+        { locale: 'en-US', path: '/pages/imprint' },
+        { locale: 'fr-FR', path: '/fr/pages/imprimer' },
+      ],
+    });
+  });
 });
