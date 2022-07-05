@@ -225,6 +225,16 @@ describe('translateNode', () => {
   it('should translate slugs and using the frontmatter titles', async () => {
     fs.readdir = jest.fn().mockReturnValue(['imprint.en.md', 'imprint.fr.md']);
 
+    const currentNode = {
+      parent: '1',
+      internal: {
+        type: 'MarkdownRemark',
+      },
+      frontmatter: {
+        title: 'Impressum',
+      },
+    };
+
     const parentNode = {
       name: 'imprint.de.md',
       relativeDirectory: 'pages',
@@ -238,28 +248,14 @@ describe('translateNode', () => {
         absolutePath: '/tmp/project/content/pages/another.de.md',
       },
       {
-        name: 'imprint.de.md',
-        relativeDirectory: 'pages',
-        absolutePath: '/tmp/project/content/pages/imprint.de.md',
-        frontmatter: {
-          title: 'Impressum',
-        },
-      },
-      {
         name: 'imprint.en.md',
         relativeDirectory: 'pages',
         absolutePath: '/tmp/project/content/pages/imprint.en.md',
-        frontmatter: {
-          title: 'Imprint',
-        },
       },
       {
         name: 'imprint.fr.md',
         relativeDirectory: 'pages',
         absolutePath: '/tmp/project/content/pages/imprint.fr.md',
-        frontmatter: {
-          title: 'Imprimer',
-        },
       },
       {
         name: 'more.de.md',
@@ -271,7 +267,7 @@ describe('translateNode', () => {
     const args: any = {
       getNode: jest.fn().mockReturnValue(parentNode),
       getNodes: jest.fn().mockReturnValue(allNodes),
-      node,
+      node: currentNode,
       actions: {
         createNodeField,
       },
@@ -305,14 +301,14 @@ describe('translateNode', () => {
 
     await translateNode(args, currentOptions);
 
-    expect(createNodeField).toHaveBeenNthCalledWith(1, { node, name: 'locale', value: 'de-CH' });
-    expect(createNodeField).toHaveBeenNthCalledWith(2, { node, name: 'filename', value: 'imprint' });
-    expect(createNodeField).toHaveBeenNthCalledWith(3, { node, name: 'kind', value: 'pages' });
-    expect(createNodeField).toHaveBeenNthCalledWith(4, { node, name: 'slug', value: 'imprint' });
-    expect(createNodeField).toHaveBeenNthCalledWith(5, { node, name: 'path', value: '/de/pages/impressum' });
-    expect(createNodeField).toHaveBeenNthCalledWith(6, { node, name: 'pathPrefix', value: 'de' });
+    expect(createNodeField).toHaveBeenNthCalledWith(1, { node: currentNode, name: 'locale', value: 'de-CH' });
+    expect(createNodeField).toHaveBeenNthCalledWith(2, { node: currentNode, name: 'filename', value: 'imprint' });
+    expect(createNodeField).toHaveBeenNthCalledWith(3, { node: currentNode, name: 'kind', value: 'pages' });
+    expect(createNodeField).toHaveBeenNthCalledWith(4, { node: currentNode, name: 'slug', value: 'impressum' });
+    expect(createNodeField).toHaveBeenNthCalledWith(5, { node: currentNode, name: 'path', value: '/de/pages/impressum' });
+    expect(createNodeField).toHaveBeenNthCalledWith(6, { node: currentNode, name: 'pathPrefix', value: 'de' });
     expect(createNodeField).toHaveBeenNthCalledWith(7, {
-      node,
+      node: currentNode,
       name: 'translations',
       value: [
         { locale: 'en-US', path: '/pages/imprint' },
