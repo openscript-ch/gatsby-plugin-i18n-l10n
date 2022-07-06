@@ -51,7 +51,7 @@ describe('translateNode', () => {
     fs.readdir = jest.fn().mockReturnValue(['page.en.md', 'page.zh-CN.md']);
 
     const parentNode = {
-      name: 'page.de.md',
+      base: 'page.de.md',
       relativeDirectory: 'pages',
       absolutePath: '/tmp/project/content/pages/page.de.md',
     };
@@ -86,7 +86,7 @@ describe('translateNode', () => {
     fs.readdir = jest.fn().mockReturnValue(['section.en.md', 'section.zh-CN.md']);
 
     const parentNode = {
-      name: 'section.de.md',
+      base: 'section.de.md',
       relativeDirectory: 'sections/special',
       absolutePath: '/tmp/project/content/sections/special/section.de.md',
     };
@@ -121,7 +121,7 @@ describe('translateNode', () => {
     fs.readdir = jest.fn().mockReturnValue(['page.en.md', 'page.zh-CN.md']);
 
     const parentNode = {
-      name: 'page.de.md',
+      base: 'page.de.md',
       relativeDirectory: 'pages',
       absolutePath: '/tmp/project/content/pages/page.de.md',
     };
@@ -161,7 +161,7 @@ describe('translateNode', () => {
     fs.readdir = jest.fn().mockReturnValue(['imprint.en.md', 'imprint.fr.md']);
 
     const parentNode = {
-      name: 'imprint.de.md',
+      base: 'imprint.de.md',
       relativeDirectory: 'pages',
       absolutePath: '/tmp/project/content/pages/imprint.de.md',
     };
@@ -223,10 +223,10 @@ describe('translateNode', () => {
   });
 
   it('should translate slugs and using the frontmatter titles', async () => {
-    fs.readdir = jest.fn().mockReturnValue(['imprint.en.md', 'imprint.fr.md']);
+    fs.readdir = jest.fn().mockReturnValue(['imprint.de.md', 'imprint.en.md', 'imprint.fr.md']);
 
     const currentNode = {
-      parent: '1',
+      parent: '0',
       internal: {
         type: 'MarkdownRemark',
       },
@@ -235,37 +235,79 @@ describe('translateNode', () => {
       },
     };
 
-    const parentNode = {
-      name: 'imprint.de.md',
-      relativeDirectory: 'pages',
-      absolutePath: '/tmp/project/content/pages/imprint.de.md',
-    };
-
     const allNodes = [
       {
-        name: 'another.de.md',
+        id: '0',
+        base: 'imprint.de.md',
         relativeDirectory: 'pages',
+        dir: '/tmp/project/content/pages',
+        absolutePath: '/tmp/project/content/pages/imprint.de.md',
+        children: ['m0'],
+      },
+      {
+        id: '1',
+        base: 'another.de.md',
+        relativeDirectory: 'pages',
+        dir: '/tmp/project/content/pages',
         absolutePath: '/tmp/project/content/pages/another.de.md',
       },
       {
-        name: 'imprint.en.md',
+        id: '2',
+        base: 'imprint.en.md',
         relativeDirectory: 'pages',
+        dir: '/tmp/project/content/pages',
         absolutePath: '/tmp/project/content/pages/imprint.en.md',
+        children: ['m2'],
       },
       {
-        name: 'imprint.fr.md',
+        id: '3',
+        base: 'imprint.fr.md',
         relativeDirectory: 'pages',
+        dir: '/tmp/project/content/pages',
         absolutePath: '/tmp/project/content/pages/imprint.fr.md',
+        children: ['m1'],
       },
       {
-        name: 'more.de.md',
-        relativeDirectory: 'pages',
-        absolutePath: '/tmp/project/content/pages/more.de.md',
+        id: '4',
+        base: 'more.de.md',
+        relativeDirectory: 'sections',
+        dir: '/tmp/project/content/sections',
+        absolutePath: '/tmp/project/content/sections/more.de.md',
+      },
+      {
+        id: 'm0',
+        parent: '0',
+        internal: {
+          type: 'MarkdownRemark',
+        },
+        frontmatter: {
+          title: 'Impressum',
+        },
+      },
+      {
+        id: 'm1',
+        parent: '0',
+        internal: {
+          type: 'MarkdownRemark',
+        },
+        frontmatter: {
+          title: 'Imprimer',
+        },
+      },
+      {
+        id: 'm2',
+        parent: '0',
+        internal: {
+          type: 'MarkdownRemark',
+        },
+        frontmatter: {
+          title: 'Imprint',
+        },
       },
     ];
 
     const args: any = {
-      getNode: jest.fn().mockReturnValue(parentNode),
+      getNode: jest.fn().mockImplementation((id: string) => allNodes.find((n) => n.id === id)),
       getNodes: jest.fn().mockReturnValue(allNodes),
       node: currentNode,
       actions: {

@@ -77,8 +77,8 @@ export const translateNode: OnCreateNode = async ({ getNode, node, actions }, op
 
   if ((node.internal.type === 'MarkdownRemark' || node.internal.type === 'Mdx') && node.parent && options) {
     const fileSystemNode = getNode(node.parent);
-    const { name, ext, relativeDirectory, absolutePath } = fileSystemNode as FileSystemNode;
-    const { filename, estimatedLocale } = parseFilename(`${name}${ext}`, options.defaultLocale);
+    const { base, relativeDirectory, absolutePath } = fileSystemNode as FileSystemNode;
+    const { filename, estimatedLocale } = parseFilename(base, options.defaultLocale);
     const { title } = node.frontmatter as { title?: string };
     const locale = findLocale(estimatedLocale, options);
     const { slug, kind, filepath } = translatePath(filename, relativeDirectory, locale, options, title);
