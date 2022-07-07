@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.18.0](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.17.11...v4.18.0) (2022-07-07)
+
+
+### 🚀 Features
+
+* read translation slugs from frontmatter ([#43](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/issues/43)) ([4245b62](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/4245b625eb225dda6ce6e522455ce0a5bb849191))
+
 ### [4.17.11](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.17.10...v4.17.11) (2022-07-03)
 
 
