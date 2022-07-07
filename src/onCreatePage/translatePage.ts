@@ -22,12 +22,12 @@ export const translatePage: OnCreatePage = async ({ page, actions }, options) =>
   if (options && !page.isCreatedByStatefulCreatePages) {
     deletePage(page);
 
-    const { referTranslations, adjustPath, ...restContext } = page.context;
+    const { referTranslations, adjustPath, ...restContext } = page.context || {};
     let context = restContext;
     let path = (context.basePath as string) || page.path;
 
     // Add locale and prefix from context or path
-    const contextLocale = page.context.locale as string | undefined;
+    const contextLocale = page.context?.locale as string | undefined;
     let optionsLocale = options.locales.find((l) => l.locale === contextLocale);
     const localeAndPrefixContext = optionsLocale
       ? { locale: optionsLocale.locale, prefix: optionsLocale.prefix }

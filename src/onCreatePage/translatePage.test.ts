@@ -110,7 +110,6 @@ describe('translatePage', () => {
     const page: Page = {
       path: '/imprint',
       component: {} as any,
-      context: {},
       isCreatedByStatefulCreatePages: false,
     };
     translatePage({ page, actions } as any, options);
