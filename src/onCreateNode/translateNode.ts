@@ -22,5 +22,6 @@ export const translateNode: OnCreateNode = async ({ getNode, node, actions }, op
     createNodeField({ node, name: 'slug', value: slug });
     createNodeField({ node, name: 'path', value: filepath });
     createNodeField({ node, name: 'pathPrefix', value: localeOption?.prefix });
+    createNodeField({ node, name: 'translations', value: [] });
   }
 };
