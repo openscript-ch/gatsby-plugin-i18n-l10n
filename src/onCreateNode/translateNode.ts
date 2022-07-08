@@ -32,7 +32,7 @@ const extractFrontmatterTitle = (node?: Node) => {
  * @param options is the configuration of the current plugin instance
  * @returns siblings paths
  */
-const findTranslations = async (nodes: Node[], absolutePath: string, options: PluginOptions) => {
+const findTranslations = (nodes: Node[], absolutePath: string, options: PluginOptions) => {
   const fileNodes = nodes.filter((n) => n.internal.type === 'File') as FileSystemNode[];
   const markdownNodes = nodes.filter((n) => ['MarkdownRemark', 'Mdx'].includes(n.internal.type));
   const fileSiblings = fileNodes.filter((n) => n.dir === path.dirname(absolutePath));
@@ -96,7 +96,7 @@ export const translateNode: OnCreateNode = async ({ getNode, getNodes, node, act
     const title = extractFrontmatterTitle(node);
     const locale = findLocale(estimatedLocale, options);
     const { slug, kind, filepath } = translatePath(filename, relativeDirectory, locale, options, title);
-    const translations = await findTranslations(getNodes(), absolutePath, options);
+    const translations = findTranslations(getNodes(), absolutePath, options);
     const alternativeLanguagePaths = translations.map((t) => {
       const { filepath: translatedFilepath } = translatePath(t.filename, relativeDirectory, t.locale, options, t.title);
       return { path: trimRightSlash(translatedFilepath), locale: t.locale };
