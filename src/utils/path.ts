@@ -1,4 +1,5 @@
 import { posix as nodePath } from 'path';
+import convertToSlug from 'limax';
 import { PluginOptions } from '../../types';
 
 export const trimRightSlash = (path: string) => {
@@ -38,6 +39,40 @@ export const translatePagePaths = (path: string, options: PluginOptions) => {
 
     return { locale: locale.locale, path: addLocalePrefix(newPath, locale.locale, locale.prefix, options.defaultLocale) };
   });
+};
+
+/**
+ * Translates paths based on filename, location, locale and plugin options
+ *
+ * @param filename of the designated file
+ * @param relativeDirectory of the relative directory where the designated file resides in
+ * @param locale of the designated file
+ * @param options is the configuration of the current plugin instance
+ * @param title which was read from frontmatter or elsewhere which belongs to this file
+ * @returns a translated slug, a kind (relativeDirectory) and its filepath
+ */
+export const translatePath = (filename: string, relativeDirectory: string, locale: string, options: PluginOptions, title?: string) => {
+  let slug = '';
+  if (filename.indexOf('index') === -1) {
+    slug = title ? convertToSlug(title) : filename;
+  }
+
+  // 'relativeDirectory' is a synonym of 'kind'
+  const localeOption = options.locales.find((l) => l.locale === locale);
+  const currentPath = nodePath.join('/', relativeDirectory, slug);
+
+  // add locale prefix to path
+  let filepath = addLocalePrefix(currentPath, locale, localeOption?.prefix || '', options.defaultLocale);
+
+  // remove path segments which are on the path blacklist
+  filepath = options.pathBlacklist?.reduce((prev, curr) => prev.replace(curr, ''), filepath) || filepath;
+
+  // replace path segments with slugs
+  if (localeOption) {
+    filepath = replaceSegmentsWithSlugs(filepath, localeOption.slugs);
+  }
+
+  return { slug, kind: relativeDirectory, filepath };
 };
 
 export const parsePathPrefix = (path: string, defaultPrefix: string) => {

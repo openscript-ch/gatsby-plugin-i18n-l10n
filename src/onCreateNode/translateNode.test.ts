@@ -141,14 +141,6 @@ describe('translateNode', () => {
     expect(createNodeField).toHaveBeenNthCalledWith(4, { node, name: 'slug', value: 'impressum' });
     expect(createNodeField).toHaveBeenNthCalledWith(5, { node, name: 'path', value: '/de/pages/impressum' });
     expect(createNodeField).toHaveBeenNthCalledWith(6, { node, name: 'pathPrefix', value: 'de' });
-    expect(createNodeField).toHaveBeenNthCalledWith(7, {
-      node,
-      name: 'translations',
-      value: [
-        { locale: 'en-US', path: '/pages/imprint' },
-        { locale: 'fr-FR', path: '/fr/pages/imprimer' },
-      ],
-    });
   });
 
   it('should create nodes which are nested in folders', async () => {
@@ -170,11 +162,6 @@ describe('translateNode', () => {
     expect(createNodeField).toHaveBeenNthCalledWith(4, { node: currentNode, name: 'slug', value: 'more' });
     expect(createNodeField).toHaveBeenNthCalledWith(5, { node: currentNode, name: 'path', value: '/de/sections/special/more' });
     expect(createNodeField).toHaveBeenNthCalledWith(6, { node: currentNode, name: 'pathPrefix', value: 'de' });
-    expect(createNodeField).toHaveBeenNthCalledWith(7, {
-      node: currentNode,
-      name: 'translations',
-      value: [],
-    });
   });
 
   it('should remote blacklisted path segments when translating nodes', async () => {
@@ -191,14 +178,6 @@ describe('translateNode', () => {
     expect(createNodeField).toHaveBeenNthCalledWith(4, { node, name: 'slug', value: 'impressum' });
     expect(createNodeField).toHaveBeenNthCalledWith(5, { node, name: 'path', value: '/de/impressum' });
     expect(createNodeField).toHaveBeenNthCalledWith(6, { node, name: 'pathPrefix', value: 'de' });
-    expect(createNodeField).toHaveBeenNthCalledWith(7, {
-      node,
-      name: 'translations',
-      value: [
-        { locale: 'en-US', path: '/imprint' },
-        { locale: 'fr-FR', path: '/fr/imprimer' },
-      ],
-    });
   });
 
   it('should translate slugs', async () => {
@@ -240,13 +219,5 @@ describe('translateNode', () => {
     expect(createNodeField).toHaveBeenNthCalledWith(4, { node, name: 'slug', value: 'impressum' });
     expect(createNodeField).toHaveBeenNthCalledWith(5, { node, name: 'path', value: '/de/seiten/impressum' });
     expect(createNodeField).toHaveBeenNthCalledWith(6, { node, name: 'pathPrefix', value: 'de' });
-    expect(createNodeField).toHaveBeenNthCalledWith(7, {
-      node,
-      name: 'translations',
-      value: [
-        { locale: 'en-US', path: '/pages/imprint' },
-        { locale: 'fr-FR', path: '/fr/feuilles/imprimer' },
-      ],
-    });
   });
 });
