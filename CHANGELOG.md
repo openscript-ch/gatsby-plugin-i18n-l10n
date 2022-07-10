@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.18.4](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.18.3...v4.18.4) (2022-07-10)
+
+
+### 🚀 Features
+
+* add node translation propagation ([296d987](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/296d987aca440f250b28d877f98df98fbad47193))
+
+
+### 📚 Documentations
+
+* **readme:** introduce node field translation ([9968153](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/9968153f60d0caea16bb8f0a81d3ee1d6ab0f198))
+
 ### [4.18.3](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.18.2...v4.18.3) (2022-07-08)
 
 ### [4.18.2](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.18.1...v4.18.2) (2022-07-08)
