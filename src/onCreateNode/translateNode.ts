@@ -91,6 +91,7 @@ const propagateCurrentNode = (
     }
 
     const currentTranslations = [translation, ...extractFieldsTranslations(markdownNode)].filter(
+      // filter duplicates
       (v, i, a) => a.findIndex((vv) => vv.locale === v.locale) === i,
     );
     createNodeField({ node: markdownNode, name: 'translations', value: currentTranslations });
@@ -134,7 +135,7 @@ const translatePath = (filename: string, relativeDirectory: string, locale: stri
 export const translateNode: OnCreateNode = async ({ getNode, getNodes, node, actions }, options) => {
   const { createNodeField } = actions;
 
-  if ((node.internal.type === 'MarkdownRemark' || node.internal.type === 'Mdx') && node.parent && options) {
+  if (['MarkdownRemark', 'Mdx'].includes(node.internal.type) && node.parent && options) {
     const fileSystemNode = getNode(node.parent);
     const { base, relativeDirectory, absolutePath } = fileSystemNode as FileSystemNode;
     const { filename, estimatedLocale } = parseFilename(base, options.defaultLocale);

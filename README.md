@@ -9,8 +9,9 @@ Providing i18n and l10n to Gatsby. Besides translating pages and Markdown files,
 
 ## Features
 
-- **Generates translated** versions of a **page**.
+- **Generates translated** versions of **pages**.
   - For example, if you have a page `src/pages/about.tsx` and the languages `en-US` and `de-CH` configured, then it will create an `en-US` and `de-CH` version of this page. Via the page context of the translated pages, you get to know the locale.
+- **Adds fields** on MarkdownRemark and Mdx **nodes**.
 - Puts **prefixes** into the page paths, but not when it's the **default locale**.
 - **Picks up locale** from Markdown file names and provides it via custom fields in GraphQL.
   - It works with `gatsby-transformer-remark` and `gatsby-plugin-mdx`.
