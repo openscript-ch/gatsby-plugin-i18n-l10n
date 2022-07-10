@@ -95,7 +95,7 @@ const allNodes = [
   { ...node },
   {
     id: 'm1',
-    parent: '0',
+    parent: '3',
     internal: {
       type: 'MarkdownRemark',
     },
@@ -105,12 +105,18 @@ const allNodes = [
   },
   {
     id: 'm2',
-    parent: '0',
+    parent: '2',
     internal: {
       type: 'MarkdownRemark',
     },
     frontmatter: {
       title: 'Imprint',
+    },
+    fields: {
+      translations: [
+        { locale: 'de-CH', path: '/old/translation' },
+        { locale: 'zh-CN', path: '/existing/translation' },
+      ],
     },
   },
 ];
@@ -247,6 +253,20 @@ describe('translateNode', () => {
         { locale: 'en-US', path: '/pages/imprint' },
         { locale: 'fr-FR', path: '/fr/feuilles/imprimer' },
       ],
+    });
+
+    expect(createNodeField).toHaveBeenNthCalledWith(8, {
+      node: allNodes.find((n) => n.id === 'm2'),
+      name: 'translations',
+      value: [
+        { locale: 'de-CH', path: '/de/seiten/impressum' },
+        { locale: 'zh-CN', path: '/existing/translation' },
+      ],
+    });
+    expect(createNodeField).toHaveBeenNthCalledWith(9, {
+      node: allNodes.find((n) => n.id === 'm1'),
+      name: 'translations',
+      value: [{ locale: 'de-CH', path: '/de/seiten/impressum' }],
     });
   });
 });

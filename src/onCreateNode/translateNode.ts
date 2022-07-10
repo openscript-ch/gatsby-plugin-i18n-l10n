@@ -1,8 +1,8 @@
 import { FileSystemNode } from 'gatsby-source-filesystem';
 import convertToSlug from 'limax';
 import { posix as path } from 'path';
-import { Node } from 'gatsby';
-import { OnCreateNode, PluginOptions } from '../../types';
+import { Actions, Node } from 'gatsby';
+import { OnCreateNode, PluginOptions, Translation } from '../../types';
 import { addLocalePrefix, replaceSegmentsWithSlugs, trimRightSlash } from '../utils/path';
 import { findClosestLocale, parseFilename } from '../utils/i18n';
 
@@ -22,6 +22,15 @@ const extractFrontmatterTitle = (node?: Node) => {
   }
 
   return undefined;
+};
+
+const extractFieldsTranslations = (node?: Node) => {
+  if (node?.fields && typeof node.fields === 'object') {
+    const fields = node.fields as { translations?: Translation[] };
+    return fields.translations || [];
+  }
+
+  return [];
 };
 
 /**
@@ -57,6 +66,34 @@ const getAvailableTranslations = (siblings: FileSystemNode[], markdownNodes: Nod
     const title = extractFrontmatterTitle(markdownNode);
     const locale = findLocale(siblingEstimatedLocale, options);
     return { filename: siblingFilename, locale, title };
+  });
+};
+
+/**
+ * Propagate the current node and its translation to the existing nodes
+ *
+ * @param translation of the current node
+ * @param siblings of the current node
+ * @param markdownNodes which are already available
+ * @param createNodeField action to create new or overwrite node fields
+ */
+const propagateCurrentNode = (
+  translation: Translation,
+  siblings: FileSystemNode[],
+  markdownNodes: Node[],
+  createNodeField: Actions['createNodeField'],
+) => {
+  siblings.forEach((s) => {
+    const markdownNode = markdownNodes.filter((n) => s.children.map((c) => c).includes(n.id)).find((n) => n);
+
+    if (!markdownNode) {
+      return;
+    }
+
+    const currentTranslations = [translation, ...extractFieldsTranslations(markdownNode)].filter(
+      (v, i, a) => a.findIndex((vv) => vv.locale === v.locale) === i,
+    );
+    createNodeField({ node: markdownNode, name: 'translations', value: currentTranslations });
   });
 };
 
@@ -103,6 +140,7 @@ export const translateNode: OnCreateNode = async ({ getNode, getNodes, node, act
     const { filename, estimatedLocale } = parseFilename(base, options.defaultLocale);
     const title = extractFrontmatterTitle(node);
     const locale = findLocale(estimatedLocale, options);
+    const localeOption = options.locales.find((l) => l.locale === locale);
     const { slug, kind, filepath } = translatePath(filename, relativeDirectory, locale, options, title);
 
     // propagate translations
@@ -113,7 +151,6 @@ export const translateNode: OnCreateNode = async ({ getNode, getNodes, node, act
       const { filepath: translatedFilepath } = translatePath(t.filename, relativeDirectory, t.locale, options, t.title);
       return { path: trimRightSlash(translatedFilepath), locale: t.locale };
     });
-    const localeOption = options.locales.find((l) => l.locale === locale);
 
     createNodeField({ node, name: 'locale', value: locale });
     createNodeField({ node, name: 'filename', value: filename });
@@ -122,5 +159,6 @@ export const translateNode: OnCreateNode = async ({ getNode, getNodes, node, act
     createNodeField({ node, name: 'path', value: filepath });
     createNodeField({ node, name: 'pathPrefix', value: localeOption?.prefix });
     createNodeField({ node, name: 'translations', value: translations });
+    propagateCurrentNode({ locale, path: filepath }, siblings, markdownNodes, createNodeField);
   }
 };
