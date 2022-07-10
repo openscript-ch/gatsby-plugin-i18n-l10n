@@ -1,7 +1,7 @@
 import { FileSystemNode } from 'gatsby-source-filesystem';
 import convertToSlug from 'limax';
 import { posix as path } from 'path';
-import { Actions, Node } from 'gatsby';
+import { Actions, Node, NodePluginArgs } from 'gatsby';
 import { OnCreateNode, PluginOptions, Translation } from '../../types';
 import { addLocalePrefix, replaceSegmentsWithSlugs, trimRightSlash } from '../utils/path';
 import { findClosestLocale, parseFilename } from '../utils/i18n';
@@ -55,14 +55,16 @@ const findTranslations = (nodes: Node[], absolutePath: string, options: PluginOp
  * Returns a list of paths and locales to the sibling nodes
  *
  * @param siblings of the current node
- * @param markdownNodes which are available
+ * @param getNode gets a node
  * @param options is the configuration of the current plugin instance
  * @returns a list of translations for the current node
  */
-const getAvailableTranslations = (siblings: FileSystemNode[], markdownNodes: Node[], options: PluginOptions) => {
+const getAvailableTranslations = (siblings: FileSystemNode[], getNode: NodePluginArgs['getNode'], options: PluginOptions) => {
   return siblings.map((s) => {
     const { filename: siblingFilename, estimatedLocale: siblingEstimatedLocale } = parseFilename(s.base, options.defaultLocale);
-    const markdownNode = markdownNodes.filter((n) => s.children.map((c) => c).includes(n.id)).find((n) => n);
+    const markdownNode = s.children
+      .map((c) => getNode(c))
+      .find((c) => c !== undefined && ['MarkdownRemark', 'Mdx'].includes(c.internal.type));
     const title = extractFrontmatterTitle(markdownNode);
     const locale = findLocale(siblingEstimatedLocale, options);
     return { filename: siblingFilename, locale, title };
@@ -74,17 +76,19 @@ const getAvailableTranslations = (siblings: FileSystemNode[], markdownNodes: Nod
  *
  * @param translation of the current node
  * @param siblings of the current node
- * @param markdownNodes which are already available
+ * @param getNode gets a node
  * @param createNodeField action to create new or overwrite node fields
  */
 const propagateCurrentNode = (
   translation: Translation,
   siblings: FileSystemNode[],
-  markdownNodes: Node[],
+  getNode: NodePluginArgs['getNode'],
   createNodeField: Actions['createNodeField'],
 ) => {
   siblings.forEach((s) => {
-    const markdownNode = markdownNodes.filter((n) => s.children.map((c) => c).includes(n.id)).find((n) => n);
+    const markdownNode = s.children
+      .map((c) => getNode(c))
+      .find((c) => c !== undefined && ['MarkdownRemark', 'Mdx'].includes(c.internal.type));
 
     if (!markdownNode) {
       return;
@@ -145,10 +149,8 @@ export const translateNode: OnCreateNode = async ({ getNode, getNodes, node, act
     const { slug, kind, filepath } = translatePath(filename, relativeDirectory, locale, options, title);
 
     // propagate translations
-    const nodes = getNodes();
-    const markdownNodes = nodes.filter((n) => ['MarkdownRemark', 'Mdx'].includes(n.internal.type));
     const siblings = findTranslations(getNodes(), absolutePath, options);
-    const translations = getAvailableTranslations(siblings, markdownNodes, options).map((t) => {
+    const translations = getAvailableTranslations(siblings, getNode, options).map((t) => {
       const { filepath: translatedFilepath } = translatePath(t.filename, relativeDirectory, t.locale, options, t.title);
       return { path: trimRightSlash(translatedFilepath), locale: t.locale };
     });
@@ -160,6 +162,6 @@ export const translateNode: OnCreateNode = async ({ getNode, getNodes, node, act
     createNodeField({ node, name: 'path', value: filepath });
     createNodeField({ node, name: 'pathPrefix', value: localeOption?.prefix });
     createNodeField({ node, name: 'translations', value: translations });
-    propagateCurrentNode({ locale, path: filepath }, siblings, markdownNodes, createNodeField);
+    propagateCurrentNode({ locale, path: filepath }, siblings, getNode, createNodeField);
   }
 };
