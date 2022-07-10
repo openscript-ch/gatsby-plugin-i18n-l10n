@@ -30,26 +30,34 @@ const extractFrontmatterTitle = (node?: Node) => {
  * @param nodes a list of file system nodes
  * @param absolutePath of the file which siblings should be searched
  * @param options is the configuration of the current plugin instance
- * @returns siblings paths
+ * @returns sibling nodes
  */
 const findTranslations = (nodes: Node[], absolutePath: string, options: PluginOptions) => {
   const fileNodes = nodes.filter((n) => n.internal.type === 'File') as FileSystemNode[];
-  const markdownNodes = nodes.filter((n) => ['MarkdownRemark', 'Mdx'].includes(n.internal.type));
   const fileSiblings = fileNodes.filter((n) => n.dir === path.dirname(absolutePath));
   const { filename } = parseFilename(path.basename(absolutePath), options.defaultLocale);
-  const siblings = fileSiblings
-    .filter((f) => {
-      const { filename: siblingFilename } = parseFilename(f.base, options.defaultLocale);
-      return f.base !== path.basename(absolutePath) && siblingFilename === filename;
-    })
-    .map((f) => {
-      const { filename: siblingFilename, estimatedLocale: siblingEstimatedLocale } = parseFilename(f.base, options.defaultLocale);
-      const markdownNode = markdownNodes.filter((n) => f.children.map((c) => c).includes(n.id)).find((n) => n);
-      const title = extractFrontmatterTitle(markdownNode);
-      const locale = findLocale(siblingEstimatedLocale, options);
-      return { filename: siblingFilename, locale, title };
-    });
-  return siblings;
+  return fileSiblings.filter((f) => {
+    const { filename: siblingFilename } = parseFilename(f.base, options.defaultLocale);
+    return f.base !== path.basename(absolutePath) && siblingFilename === filename;
+  });
+};
+
+/**
+ * Returns a list of paths and locales to the sibling nodes
+ *
+ * @param siblings of the current node
+ * @param markdownNodes which are available
+ * @param options is the configuration of the current plugin instance
+ * @returns a list of translations for the current node
+ */
+const getAvailableTranslations = (siblings: FileSystemNode[], markdownNodes: Node[], options: PluginOptions) => {
+  return siblings.map((s) => {
+    const { filename: siblingFilename, estimatedLocale: siblingEstimatedLocale } = parseFilename(s.base, options.defaultLocale);
+    const markdownNode = markdownNodes.filter((n) => s.children.map((c) => c).includes(n.id)).find((n) => n);
+    const title = extractFrontmatterTitle(markdownNode);
+    const locale = findLocale(siblingEstimatedLocale, options);
+    return { filename: siblingFilename, locale, title };
+  });
 };
 
 /**
@@ -96,8 +104,12 @@ export const translateNode: OnCreateNode = async ({ getNode, getNodes, node, act
     const title = extractFrontmatterTitle(node);
     const locale = findLocale(estimatedLocale, options);
     const { slug, kind, filepath } = translatePath(filename, relativeDirectory, locale, options, title);
-    const translations = findTranslations(getNodes(), absolutePath, options);
-    const alternativeLanguagePaths = translations.map((t) => {
+
+    // propagate translations
+    const nodes = getNodes();
+    const markdownNodes = nodes.filter((n) => ['MarkdownRemark', 'Mdx'].includes(n.internal.type));
+    const siblings = findTranslations(getNodes(), absolutePath, options);
+    const translations = getAvailableTranslations(siblings, markdownNodes, options).map((t) => {
       const { filepath: translatedFilepath } = translatePath(t.filename, relativeDirectory, t.locale, options, t.title);
       return { path: trimRightSlash(translatedFilepath), locale: t.locale };
     });
@@ -109,6 +121,6 @@ export const translateNode: OnCreateNode = async ({ getNode, getNodes, node, act
     createNodeField({ node, name: 'slug', value: slug });
     createNodeField({ node, name: 'path', value: filepath });
     createNodeField({ node, name: 'pathPrefix', value: localeOption?.prefix });
-    createNodeField({ node, name: 'translations', value: alternativeLanguagePaths });
+    createNodeField({ node, name: 'translations', value: translations });
   }
 };
