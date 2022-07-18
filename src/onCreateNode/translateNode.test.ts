@@ -157,6 +157,30 @@ describe('translateNode', () => {
     });
   });
 
+  it('should return no prefix if it is the default locale', async () => {
+    const currentNode = allNodes.find((a) => a.id === 'm2');
+    const currentArgs = {
+      ...args,
+      node: currentNode,
+    };
+    await translateNode(currentArgs, options);
+
+    expect(createNodeField).toHaveBeenNthCalledWith(1, { node: currentNode, name: 'locale', value: 'en-US' });
+    expect(createNodeField).toHaveBeenNthCalledWith(2, { node: currentNode, name: 'filename', value: 'imprint' });
+    expect(createNodeField).toHaveBeenNthCalledWith(3, { node: currentNode, name: 'kind', value: 'pages' });
+    expect(createNodeField).toHaveBeenNthCalledWith(4, { node: currentNode, name: 'slug', value: 'imprint' });
+    expect(createNodeField).toHaveBeenNthCalledWith(5, { node: currentNode, name: 'path', value: '/pages/imprint' });
+    expect(createNodeField).toHaveBeenNthCalledWith(6, { node: currentNode, name: 'pathPrefix', value: '' });
+    expect(createNodeField).toHaveBeenNthCalledWith(7, {
+      node: currentNode,
+      name: 'translations',
+      value: [
+        { locale: 'de-CH', path: '/de/pages/impressum' },
+        { locale: 'fr-FR', path: '/fr/pages/imprimer' },
+      ],
+    });
+  });
+
   it('should create nodes which are nested in folders', async () => {
     const currentNode = {
       parent: '4',
