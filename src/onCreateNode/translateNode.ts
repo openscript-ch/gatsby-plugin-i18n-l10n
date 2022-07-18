@@ -136,6 +136,14 @@ const translatePath = (filename: string, relativeDirectory: string, locale: stri
   return { slug, kind: relativeDirectory, filepath };
 };
 
+const getTagsField = (tags?: string[]) => {
+  if (!tags) {
+    return [];
+  }
+
+  return tags.map((t) => ({ title: t, slug: convertToSlug(t) }));
+};
+
 export const translateNode: OnCreateNode = async ({ getNode, getNodes, node, actions }, options) => {
   const { createNodeField } = actions;
 
@@ -143,10 +151,12 @@ export const translateNode: OnCreateNode = async ({ getNode, getNodes, node, act
     const fileSystemNode = getNode(node.parent);
     const { base, relativeDirectory, absolutePath } = fileSystemNode as FileSystemNode;
     const { filename, estimatedLocale } = parseFilename(base, options.defaultLocale);
-    const title = extractFrontmatter(node)?.title;
+    const frontmatter = extractFrontmatter(node);
     const locale = findLocale(estimatedLocale, options);
     const localeOption = options.locales.find((l) => l.locale === locale);
     const prefix = locale === options.defaultLocale ? '' : localeOption?.prefix;
+    const { slug, kind, filepath } = translatePath(filename, relativeDirectory, locale, options, frontmatter?.title);
+    const tags = getTagsField(frontmatter?.tags);
 
     // propagate translations
     const siblings = findTranslations(getNodes(), absolutePath, options);
@@ -163,5 +173,6 @@ export const translateNode: OnCreateNode = async ({ getNode, getNodes, node, act
     createNodeField({ node, name: 'pathPrefix', value: prefix });
     createNodeField({ node, name: 'translations', value: translations });
     propagateCurrentNode({ locale, path: filepath }, siblings, getNode, createNodeField);
+    createNodeField({ node, name: 'tags', value: tags });
   }
 };
