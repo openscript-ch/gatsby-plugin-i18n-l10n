@@ -10,6 +10,11 @@ declare module 'gatsby' {
   }
 }
 
+export type Frontmatter = {
+  title?: string;
+  tags?: string[];
+};
+
 export type Translation = {
   locale: string;
   path: string;

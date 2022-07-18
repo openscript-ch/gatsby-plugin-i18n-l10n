@@ -2,7 +2,7 @@ import { FileSystemNode } from 'gatsby-source-filesystem';
 import convertToSlug from 'limax';
 import { posix as path } from 'path';
 import { Actions, Node, NodePluginArgs } from 'gatsby';
-import { OnCreateNode, PluginOptions, Translation } from '../../types';
+import { Frontmatter, OnCreateNode, PluginOptions, Translation } from '../../types';
 import { addLocalePrefix, replaceSegmentsWithSlugs, trimRightSlash } from '../utils/path';
 import { findClosestLocale, parseFilename } from '../utils/i18n';
 
@@ -15,10 +15,10 @@ const findLocale = (estimatedLocale: string, options: PluginOptions) => {
   );
 };
 
-const extractFrontmatterTitle = (node?: Node) => {
+const extractFrontmatter = (node?: Node) => {
   if (node?.frontmatter && typeof node.frontmatter === 'object') {
-    const frontmatter = node.frontmatter as { title?: string };
-    return frontmatter.title;
+    const frontmatter = node.frontmatter as Frontmatter;
+    return frontmatter;
   }
 
   return undefined;
@@ -65,7 +65,7 @@ const getAvailableTranslations = (siblings: FileSystemNode[], getNode: NodePlugi
     const markdownNode = s.children
       .map((c) => getNode(c))
       .find((c) => c !== undefined && ['MarkdownRemark', 'Mdx'].includes(c.internal.type));
-    const title = extractFrontmatterTitle(markdownNode);
+    const title = extractFrontmatter(markdownNode)?.title;
     const locale = findLocale(siblingEstimatedLocale, options);
     return { filename: siblingFilename, locale, title };
   });
@@ -143,7 +143,7 @@ export const translateNode: OnCreateNode = async ({ getNode, getNodes, node, act
     const fileSystemNode = getNode(node.parent);
     const { base, relativeDirectory, absolutePath } = fileSystemNode as FileSystemNode;
     const { filename, estimatedLocale } = parseFilename(base, options.defaultLocale);
-    const title = extractFrontmatterTitle(node);
+    const title = extractFrontmatter(node)?.title;
     const locale = findLocale(estimatedLocale, options);
     const localeOption = options.locales.find((l) => l.locale === locale);
     const { slug, kind, filepath } = translatePath(filename, relativeDirectory, locale, options, title);
