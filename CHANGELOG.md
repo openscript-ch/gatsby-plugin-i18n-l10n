@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.18.6](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.18.5...v4.18.6) (2022-07-18)
+
+
+### 🔄 Refactors
+
+* frontmatter extraction ([018c236](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/018c236152470a0b2fb6f080dfe4f1d6b42cdd68))
+
+
+### 🐛 Bug Fixes
+
+* set path prefix field ([ea1709f](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/ea1709fc55a5a8b707cbdd191f1d215718ae1a16))
+
+
+### 🚀 Features
+
+* add tags field with slugs ([5d87bbe](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/5d87bbe9e4081ccfe17a4eb640f951e096d96174))
+
 ### [4.18.5](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.18.4...v4.18.5) (2022-07-10)
 
 ### [4.18.4](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.18.3...v4.18.4) (2022-07-10)
