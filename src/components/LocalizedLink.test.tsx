@@ -98,7 +98,7 @@ describe('<LocalizedLink />', () => {
         href="/"
         onClick={[Function]}
         onMouseEnter={[Function]}
-        style={Object {}}
+        style={{}}
       >
         Home
       </a>
