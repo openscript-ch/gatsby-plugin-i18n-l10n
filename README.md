@@ -5,7 +5,6 @@
 Providing i18n and l10n to Gatsby. Besides translating pages and Markdown files, you can also translate the slugs and paths and still link between translated sibling pages. Batteries like a language switcher component are included. The plugin is written in Typescript, has some tests and builts on these two dependencies:
 
 - [**react-intl**](https://formatjs.io/docs/react-intl/): Wrapping the pages with a provider, which makes translation available throughout the app.
-- [**react-helmet**](https://github.com/nfl/react-helmet): Injecting meta tags into the head element, which links translated sibling pages.
 
 ## Features
 
@@ -22,7 +21,7 @@ Providing i18n and l10n to Gatsby. Besides translating pages and Markdown files,
 
 ## Usage
 
-1. Make sure the peer dependencies `"gatsby": "^4.x"`, `"react-helmet": "^6.1.x"` and `"react-intl": "^6.x"` are dependencies of your Gatsby project.
+1. Make sure the peer dependencies `"gatsby": "^4.x"` and `"react-intl": "^6.x"` are dependencies of your Gatsby project.
 1. Install the plugin with `npm install gatsby-plugin-i18n-l10n` or `yarn add gatsby-plugin-i18n-l10n`.
 1. Load and configure the plugin from your `gatsby-config.js` or `gatsby-config.ts`:
 
@@ -76,18 +75,15 @@ Providing i18n and l10n to Gatsby. Besides translating pages and Markdown files,
 With the built-in `<LanguageSwitcher>` component, as user can change between the locales. With `resolveLanguageName` the language names can be provided to the component.
 
 ```jsx
-<LanguageSwitcher 
-  resolveLanguageName={locale => intl.formatMessage({ id: `languages.${locale}` })}
-/>
+<LanguageSwitcher resolveLanguageName={(locale) => intl.formatMessage({ id: `languages.${locale}` })} />
 ```
 
 ### `createPage()`
 
 When you create pages programmatically with `createPage()` by default the page will only try to set the locale and prefix to the context. With the following options you can instruct the plugin to internationalize the context further:
 
- - `referTranslations: string[]`: Refers translations for given locales.
- - `adjustPath: boolean`: Add locale prefix and replaces slugs.
-
+- `referTranslations: string[]`: Refers translations for given locales.
+- `adjustPath: boolean`: Add locale prefix and replaces slugs.
 
 ## Alternatives
 
