@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.19.0](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.18.7...v4.19.0) (2022-09-22)
+
+
+### 🚀 Features
+
+* replace helmet with gatsby head api ([#64](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/issues/64)) ([fc9d7f8](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/fc9d7f841364279866b0f29e88e97258b5f9e607))
+
 ### [4.18.7](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.18.6...v4.18.7) (2022-07-18)
 
 ### [4.18.6](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v4.18.5...v4.18.6) (2022-07-18)
