@@ -1,4 +1,4 @@
-import { GatsbyBrowser, GatsbyNode, GatsbySSR, PluginOptions as GatsbyPluginOptions } from 'gatsby';
+import { GatsbyBrowser, GatsbyNode, GatsbySSR, PluginOptions as GatsbyPluginOptions, RenderBodyArgs } from 'gatsby';
 
 declare module 'gatsby' {
   export interface Page<TContext = Record<string, unknown>> {
@@ -55,3 +55,6 @@ export type WrapPageElement = (
   args: GatsbyBrowserWrapPageElementParams[0] | GatsbySSRWrapPageElementParams[0],
   options: PluginOptions,
 ) => GatsbyBrowserWrapPageElementReturnType | GatsbySSRWrapPageElementReturnType;
+
+type CustomRenderBodyArgs = RenderBodyArgs & { loadPageDataSync: (pathname: string) => { result: Record<string, unknown> } };
+export type OnRenderBody = (args: CustomRenderBodyArgs, options: PluginOptions) => void;
