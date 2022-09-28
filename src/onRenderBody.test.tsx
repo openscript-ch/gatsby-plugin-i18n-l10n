@@ -16,18 +16,20 @@ describe('onRenderBody', () => {
     const setHtmlAttributesMock = jest.fn();
     const setHeadComponentsMock = jest.fn();
 
-    onRenderBody(
-      {
-        loadPageDataSync: loadPageDataSyncMock,
-        pathname: '/de/impressum',
-        setHtmlAttributes: setHtmlAttributesMock,
-        setHeadComponents: setHeadComponentsMock,
-      } as any,
-      {
-        defaultLocale: 'en-US',
-        siteUrl: 'https://example.com',
-      } as any,
-    );
+    if (onRenderBody) {
+      onRenderBody(
+        {
+          loadPageDataSync: loadPageDataSyncMock,
+          pathname: '/de/impressum',
+          setHtmlAttributes: setHtmlAttributesMock,
+          setHeadComponents: setHeadComponentsMock,
+        } as any,
+        {
+          defaultLocale: 'en-US',
+          siteUrl: 'https://example.com',
+        } as any,
+      );
+    }
 
     expect(setHtmlAttributesMock).toBeCalledWith({ lang: 'de-CH' });
     expect(setHeadComponentsMock).toMatchInlineSnapshot(`
