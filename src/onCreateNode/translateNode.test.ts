@@ -35,6 +35,7 @@ const node = {
   },
   frontmatter: {
     title: 'Impressum',
+    tags: ['Erster Tag', 'Zweiter Tag'],
   },
 };
 
@@ -291,6 +292,49 @@ describe('translateNode', () => {
       node: allNodes.find((n) => n.id === 'm1'),
       name: 'translations',
       value: [{ locale: 'de-CH', path: '/de/seiten/impressum' }],
+    });
+  });
+
+  it('should sluggify tags', async () => {
+    const currentOptions: PluginOptions = {
+      defaultLocale: `en-US`,
+      siteUrl: '',
+      locales: [
+        {
+          locale: `en-US`,
+          prefix: `en`,
+          slugs: {},
+          messages: {},
+        },
+        {
+          locale: `de-CH`,
+          prefix: `de`,
+          slugs: {
+            '/pages': '/seiten',
+          },
+          messages: {},
+        },
+        {
+          locale: `fr-FR`,
+          prefix: `fr`,
+          slugs: {
+            '/pages': '/feuilles', // I know it's not a literal translation
+          },
+          messages: {},
+        },
+      ],
+      plugins: [],
+    };
+
+    await translateNode(args, currentOptions);
+
+    expect(createNodeField).toHaveBeenNthCalledWith(10, {
+      node,
+      name: 'tags',
+      value: [
+        { slug: 'erster-tag', title: 'Erster Tag' },
+        { slug: 'zweiter-tag', title: 'Zweiter Tag' },
+      ],
     });
   });
 });
