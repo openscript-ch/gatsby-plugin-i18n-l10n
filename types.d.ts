@@ -1,4 +1,4 @@
-import { GatsbyBrowser, GatsbyNode, GatsbySSR, PluginOptions as GatsbyPluginOptions, RenderBodyArgs } from 'gatsby';
+import { GatsbyBrowser, GatsbyNode, GatsbySSR, PluginOptions as GatsbyPluginOptions } from 'gatsby';
 
 declare module 'gatsby' {
   export interface Page<TContext = Record<string, unknown>> {
