@@ -1,11 +1,12 @@
-import { OnRenderBody, SitePageContext, Translation } from '../types';
+import { GatsbySSR } from 'gatsby';
+import { SitePageContext, Translation } from '../types';
 
-export const onRenderBody: OnRenderBody = ({ loadPageDataSync, pathname, setHtmlAttributes, setHeadComponents }, options) => {
+export const onRenderBody: GatsbySSR['onRenderBody'] = ({ loadPageDataSync, pathname, setHtmlAttributes, setHeadComponents }, options) => {
   const {
     result: { pageContext },
   } = loadPageDataSync(pathname) as { result: { pageContext: SitePageContext } };
-  const locale = pageContext.locale ?? options.defaultLocale;
-  const siteUrl = new URL(options.siteUrl);
+  const locale = pageContext.locale ?? (options.defaultLocale as string);
+  const siteUrl = new URL(options.siteUrl as string);
   const translations = (pageContext.translations as Translation[]) || [];
 
   setHtmlAttributes({ lang: locale });
