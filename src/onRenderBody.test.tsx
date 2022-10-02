@@ -1,6 +1,24 @@
 import { onRenderBody } from './onRenderBody';
 
 describe('onRenderBody', () => {
+  it('should not run, if loadPageDataSync is not available', () => {
+    const setHtmlAttributesMock = jest.fn();
+    const setHeadComponentsMock = jest.fn();
+
+    if (onRenderBody) {
+      onRenderBody(
+        {
+          loadPageDataSync: undefined,
+          setHtmlAttributes: setHtmlAttributesMock,
+          setHeadComponents: setHeadComponentsMock,
+        } as any,
+        {} as any,
+      );
+    }
+
+    expect(setHtmlAttributesMock).toBeCalledTimes(0);
+    expect(setHeadComponentsMock).toBeCalledTimes(0);
+  });
   it('should set i18n meta data', () => {
     const loadPageDataSyncMock = jest.fn().mockImplementation(() => ({
       result: {
