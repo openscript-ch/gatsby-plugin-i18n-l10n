@@ -2,6 +2,11 @@ import { GatsbySSR } from 'gatsby';
 import { SitePageContext, Translation } from '../types';
 
 export const onRenderBody: GatsbySSR['onRenderBody'] = ({ loadPageDataSync, pathname, setHtmlAttributes, setHeadComponents }, options) => {
+  // loadPageDataSync is not implemented in all run modes like development
+  if (!loadPageDataSync) {
+    return;
+  }
+
   const {
     result: { pageContext },
   } = loadPageDataSync(pathname) as { result: { pageContext: SitePageContext } };
