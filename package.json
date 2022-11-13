@@ -39,8 +39,8 @@
     "upgrade-interactive": "npm-check -u"
   },
   "peerDependencies": {
-    "gatsby": "^4.x",
-    "gatsby-source-filesystem": "^4.x",
+    "gatsby": "^4.x || ^5.0.1",
+    "gatsby-source-filesystem": "^4.x || ^5.0.0",
     "react-intl": "^6.x"
   },
   "peerDependenciesMeta": {
