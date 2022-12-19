@@ -4,7 +4,7 @@ import { generatePageContextByPath, translatePagePath, translatePagePaths } from
 export const translatePage: OnCreatePage = async ({ page, actions }, options) => {
   const { createPage, deletePage } = actions;
 
-  // Only for pages created by stateful create pages like `/src/pages`
+  // Translate statefully created pages from `/src/pages` or gatsby-plugin-page-creator
   if (options && page.isCreatedByStatefulCreatePages) {
     const paths = translatePagePaths(page.path, options);
 
@@ -19,6 +19,7 @@ export const translatePage: OnCreatePage = async ({ page, actions }, options) =>
     });
   }
 
+  // Translate programmically generated pages
   if (options && !page.isCreatedByStatefulCreatePages) {
     deletePage(page);
 
