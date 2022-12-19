@@ -1,12 +1,17 @@
 import { posix as nodePath } from 'path';
 import { PluginOptions } from '../../types';
 
+const PATH_PREFIX_PATTERN = '(?<=^/)\\w{2}(-\\w{2})?(?=/)';
+const PATH_SUFFIX_PATTERN = /(?<=\.)\w+$/;
+const TRIM_RIGHT_SLASH_PATTERN = /\/$/;
+const TRIM_SLASHES_PATTERN = /^\/|\/$/g;
+
 export const trimRightSlash = (path: string) => {
-  return path === '/' ? path : path.replace(/\/$/, '');
+  return path === '/' ? path : path.replace(TRIM_RIGHT_SLASH_PATTERN, '');
 };
 
 export const trimSlashes = (path: string) => {
-  return path === '/' ? path : path.replace(/^\/|\/$/g, '');
+  return path === '/' ? path : path.replace(TRIM_SLASHES_PATTERN, '');
 };
 
 export const replaceSegmentsWithSlugs = (path: string, slugs: Record<string, string>) => {
@@ -51,9 +56,18 @@ export const parsePathPrefix = (path: string, defaultPrefix: string) => {
   // which causes an error when the script is loaded. This is
   // only needed in SSG.
   // eslint-disable-next-line prefer-regex-literals
-  const splitPathExpression = new RegExp('(?<=^/)\\w{2}(-\\w{2})?(?=/)', 'g');
+  const splitPathExpression = new RegExp(PATH_PREFIX_PATTERN, 'g');
   const splittedPath = path.match(splitPathExpression);
   return splittedPath && splittedPath[0] ? splittedPath[0] : defaultPrefix;
+};
+
+export const parsePathSuffix = (path: string, availableSuffixes: string[]) => {
+  const parsedPath = path.match(PATH_SUFFIX_PATTERN);
+  return parsedPath && parsedPath[0] && availableSuffixes.includes(parsedPath[0]) ? parsedPath[0] : undefined;
+};
+
+export const trimSuffix = (path: string, availableSuffixes: string[]) => {
+  
 };
 
 export const generatePageContextByPath = (path: string, options: PluginOptions) => {

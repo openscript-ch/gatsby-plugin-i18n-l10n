@@ -1,11 +1,12 @@
 import { OnCreatePage } from '../../types';
-import { generatePageContextByPath, translatePagePath, translatePagePaths } from '../utils/path';
+import { generatePageContextByPath, parsePathSuffix, translatePagePath, translatePagePaths } from '../utils/path';
 
 export const translatePage: OnCreatePage = async ({ page, actions }, options) => {
   const { createPage, deletePage } = actions;
+  const availableSuffixes = options?.locales.map((locale) => locale.prefix) || [];
 
-  // Translate statefully created pages from `/src/pages` or gatsby-plugin-page-creator
-  if (options && page.isCreatedByStatefulCreatePages) {
+  // Translate statefully created pages from `/src/pages` or gatsby-plugin-page-creator, which aren't suffixed
+  if (options && page.isCreatedByStatefulCreatePages && !parsePathSuffix(page.path, availableSuffixes)) {
     const paths = translatePagePaths(page.path, options);
 
     deletePage(page);
@@ -17,6 +18,22 @@ export const translatePage: OnCreatePage = async ({ page, actions }, options) =>
 
       createPage({ ...page, path: path.path, context });
     });
+  }
+
+  // Translate statefully created pages from `/src/pages` or gatsby-plugin-page-creator, which are suffixed
+  if (options && page.isCreatedByStatefulCreatePages && parsePathSuffix(page.path, availableSuffixes)) {
+    const paths = translatePagePaths(page.path, options);
+
+    deletePage(page);
+
+    const path = paths.find((p) => p.path === parsePathSuffix(page.path, availableSuffixes));
+    if (path) {
+      const translations = paths.filter((p) => p.locale !== path.locale);
+      const locale = options.locales.find((l) => l.locale === path.locale);
+      const context = { ...page.context, locale: path.locale, translations, prefix: locale?.prefix };
+
+      createPage({ ...page, path: path.path, context });
+    }
   }
 
   // Translate programmically generated pages

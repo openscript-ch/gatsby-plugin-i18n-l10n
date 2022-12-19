@@ -1,5 +1,5 @@
 import { PluginOptions } from '../../types';
-import { addLocalePrefix, parsePathPrefix, translatePagePaths, trimRightSlash, trimSlashes } from './path';
+import { addLocalePrefix, parsePathPrefix, parsePathSuffix, translatePagePaths, trimRightSlash, trimSlashes } from './path';
 
 describe('trimRightSlash', () => {
   it('should trim the right slash', () => {
@@ -62,6 +62,16 @@ describe('parsePathPrefix', () => {
   it('returns the default prefix on empty path', () => {
     const prefix = parsePathPrefix('./', 'de');
     expect(prefix).toBe('de');
+  });
+});
+
+describe('parsePathSuffix', () => {
+  it('checks if suffix is correctly parsed', () => {
+    expect(parsePathSuffix('/some/path/index.de', ['de', 'en', 'zh'])).toBe('de');
+    expect(parsePathSuffix('/some/path/index.en', ['de', 'en', 'zh'])).toBe('en');
+    expect(parsePathSuffix('index.zh', ['de', 'en', 'zh'])).toBe('zh');
+    expect(parsePathSuffix('index.fr', ['de', 'en', 'zh'])).toBe(undefined);
+    expect(parsePathSuffix('index', ['de', 'en', 'zh'])).toBe(undefined);
   });
 });
 

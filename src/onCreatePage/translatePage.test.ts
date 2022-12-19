@@ -106,6 +106,37 @@ describe('translatePage', () => {
     });
   });
 
+  it('should translate stateful created pages from suffixed files', () => {
+    const page: Page = {
+      path: '/imprint.en',
+      component: {} as any,
+      context: {},
+      isCreatedByStatefulCreatePages: true,
+    };
+    translatePage({ page, actions } as any, options);
+
+    expect(actions.deletePage).toBeCalledWith(page);
+    expect(actions.createPage).toHaveBeenCalledTimes(1);
+    expect(actions.createPage).toHaveBeenNthCalledWith(1, {
+      ...page,
+      path: '/imprint',
+      context: {
+        locale: 'en-US',
+        prefix: 'en',
+        translations: [
+          {
+            locale: 'de-CH',
+            path: '/de/impressum',
+          },
+          {
+            locale: 'zh-CN',
+            path: '/zh/imprint',
+          },
+        ],
+      },
+    });
+  });
+
   it('should translate unstateful created pages by path with default language', () => {
     const page: Page = {
       path: '/imprint',
