@@ -4,7 +4,7 @@ import { posix as path } from 'path';
 import { Actions, Node, NodePluginArgs } from 'gatsby';
 import { Frontmatter, OnCreateNode, PluginOptions, Translation } from '../../types';
 import { addLocalePrefix, replaceSegmentsWithSlugs, trimRightSlash } from '../utils/path';
-import { findClosestLocale, parseFilename } from '../utils/i18n';
+import { findClosestLocale, parseFilenameSuffix } from '../utils/i18n';
 
 const findLocale = (estimatedLocale: string, options: PluginOptions) => {
   return (
@@ -44,9 +44,9 @@ const extractFieldsTranslations = (node?: Node) => {
 const findTranslations = (nodes: Node[], absolutePath: string, options: PluginOptions) => {
   const fileNodes = nodes.filter((n) => n.internal.type === 'File') as FileSystemNode[];
   const fileSiblings = fileNodes.filter((n) => n.dir === path.dirname(absolutePath));
-  const { filename } = parseFilename(path.basename(absolutePath), options.defaultLocale);
+  const { filename } = parseFilenameSuffix(path.basename(absolutePath), options.defaultLocale);
   return fileSiblings.filter((f) => {
-    const { filename: siblingFilename } = parseFilename(f.base, options.defaultLocale);
+    const { filename: siblingFilename } = parseFilenameSuffix(f.base, options.defaultLocale);
     return f.base !== path.basename(absolutePath) && siblingFilename === filename;
   });
 };
@@ -61,7 +61,7 @@ const findTranslations = (nodes: Node[], absolutePath: string, options: PluginOp
  */
 const getAvailableTranslations = (siblings: FileSystemNode[], getNode: NodePluginArgs['getNode'], options: PluginOptions) => {
   return siblings.map((s) => {
-    const { filename: siblingFilename, estimatedLocale: siblingEstimatedLocale } = parseFilename(s.base, options.defaultLocale);
+    const { filename: siblingFilename, estimatedLocale: siblingEstimatedLocale } = parseFilenameSuffix(s.base, options.defaultLocale);
     const markdownNode = s.children
       .map((c) => getNode(c))
       .find((c) => c !== undefined && ['MarkdownRemark', 'Mdx'].includes(c.internal.type));
@@ -150,7 +150,7 @@ export const translateNode: OnCreateNode = async ({ getNode, getNodes, node, act
   if (['MarkdownRemark', 'Mdx'].includes(node.internal.type) && node.parent && options) {
     const fileSystemNode = getNode(node.parent);
     const { base, relativeDirectory, absolutePath } = fileSystemNode as FileSystemNode;
-    const { filename, estimatedLocale } = parseFilename(base, options.defaultLocale);
+    const { filename, estimatedLocale } = parseFilenameSuffix(base, options.defaultLocale);
     const frontmatter = extractFrontmatter(node);
     const locale = findLocale(estimatedLocale, options);
     const localeOption = options.locales.find((l) => l.locale === locale);
