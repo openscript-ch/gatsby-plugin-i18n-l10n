@@ -12,7 +12,7 @@ describe('findClosestLocale', () => {
   });
 });
 
-describe('readFilename', () => {
+describe('parseFilenameSuffix', () => {
   it('should estimate the language in a filename', () => {
     const { estimatedLocale } = parseFilenameSuffix('index.de.md', 'en');
     expect(estimatedLocale).toBe('de');
