@@ -1,0 +1,76 @@
+{
+  "name": "gatsby-starter-dogmatism",
+  "homepage": "https://github.com/openscript/gatsby-starter-dogmatism",
+  "private": true,
+  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "version": "5.3.2",
+  "author": "openscript",
+  "dependencies": {
+    "@emotion/react": "11.10.5",
+    "@emotion/styled": "11.10.5",
+    "@mdx-js/mdx": "2.2.1",
+    "@mdx-js/react": "2.2.1",
+    "gatsby": "5.3.3",
+    "gatsby-plugin-catch-links": "5.3.0",
+    "gatsby-plugin-emotion": "8.3.0",
+    "gatsby-plugin-i18n-l10n": "file:../dist",
+    "gatsby-plugin-image": "3.3.2",
+    "gatsby-plugin-manifest": "5.3.1",
+    "gatsby-plugin-mdx": "5.3.1",
+    "gatsby-plugin-offline": "6.3.1",
+    "gatsby-plugin-sharp": "5.3.2",
+    "gatsby-remark-autolink-headers": "6.3.1",
+    "gatsby-remark-copy-linked-files": "6.3.0",
+    "gatsby-remark-images": "7.3.1",
+    "gatsby-source-filesystem": "5.3.1",
+    "gatsby-transformer-sharp": "5.3.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-intl": "6.2.5"
+  },
+  "devDependencies": {
+    "@babel/core": "7.20.5",
+    "@types/node": "18.11.17",
+    "@types/react": "18.0.26",
+    "@types/react-dom": "18.0.9",
+    "@typescript-eslint/eslint-plugin": "5.47.0",
+    "@typescript-eslint/parser": "5.47.0",
+    "babel-eslint": "10.1.0",
+    "eslint": "8.30.0",
+    "eslint-config-airbnb": "19.0.4",
+    "eslint-config-airbnb-typescript": "17.0.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-jsx-a11y": "6.6.1",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-react": "7.31.11",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "prettier": "2.8.1",
+    "ts-node": "10.9.1",
+    "typescript": "4.9.4"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "0BSD",
+  "scripts": {
+    "build": "gatsby build",
+    "build:with-prefix": "gatsby build --prefix-paths",
+    "check:format": "eslint . --max-warnings 0",
+    "check:types": "tsc --noEmit",
+    "check:watch-types": "tsc --noEmit --watch",
+    "develop": "gatsby develop",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
+    "start": "yarn run develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+  },
+  "bugs": {
+    "url": "https://github.com/gatsbyjs/gatsby/issues"
+  }
+}
