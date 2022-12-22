@@ -85,6 +85,14 @@ When you create pages programmatically with `createPage()` by default the page w
 - `referTranslations: string[]`: Refers translations for given locales.
 - `adjustPath: boolean`: Add locale prefix and replaces slugs.
 
+## Development
+
+1. **Clone** the project
+1. **Open** the freshly cloned project with Visual Studio Code and [Remote Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
+1. **Install** the projects dependencies with `npm install`.
+1. **Run** the tests with `npm test`
+1. **Run** the example project with `npm run example start`
+
 ## Alternatives
 
 - [gatsby-theme-i18n](https://www.gatsbyjs.com/plugins/gatsby-theme-i18n)
