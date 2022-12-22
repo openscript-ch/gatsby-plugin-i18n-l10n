@@ -29,14 +29,14 @@ Providing i18n and l10n to Gatsby. Besides translating pages and Markdown files,
    {
      resolve: `gatsby-plugin-i18n-l10n`,
      options: {
-       // IETF BCP 47 language tag: default locale, which won't be prefixed
+       // string: IETF BCP 47 language tag: default locale, which won't be prefixed
        defaultLocale: `de-CH`,
        // string: absolute site url
        siteUrl: `https://example.com`,
        // locales[]: all locales, which should be available
        locales: [
          {
-           // IETF BCP 47 language tag of this language
+           // string: IETF BCP 47 language tag of this language
            locale: `en-US`,
            // string: prefix for this language, which will be used to prefix the url, if it's not the default locale
            prefix: `en`,
