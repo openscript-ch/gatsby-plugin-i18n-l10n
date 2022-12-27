@@ -1,4 +1,5 @@
 import { GatsbyNode } from 'gatsby';
+import { customizeSitePageContext } from './src/createSchemaCustomization/customizeSitePageContext';
 import { translateNode } from './src/onCreateNode/translateNode';
 import { translatePage } from './src/onCreatePage/translatePage';
 import { PluginOptions } from './types';
@@ -29,16 +30,8 @@ export const onCreatePage: GatsbyNode['onCreatePage'] = async (args, options: Pl
   await translatePage(args, options);
 };
 
-export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = async ({ actions }) => {
-  actions.createTypes(`
-    type SitePage implements Node {
-      context: SitePageContext
-    }
-    type SitePageContext {
-      locale: String
-      prefix: String
-    }
-  `);
+export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = async (args, options, callback) => {
+  customizeSitePageContext(args, options, callback);
 };
 
 export const onCreateWebpackConfig: GatsbyNode['onCreateWebpackConfig'] = async ({ actions }) => {
