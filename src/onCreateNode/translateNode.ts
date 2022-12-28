@@ -6,6 +6,8 @@ import { Frontmatter, OnCreateNode, PluginOptions, Translation } from '../../typ
 import { addLocalePrefix, replaceSegmentsWithSlugs, trimRightSlash } from '../utils/path';
 import { findClosestLocale, parseFilenameSuffix } from '../utils/i18n';
 
+const MARKDOWN_TYPES = ['MarkdownRemark', 'Mdx'];
+
 const findLocale = (estimatedLocale: string, options: PluginOptions) => {
   return (
     findClosestLocale(
@@ -51,6 +53,10 @@ const findTranslations = (nodes: Node[], absolutePath: string, options: PluginOp
   });
 };
 
+const getMarkdownNode = (sibling: FileSystemNode, getNode: NodePluginArgs['getNode']) => {
+  return sibling.children.map((c) => getNode(c)).find((c) => c !== undefined && MARKDOWN_TYPES.includes(c.internal.type));
+};
+
 /**
  * Returns a list of paths and locales to the sibling nodes
  *
@@ -62,9 +68,7 @@ const findTranslations = (nodes: Node[], absolutePath: string, options: PluginOp
 const getAvailableTranslations = (siblings: FileSystemNode[], getNode: NodePluginArgs['getNode'], options: PluginOptions) => {
   return siblings.flatMap((s) => {
     const { filename: siblingFilename, estimatedLocale: siblingEstimatedLocale } = parseFilenameSuffix(s.base, options.defaultLocale);
-    const markdownNode = s.children
-      .map((c) => getNode(c))
-      .find((c) => c !== undefined && ['MarkdownRemark', 'Mdx'].includes(c.internal.type));
+    const markdownNode = getMarkdownNode(s, getNode);
 
     if (!markdownNode) {
       return [];
@@ -91,9 +95,7 @@ const propagateCurrentNode = (
   createNodeField: Actions['createNodeField'],
 ) => {
   siblings.forEach((s) => {
-    const markdownNode = s.children
-      .map((c) => getNode(c))
-      .find((c) => c !== undefined && ['MarkdownRemark', 'Mdx'].includes(c.internal.type));
+    const markdownNode = getMarkdownNode(s, getNode);
 
     if (!markdownNode) {
       return;
@@ -152,7 +154,7 @@ const getTagsField = (tags?: string[]) => {
 export const translateNode: OnCreateNode = async ({ getNode, getNodes, node, actions }, options) => {
   const { createNodeField } = actions;
 
-  if (['MarkdownRemark', 'Mdx'].includes(node.internal.type) && node.parent && options) {
+  if (MARKDOWN_TYPES.includes(node.internal.type) && node.parent && options) {
     const fileSystemNode = getNode(node.parent);
     const { base, relativeDirectory, absolutePath } = fileSystemNode as FileSystemNode;
     const { filename, estimatedLocale } = parseFilenameSuffix(base, options.defaultLocale);
