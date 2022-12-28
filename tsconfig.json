@@ -1,10 +1,20 @@
 {
-  "include": ["./src/**/*", "./*.ts"],
+  "include": [
+    "./src/**/*",
+    "./*.ts"
+  ],
+  "exclude": [
+    "./src/**/*.test.*"
+  ],
   "compilerOptions": {
     "outDir": "dist",
     "target": "ES6",
     "module": "CommonJS",
-    "lib": ["dom", "ES2017", "ES2019"],
+    "lib": [
+      "dom",
+      "ES2017",
+      "ES2019"
+    ],
     // "allowJs": true,
     // "checkJs": true,
     "jsx": "react-jsx",
