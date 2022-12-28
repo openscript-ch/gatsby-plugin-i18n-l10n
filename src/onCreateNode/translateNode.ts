@@ -60,11 +60,16 @@ const findTranslations = (nodes: Node[], absolutePath: string, options: PluginOp
  * @returns a list of translations for the current node
  */
 const getAvailableTranslations = (siblings: FileSystemNode[], getNode: NodePluginArgs['getNode'], options: PluginOptions) => {
-  return siblings.map((s) => {
+  return siblings.flatMap((s) => {
     const { filename: siblingFilename, estimatedLocale: siblingEstimatedLocale } = parseFilenameSuffix(s.base, options.defaultLocale);
     const markdownNode = s.children
       .map((c) => getNode(c))
       .find((c) => c !== undefined && ['MarkdownRemark', 'Mdx'].includes(c.internal.type));
+
+    if (!markdownNode) {
+      return [];
+    }
+
     const title = extractFrontmatter(markdownNode)?.title;
     const locale = findLocale(siblingEstimatedLocale, options);
     return { filename: siblingFilename, locale, title };
