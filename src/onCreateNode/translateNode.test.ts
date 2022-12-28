@@ -90,8 +90,20 @@ const allNodes = [
     },
     base: 'more.de.md',
     relativeDirectory: 'sections/special',
-    dir: '/tmp/project/content/sections',
+    dir: '/tmp/project/content/sections/special',
     absolutePath: '/tmp/project/content/sections/special/more.de.md',
+    children: ['m3'],
+  },
+  {
+    id: '5',
+    internal: {
+      type: 'File',
+    },
+    base: 'more.en.json',
+    relativeDirectory: 'sections/special',
+    dir: '/tmp/project/content/sections/special',
+    absolutePath: '/tmp/project/content/sections/special/more.en.json',
+    children: ['j0'],
   },
   { ...node },
   {
@@ -118,6 +130,20 @@ const allNodes = [
         { locale: 'de-CH', path: '/old/translation' },
         { locale: 'zh-CN', path: '/existing/translation' },
       ],
+    },
+  },
+  {
+    id: 'm3',
+    parent: '4',
+    internal: {
+      type: 'MarkdownRemark',
+    },
+  },
+  {
+    id: 'j0',
+    parent: '5',
+    internal: {
+      type: 'JSON',
     },
   },
 ];
