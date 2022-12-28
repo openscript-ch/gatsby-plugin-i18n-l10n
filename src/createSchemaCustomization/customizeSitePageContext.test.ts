@@ -8,8 +8,7 @@ describe('customizeSitePageContext', () => {
       },
     };
     const optionsMock: any = {};
-    const callbackMock = jest.fn();
-    customizeSitePageContext(argsMock, optionsMock, callbackMock);
+    customizeSitePageContext(argsMock, optionsMock);
     expect(argsMock.actions.createTypes).toBeCalled();
   });
 });
