@@ -7,8 +7,8 @@ describe('sourceTranslationNodes', () => {
       actions: {
         createNode: jest.fn(),
       },
-      createNodeId: jest.fn().mockImplementation((value: string) => value),
-      createContentDigest: jest.fn().mockImplementation((value: object) => JSON.stringify(value)),
+      createNodeId: jest.fn((value: string) => value),
+      createContentDigest: jest.fn((value: object) => JSON.stringify(value)),
     };
     const optionsMock: PluginOptions = {
       defaultLocale: 'en-US',

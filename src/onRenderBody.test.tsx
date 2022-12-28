@@ -20,7 +20,7 @@ describe('onRenderBody', () => {
     expect(setHeadComponentsMock).toBeCalledTimes(0);
   });
   it('should set i18n meta data', () => {
-    const loadPageDataSyncMock = jest.fn().mockImplementation(() => ({
+    const loadPageDataSyncMock = jest.fn().mockReturnValue({
       result: {
         pageContext: {
           locale: 'de-CH',
@@ -30,7 +30,7 @@ describe('onRenderBody', () => {
           ],
         },
       },
-    }));
+    });
     const setHtmlAttributesMock = jest.fn();
     const setHeadComponentsMock = jest.fn();
 
