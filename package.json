@@ -25,7 +25,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc --project tsconfig.build.json",
     "check:format": "eslint . --max-warnings 0",
     "check:types": "tsc --noEmit",
     "dev:test": "jest --watch",
