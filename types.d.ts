@@ -41,9 +41,15 @@ export type PluginOptions = {
 type GatsbyNodeOnCreatePage = NonNullable<GatsbyNode['onCreatePage']>;
 type GatsbyNodeOnCreateNode = NonNullable<GatsbyNode['onCreateNode']>;
 type GatsbyNodeCreateSchemaCustomization = NonNullable<GatsbyNode['createSchemaCustomization']>;
+type GatsbyNodeSourceNodes = NonNullable<GatsbyNode['sourceNodes']>;
 
 export type OnCreatePage = (args: Parameters<GatsbyNodeOnCreatePage>[0], options?: PluginOptions) => ReturnType<GatsbyNodeOnCreatePage>;
 export type OnCreateNode = (args: Parameters<GatsbyNodeOnCreateNode>[0], options?: PluginOptions) => ReturnType<GatsbyNodeOnCreateNode>;
+export type CreateSchemaCustomization = (
+  args: Parameters<GatsbyNodeCreateSchemaCustomization>[0],
+  options?: PluginOptions,
+) => ReturnType<GatsbyNodeCreateSchemaCustomization>;
+export type SourceNodes = (args: Parameters<GatsbyNodeSourceNodes>[0], options?: PluginOptions) => ReturnType<GatsbyNodeSourceNodes>;
 
 type GatsbyBrowserWrapPageElement = NonNullable<GatsbyBrowser['wrapPageElement']>;
 type GatsbySSRWrapPageElement = NonNullable<GatsbySSR['wrapPageElement']>;

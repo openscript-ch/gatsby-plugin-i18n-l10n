@@ -1,6 +1,6 @@
-import { GatsbyNodeCreateSchemaCustomization } from '../../types';
+import { CreateSchemaCustomization } from '../../types';
 
-export const customizeSitePageContext: GatsbyNodeCreateSchemaCustomization = async ({ actions }) => {
+export const customizeSitePageContext: CreateSchemaCustomization = async ({ actions }) => {
   actions.createTypes(`
     type SitePage implements Node {
       context: SitePageContext
