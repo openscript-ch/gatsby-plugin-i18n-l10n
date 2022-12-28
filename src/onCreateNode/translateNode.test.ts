@@ -149,7 +149,7 @@ const allNodes = [
 ];
 
 const createNodeField = jest.fn();
-const getNode = jest.fn().mockImplementation((id: string) => allNodes.find((n) => n.id === id));
+const getNode = jest.fn((id: string) => allNodes.find((n) => n.id === id));
 const getNodes = jest.fn().mockReturnValue(allNodes);
 const args: any = {
   getNode,
