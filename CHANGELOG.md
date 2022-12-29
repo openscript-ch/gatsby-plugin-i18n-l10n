@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.0](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.0.1...v5.1.0) (2022-12-29)
+
+
+### 🐛 Bug Fixes
+
+*  find available translations ([9a0a1fa](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/9a0a1fa37150fc25c41170273fa4bb7211af8ab3))
+
+
+### 📚 Documentations
+
+* **readme:** add missing data types ([d1f2cdf](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/d1f2cdfb4c7fdb554a77c4019077e70adaa38ec7))
+* **readme:** fix build badge ([76205a5](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/76205a545ac5a05054ea01a9c0210a4912a694a7))
+* **readme:** fix build badge ([9616384](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/9616384e07492fd3d96e74b5f6d9f2607d6dd324))
+* **readme:** fix build badge ([3da97ef](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/3da97efa7c877505a9fcff8d3aa71e8d7be48e58))
+* **readme:** update peer dependencies ([8f31af3](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/8f31af3de91244847ab6afe67dc6f32a0bc92579))
+* **readme:** write about installing examples dependencies ([098f70e](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/098f70e461958f8a1d58f359ba7d846b7ba66c68))
+* **translatePage:** enhance page translation commenting ([71901ba](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/71901bafad0b2d7e50bee4d7d3d12e74722604ce))
+
+
+### 🚀 Features
+
+* source translations ([ca6d56d](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/ca6d56d68f004a9e1235e2e1e01298519c77f1ca))
+
 ### [5.0.1](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.0.0...v5.0.1) (2022-12-14)
 
 

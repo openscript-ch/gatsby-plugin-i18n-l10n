@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-i18n-l10n",
-  "version": "5.0.1",
+  "version": "5.1.0",
   "description": "Providing i18n and l10n to Gatsby with react-intl. Besides translating pages and labels, you can also translate the slugs and paths and still link between translated sibling pages.",
   "keywords": [
     "gatsby",
