@@ -2,6 +2,7 @@ import { trimSlashes } from './path';
 
 const FILENAME_SUFFIX_PATTERN = /^([^.]+)\.?(.*)?(?=\.\w+)/;
 const ALL_SLASHES_PATTERN = /\//g;
+const INDEX_LOCALE_PAGES_ID = 'index';
 
 export function findClosestLocale(locale: string, locales: string[]) {
   if (locale.length === 5) {
@@ -19,10 +20,14 @@ export const parseFilenameSuffix = (name: string, defaultLocale: string) => {
 };
 
 export const createLocalePagesId = (path: string, prefix?: string) => {
-  const localePageId = trimSlashes(path).replace(ALL_SLASHES_PATTERN, '.');
+  let localePageId = trimSlashes(path).replace(ALL_SLASHES_PATTERN, '.');
 
   if (prefix) {
-    return localePageId.replace(new RegExp(`^${prefix}\\.`), '');
+    localePageId = localePageId.replace(new RegExp(`^${prefix}\\.`), '');
+  }
+
+  if (localePageId === '.' || localePageId === prefix) {
+    return INDEX_LOCALE_PAGES_ID;
   }
 
   return localePageId;

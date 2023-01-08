@@ -48,4 +48,12 @@ describe('createLocalePageId', () => {
     const localePageId = createLocalePagesId('/en/this/is/an/english-page', 'en');
     expect(localePageId).toBe('this.is.an.english-page');
   });
+  it('should return index for index pages', () => {
+    const localePageId = createLocalePagesId('/');
+    expect(localePageId).toBe('index');
+  });
+  it('should return index for index pages without prefix', () => {
+    const localePageId = createLocalePagesId('/en/', 'en');
+    expect(localePageId).toBe('index');
+  });
 });
