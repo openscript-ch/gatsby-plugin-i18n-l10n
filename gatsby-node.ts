@@ -31,8 +31,8 @@ export const onCreatePage: GatsbyNode['onCreatePage'] = async (args, options: Pl
   await translatePage(args, options);
 };
 
-export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = async (args, options: PluginOptions) => {
-  customizeSitePageContext(args, options);
+export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = async (args) => {
+  customizeSitePageContext(args);
 };
 
 export const sourceNodes: GatsbyNode['sourceNodes'] = async (args, options: PluginOptions) => {

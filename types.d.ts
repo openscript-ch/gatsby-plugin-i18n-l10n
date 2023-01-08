@@ -41,7 +41,6 @@ export type PluginOptions = {
 
 type GatsbyNodeOnCreatePage = NonNullable<GatsbyNode['onCreatePage']>;
 type GatsbyNodeOnCreateNode = NonNullable<GatsbyNode['onCreateNode']>;
-type GatsbyNodeCreateSchemaCustomization = NonNullable<GatsbyNode['createSchemaCustomization']>;
 type GatsbyNodeSourceNodes = NonNullable<GatsbyNode['sourceNodes']>;
 
 export type OnCreatePage = (args: Parameters<GatsbyNodeOnCreatePage>[0], options?: PluginOptions) => ReturnType<GatsbyNodeOnCreatePage>;
