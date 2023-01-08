@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.2.0](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.1.0...v5.2.0) (2023-01-08)
+
+
+### 🚀 Features
+
+* add locale pages id to page context ([811c7d9](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/811c7d9da9d73c3b83dd03e32d9117b544a7327d))
+
 ## [5.1.0](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.0.1...v5.1.0) (2022-12-29)
 
 
