@@ -23,6 +23,7 @@ export type Translation = {
 export type SitePageContext = {
   translations?: Translation[];
   locale?: string;
+  localePageId?: string;
   prefix?: string;
 };
 

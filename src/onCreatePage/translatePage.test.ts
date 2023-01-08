@@ -17,6 +17,7 @@ const options: PluginOptions = {
       prefix: `de`,
       slugs: {
         '/imprint': '/impressum',
+        '/pages/imprint': '/seiten/impressum',
       },
       messages: {},
     },
@@ -42,7 +43,7 @@ describe('translatePage', () => {
 
   it('should translate stateful created pages', () => {
     const page: Page = {
-      path: '/imprint',
+      path: '/pages/imprint',
       component: {} as any,
       context: {},
       isCreatedByStatefulCreatePages: true,
@@ -56,14 +57,15 @@ describe('translatePage', () => {
       context: {
         locale: 'en-US',
         prefix: 'en',
+        localePagesId: 'pages.imprint',
         translations: [
           {
             locale: 'de-CH',
-            path: '/de/impressum',
+            path: '/de/seiten/impressum',
           },
           {
             locale: 'zh-CN',
-            path: '/zh/imprint',
+            path: '/zh/pages/imprint',
           },
         ],
       },
@@ -73,36 +75,38 @@ describe('translatePage', () => {
       context: {
         locale: 'de-CH',
         prefix: 'de',
+        localePagesId: 'pages.imprint',
         translations: [
           {
             locale: 'en-US',
-            path: '/imprint',
+            path: '/pages/imprint',
           },
           {
             locale: 'zh-CN',
-            path: '/zh/imprint',
+            path: '/zh/pages/imprint',
           },
         ],
       },
-      path: '/de/impressum',
+      path: '/de/seiten/impressum',
     });
     expect(actions.createPage).toHaveBeenNthCalledWith(3, {
       ...page,
       context: {
         locale: 'zh-CN',
         prefix: 'zh',
+        localePagesId: 'pages.imprint',
         translations: [
           {
             locale: 'en-US',
-            path: '/imprint',
+            path: '/pages/imprint',
           },
           {
             locale: 'de-CH',
-            path: '/de/impressum',
+            path: '/de/seiten/impressum',
           },
         ],
       },
-      path: '/zh/imprint',
+      path: '/zh/pages/imprint',
     });
   });
 
@@ -121,6 +125,7 @@ describe('translatePage', () => {
       context: {
         locale: 'en-US',
         prefix: 'en',
+        localePagesId: 'imprint',
       },
     });
   });
@@ -141,6 +146,7 @@ describe('translatePage', () => {
       context: {
         locale: 'de-CH',
         prefix: 'de',
+        localePagesId: 'imprint',
       },
     });
   });
@@ -163,6 +169,7 @@ describe('translatePage', () => {
       context: {
         locale: 'de-CH',
         prefix: 'de',
+        localePagesId: 'imprint',
       },
     });
   });
@@ -186,6 +193,7 @@ describe('translatePage', () => {
       context: {
         locale: 'en-US',
         prefix: 'en',
+        localePagesId: 'imprint',
         translations: [
           {
             locale: 'de-CH',
@@ -217,6 +225,7 @@ describe('translatePage', () => {
       context: {
         locale: 'de-CH',
         prefix: 'de',
+        localePagesId: 'imprint',
         translations: [
           {
             locale: 'en-US',

@@ -1,4 +1,4 @@
-import { findClosestLocale, parseFilenameSuffix } from './i18n';
+import { createLocalePagesId, findClosestLocale, parseFilenameSuffix } from './i18n';
 
 describe('findClosestLocale', () => {
   it('should match exact locale', () => {
@@ -36,5 +36,16 @@ describe('parseFilenameSuffix', () => {
   it('should return the filename without extensions', () => {
     const { filename } = parseFilenameSuffix('index.en-US.md', 'en');
     expect(filename).toBe('index');
+  });
+});
+
+describe('createLocalePageId', () => {
+  it('should return the locale page id', () => {
+    const localePageId = createLocalePagesId('/this/is/an/english-page');
+    expect(localePageId).toBe('this.is.an.english-page');
+  });
+  it('should return the locale page id without prefix', () => {
+    const localePageId = createLocalePagesId('/en/this/is/an/english-page', 'en');
+    expect(localePageId).toBe('this.is.an.english-page');
   });
 });

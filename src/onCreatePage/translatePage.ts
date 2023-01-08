@@ -1,4 +1,5 @@
 import { OnCreatePage } from '../../types';
+import { createLocalePagesId } from '../utils/i18n';
 import { generatePageContextByPath, translatePagePath, translatePagePaths } from '../utils/path';
 
 export const translatePage: OnCreatePage = async ({ page, actions }, options) => {
@@ -13,7 +14,13 @@ export const translatePage: OnCreatePage = async ({ page, actions }, options) =>
     paths.forEach((path) => {
       const translations = paths.filter((p) => p.locale !== path.locale);
       const locale = options.locales.find((l) => l.locale === path.locale);
-      const context = { ...page.context, locale: path.locale, translations, prefix: locale?.prefix };
+      const context = {
+        ...page.context,
+        locale: path.locale,
+        localePagesId: createLocalePagesId(page.path),
+        translations,
+        prefix: locale?.prefix,
+      };
 
       createPage({ ...page, path: path.path, context });
     });
@@ -27,13 +34,13 @@ export const translatePage: OnCreatePage = async ({ page, actions }, options) =>
     let context = restContext;
     let path = (context.basePath as string) || page.path;
 
-    // Add locale and prefix from context or path
+    // Add locale, localePagesId and prefix from context or path
     const contextLocale = page.context?.locale as string | undefined;
     let optionsLocale = options.locales.find((l) => l.locale === contextLocale);
     const localeAndPrefixContext = optionsLocale
       ? { locale: optionsLocale.locale, prefix: optionsLocale.prefix }
       : generatePageContextByPath(path, options);
-    context = { ...context, ...localeAndPrefixContext };
+    context = { ...context, ...localeAndPrefixContext, localePagesId: createLocalePagesId(page.path, localeAndPrefixContext.prefix) };
     optionsLocale = options.locales.find((l) => l.locale === localeAndPrefixContext.locale);
 
     // Refer translations if requested

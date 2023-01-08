@@ -7,6 +7,7 @@ export const customizeSitePageContext: CreateSchemaCustomization = async ({ acti
     }
     type SitePageContext {
       locale: String
+      localePagesId: String
       prefix: String
     }
   `);
