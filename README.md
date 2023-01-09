@@ -85,6 +85,23 @@ When you create pages programmatically with `createPage()` by default the page w
 - `referTranslations: string[]`: Refers translations for given locales.
 - `adjustPath: boolean`: Add locale prefix and replaces slugs.
 
+### GraphQL data layer integration
+
+All translation messages are sourced to Gatsbys GraphQL data layer with `translation` and `allTranslation`. Here is an example GraphQL query:
+
+```typescript
+export const query = graphql`
+  query SomePage($locale: String) {
+    pageTitle: translation(locale: { eq: $locale }, key: { eq: "page.some.title" }) {
+      message
+    }
+    pageDescription: translation(locale: { eq: $locale }, key: { eq: "page.some.description" }) {
+      message
+    }
+  }
+`;
+```
+
 ## Development
 
 1. **Clone** the project
