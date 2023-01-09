@@ -1,4 +1,4 @@
-import { PluginOptions as GatsbyPluginOptions } from 'gatsby';
+import { PluginOptions as GatsbyPluginOptions, Page as GatsbyPage } from 'gatsby';
 
 export type Frontmatter = {
   title?: string;
@@ -13,16 +13,18 @@ export type Translation = {
 export type SitePageContext = {
   translations?: Translation[];
   locale?: string;
-  localePageId?: string;
+  localePagesId?: string;
   prefix?: string;
 };
 
+export type UnstatefulSitePageContext = {
+  referTranslations?: any;
+  adjustPath?: any;
+  basePath?: string;
+} & SitePageContext;
+
 declare module 'gatsby' {
-  export interface Page<TContext = SitePageContext> {
-    path: string;
-    matchPath?: string;
-    component: string;
-    context: TContext;
+  export interface Page extends GatsbyPage {
     isCreatedByStatefulCreatePages?: boolean;
   }
 

@@ -1,8 +1,9 @@
 import { CreatePageArgs, PluginOptions } from 'gatsby';
+import { SitePageContext, UnstatefulSitePageContext } from '../../types';
 import { createLocalePagesId } from '../utils/i18n';
 import { generatePageContextByPath, translatePagePath, translatePagePaths } from '../utils/path';
 
-export const translatePage = async ({ page, actions }: CreatePageArgs, options: PluginOptions) => {
+export const translatePage = async ({ page, actions }: CreatePageArgs<SitePageContext>, options: PluginOptions) => {
   const { createPage, deletePage } = actions;
 
   // Translate statefully created pages from `/src/pages` or gatsby-plugin-page-creator
@@ -30,7 +31,7 @@ export const translatePage = async ({ page, actions }: CreatePageArgs, options: 
   if (options && !page.isCreatedByStatefulCreatePages) {
     deletePage(page);
 
-    const { referTranslations, adjustPath, ...restContext } = page.context || {};
+    const { referTranslations, adjustPath, ...restContext } = (page.context as UnstatefulSitePageContext) || {};
     let context = restContext;
     let path = (context.basePath as string) || page.path;
 
