@@ -6,6 +6,11 @@ import { generatePageContextByPath, translatePagePath, translatePagePaths } from
 export const translatePage = async ({ page, actions }: CreatePageArgs<SitePageContext>, options: PluginOptions) => {
   const { createPage, deletePage } = actions;
 
+  // If this page was already translated, we skip it.
+  if (page.context?.locale && page.context.localePagesId) {
+    return;
+  }
+
   // Translate statefully created pages from `/src/pages` or gatsby-plugin-page-creator
   if (options && page.isCreatedByStatefulCreatePages) {
     const paths = translatePagePaths(page.path, options);

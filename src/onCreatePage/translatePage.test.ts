@@ -238,4 +238,20 @@ describe('translatePage', () => {
       },
     });
   });
+
+  it('should skip already translated pages', () => {
+    const page: Page = {
+      path: '/imprint',
+      component: {} as any,
+      context: {
+        locale: 'de-CH',
+        localePagesId: 'imprint',
+      },
+    };
+
+    translatePage({ page, actions } as any, options);
+
+    expect(actions.deletePage).not.toBeCalled();
+    expect(actions.createPage).not.toBeCalled();
+  });
 });
