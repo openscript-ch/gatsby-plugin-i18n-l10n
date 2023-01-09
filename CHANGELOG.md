@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.2.2](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.2.1...v5.2.2) (2023-01-09)
+
+
+### 🐛 Bug Fixes
+
+* check if page was already translated ([8ba5896](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/8ba58963e9dd2e70770988b89a393be49ff7c558))
+
+
+### 📚 Documentations
+
+* **readme:** elaborate on graphql integration ([085a5ac](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/085a5aca781209e27b8f1d8605704b5206a6f421))
+
 ### [5.2.1](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.2.0...v5.2.1) (2023-01-08)
 
 
