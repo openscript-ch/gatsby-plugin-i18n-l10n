@@ -1,22 +1,22 @@
 import { PluginOptions, WrapPageElementNodeArgs } from 'gatsby';
 import { IntlProvider } from 'react-intl';
-import { SitePageContext, Translation } from '../types';
+import { SitePageContext } from '../types';
 import { I18nL10nContext } from './contexts/I18nL10nContext';
 
-export const wrapPageElement = ({ element, props }: WrapPageElementNodeArgs, options: PluginOptions) => {
-  const pageContext = props.pageContext as SitePageContext;
-  const translations = (props.pageContext.translations as Translation[]) || [];
-  const locale = pageContext.locale ?? options.defaultLocale;
+export const wrapPageElement = (
+  { element, props }: WrapPageElementNodeArgs<Record<string, unknown>, SitePageContext>,
+  options: PluginOptions,
+) => {
+  const translations = props.pageContext.translations || [];
+  const locale = props.pageContext.locale ?? options.defaultLocale;
   const currentLocale = options.locales.find((l) => l.locale === locale);
-  const prefix = pageContext.prefix ?? currentLocale?.prefix;
+  const prefix = props.pageContext.prefix ?? currentLocale?.prefix;
   const currentMessages = { ...currentLocale?.messages, ...currentLocale?.slugs };
 
-  if (currentMessages) {
-    // Inject language names of all available languages into current messages
-    options.locales.forEach((l) => {
-      currentMessages[`languages.${l.locale}`] = l.messages.language;
-    });
-  }
+  // Inject language names of all available languages into current messages
+  options.locales.forEach((l) => {
+    currentMessages[`languages.${l.locale}`] = l.messages.language;
+  });
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
