@@ -1,14 +1,4 @@
-import { GatsbyBrowser, GatsbyNode, GatsbySSR, PluginOptions as GatsbyPluginOptions } from 'gatsby';
-
-declare module 'gatsby' {
-  export interface Page<TContext = Record<string, unknown>> {
-    path: string;
-    matchPath?: string;
-    component: string;
-    context: TContext;
-    isCreatedByStatefulCreatePages?: boolean;
-  }
-}
+import { PluginOptions as GatsbyPluginOptions } from 'gatsby';
 
 export type Frontmatter = {
   title?: string;
@@ -27,38 +17,24 @@ export type SitePageContext = {
   prefix?: string;
 };
 
-export type PluginOptions = {
-  defaultLocale: string;
-  siteUrl: string;
-  locales: {
-    locale: string;
-    prefix: string;
-    slugs: Record<string, string>;
-    messages: Record<string, string>;
-  }[];
-  pathBlacklist?: string[];
-} & GatsbyPluginOptions;
+declare module 'gatsby' {
+  export interface Page<TContext = SitePageContext> {
+    path: string;
+    matchPath?: string;
+    component: string;
+    context: TContext;
+    isCreatedByStatefulCreatePages?: boolean;
+  }
 
-type GatsbyNodeOnCreatePage = NonNullable<GatsbyNode['onCreatePage']>;
-type GatsbyNodeOnCreateNode = NonNullable<GatsbyNode['onCreateNode']>;
-type GatsbyNodeSourceNodes = NonNullable<GatsbyNode['sourceNodes']>;
-
-export type OnCreatePage = (args: Parameters<GatsbyNodeOnCreatePage>[0], options?: PluginOptions) => ReturnType<GatsbyNodeOnCreatePage>;
-export type OnCreateNode = (args: Parameters<GatsbyNodeOnCreateNode>[0], options?: PluginOptions) => ReturnType<GatsbyNodeOnCreateNode>;
-export type CreateSchemaCustomization = (
-  args: Parameters<GatsbyNodeCreateSchemaCustomization>[0],
-  options?: PluginOptions,
-) => ReturnType<GatsbyNodeCreateSchemaCustomization>;
-export type SourceNodes = (args: Parameters<GatsbyNodeSourceNodes>[0], options?: PluginOptions) => ReturnType<GatsbyNodeSourceNodes>;
-
-type GatsbyBrowserWrapPageElement = NonNullable<GatsbyBrowser['wrapPageElement']>;
-type GatsbySSRWrapPageElement = NonNullable<GatsbySSR['wrapPageElement']>;
-
-type GatsbyBrowserWrapPageElementParams = Parameters<GatsbyBrowserWrapPageElement>;
-type GatsbySSRWrapPageElementParams = Parameters<GatsbySSRWrapPageElement>;
-type GatsbyBrowserWrapPageElementReturnType = ReturnType<GatsbyBrowserWrapPageElement>;
-type GatsbySSRWrapPageElementReturnType = ReturnType<GatsbySSRWrapPageElement>;
-export type WrapPageElement = (
-  args: GatsbyBrowserWrapPageElementParams[0] | GatsbySSRWrapPageElementParams[0],
-  options: PluginOptions,
-) => GatsbyBrowserWrapPageElementReturnType | GatsbySSRWrapPageElementReturnType;
+  export interface PluginOptions extends GatsbyPluginOptions {
+    defaultLocale: string;
+    siteUrl: string;
+    locales: {
+      locale: string;
+      prefix: string;
+      slugs: Record<string, string>;
+      messages: Record<string, string>;
+    }[];
+    pathBlacklist?: string[];
+  }
+}

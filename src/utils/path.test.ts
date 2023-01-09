@@ -1,4 +1,4 @@
-import { PluginOptions } from '../../types';
+import { PluginOptions } from 'gatsby';
 import { addLocalePrefix, parsePathPrefix, translatePagePaths, trimRightSlash, trimSlashes } from './path';
 
 describe('trimRightSlash', () => {

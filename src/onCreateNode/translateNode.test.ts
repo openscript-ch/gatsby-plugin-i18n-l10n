@@ -1,4 +1,4 @@
-import { PluginOptions } from '../../types';
+import { PluginOptions } from 'gatsby';
 import { translateNode } from './translateNode';
 
 const options: PluginOptions = {

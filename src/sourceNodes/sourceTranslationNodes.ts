@@ -1,8 +1,8 @@
-import { SourceNodes } from '../../types';
+import { PluginOptions, SourceNodesArgs } from 'gatsby';
 
 const TRANSLATION_NODE_TYPE = 'Translation';
 
-export const sourceTranslationNodes: SourceNodes = ({ actions, createContentDigest, createNodeId }, options) => {
+export const sourceTranslationNodes = ({ actions, createContentDigest, createNodeId }: SourceNodesArgs, options: PluginOptions) => {
   const { createNode } = actions;
 
   options?.locales.forEach((l) => {

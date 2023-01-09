@@ -1,5 +1,5 @@
 import { cleanup, render } from '@testing-library/react';
-import { PluginOptions } from '../types';
+import { PluginOptions } from 'gatsby';
 import { wrapPageElement } from './wrapPageElement';
 
 describe('wrapPageElement', () => {

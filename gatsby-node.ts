@@ -3,7 +3,6 @@ import { customizeSitePageContext } from './src/createSchemaCustomization/custom
 import { translateNode } from './src/onCreateNode/translateNode';
 import { translatePage } from './src/onCreatePage/translatePage';
 import { sourceTranslationNodes } from './src/sourceNodes/sourceTranslationNodes';
-import { PluginOptions } from './types';
 
 export const pluginOptionsSchema: GatsbyNode['pluginOptionsSchema'] = ({ Joi }) => {
   return Joi.object({
@@ -23,11 +22,11 @@ export const pluginOptionsSchema: GatsbyNode['pluginOptionsSchema'] = ({ Joi }) 
   });
 };
 
-export const onCreateNode: GatsbyNode['onCreateNode'] = async (args, options: PluginOptions) => {
+export const onCreateNode: GatsbyNode['onCreateNode'] = async (args, options) => {
   await translateNode(args, options);
 };
 
-export const onCreatePage: GatsbyNode['onCreatePage'] = async (args, options: PluginOptions) => {
+export const onCreatePage: GatsbyNode['onCreatePage'] = async (args, options) => {
   await translatePage(args, options);
 };
 
@@ -35,7 +34,7 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
   customizeSitePageContext(args);
 };
 
-export const sourceNodes: GatsbyNode['sourceNodes'] = async (args, options: PluginOptions) => {
+export const sourceNodes: GatsbyNode['sourceNodes'] = async (args, options) => {
   sourceTranslationNodes(args, options);
 };
 

@@ -1,8 +1,8 @@
 import { FileSystemNode } from 'gatsby-source-filesystem';
 import convertToSlug from 'limax';
 import { posix as path } from 'path';
-import { Actions, Node, NodePluginArgs } from 'gatsby';
-import { Frontmatter, OnCreateNode, PluginOptions, Translation } from '../../types';
+import { Actions, CreateNodeArgs, Node, NodePluginArgs, PluginOptions } from 'gatsby';
+import { Frontmatter, Translation } from '../../types';
 import { addLocalePrefix, replaceSegmentsWithSlugs, trimRightSlash } from '../utils/path';
 import { findClosestLocale, parseFilenameSuffix } from '../utils/i18n';
 
@@ -151,7 +151,7 @@ const getTagsField = (tags?: string[]) => {
   return tags.map((t) => ({ title: t, slug: convertToSlug(t) }));
 };
 
-export const translateNode: OnCreateNode = async ({ getNode, getNodes, node, actions }, options) => {
+export const translateNode = async ({ getNode, getNodes, node, actions }: CreateNodeArgs, options: PluginOptions) => {
   const { createNodeField } = actions;
 
   if (MARKDOWN_TYPES.includes(node.internal.type) && node.parent && options) {

@@ -1,4 +1,4 @@
-import { PluginOptions } from '../../types';
+import { PluginOptions } from 'gatsby';
 import { sourceTranslationNodes } from './sourceTranslationNodes';
 
 describe('sourceTranslationNodes', () => {

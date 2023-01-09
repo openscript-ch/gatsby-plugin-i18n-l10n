@@ -1,8 +1,8 @@
-import { OnCreatePage } from '../../types';
+import { CreatePageArgs, PluginOptions } from 'gatsby';
 import { createLocalePagesId } from '../utils/i18n';
 import { generatePageContextByPath, translatePagePath, translatePagePaths } from '../utils/path';
 
-export const translatePage: OnCreatePage = async ({ page, actions }, options) => {
+export const translatePage = async ({ page, actions }: CreatePageArgs, options: PluginOptions) => {
   const { createPage, deletePage } = actions;
 
   // Translate statefully created pages from `/src/pages` or gatsby-plugin-page-creator

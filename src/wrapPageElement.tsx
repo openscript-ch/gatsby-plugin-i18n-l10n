@@ -1,8 +1,9 @@
+import { PluginOptions, WrapPageElementNodeArgs } from 'gatsby';
 import { IntlProvider } from 'react-intl';
-import { SitePageContext, Translation, WrapPageElement } from '../types';
+import { SitePageContext, Translation } from '../types';
 import { I18nL10nContext } from './contexts/I18nL10nContext';
 
-export const wrapPageElement: WrapPageElement = ({ element, props }, options) => {
+export const wrapPageElement = ({ element, props }: WrapPageElementNodeArgs, options: PluginOptions) => {
   const pageContext = props.pageContext as SitePageContext;
   const translations = (props.pageContext.translations as Translation[]) || [];
   const locale = pageContext.locale ?? options.defaultLocale;
