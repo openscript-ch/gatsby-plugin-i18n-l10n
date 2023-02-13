@@ -111,6 +111,18 @@ With the built-in `<GenericLocalizedLink>` component it's possible to use other 
 </GenericLocalizedLink>
 ```
 
+Another example with `<AniLink>`:
+
+```jsx
+<GenericLocalizedLink to="/imprint">
+  {(args) => (
+    <AniLink fade to={args.to}>
+      Go to Page 4
+    </AniLink>
+  )}
+</GenericLocalizedLink>
+```
+
 ### `createPage()`
 
 When you create pages programmatically with `createPage()` by default the page will only try to set the locale and prefix to the context. With the following options you can instruct the plugin to internationalize the context further:
