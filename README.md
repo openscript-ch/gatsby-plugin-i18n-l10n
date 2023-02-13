@@ -72,10 +72,33 @@ Providing i18n and l10n to Gatsby. Besides translating pages and Markdown files,
 
 ### `<LanguageSwitcher>`
 
-With the built-in `<LanguageSwitcher>` component, as user can change between the locales. With `resolveLanguageName` the language names can be provided to the component.
+With the built-in `<LanguageSwitcher>` component users can change between the locales. With `resolveLanguageName` prop the language names can be provided to the component.
 
 ```jsx
 <LanguageSwitcher resolveLanguageName={(locale) => intl.formatMessage({ id: `languages.${locale}` })} />
+```
+
+### `<GenericLocalizedLink>`
+
+With the built-in `<GenericLocalizedLink>` component it's possible to use other plugins, which modify Gatsbys `<Link>` component. Here is an example with [Gatsby Plugin Transition Link](https://www.gatsbyjs.com/plugins/gatsby-plugin-transition-link/):
+
+```jsx
+<GenericLocalizedLink to="/imprint">
+  {(args) => (
+    <TransitionLink
+      to={args.to}
+      exit={{
+        trigger: ({ exit, node }) => this.interestingExitAnimation(exit, node),
+        length: 1,
+      }}
+      entry={{
+        delay: 0.6,
+      }}
+    >
+      Go to page 2
+    </TransitionLink>
+  )}
+</GenericLocalizedLink>
 ```
 
 ### `createPage()`

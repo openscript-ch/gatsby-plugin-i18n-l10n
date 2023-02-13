@@ -1,11 +1,10 @@
-import { Link } from 'gatsby';
 import { posix as nodePath } from 'path';
-import { PropsWithChildren } from 'react';
+import { Fragment } from 'react';
 import { useIntl } from 'react-intl';
 import { useI18nL10nContext } from '../contexts/I18nL10nContext';
 import { trimRightSlash } from '../utils/path';
 
-type LocalizedLinkProps = PropsWithChildren<{
+type LinkProps = {
   className?: string;
   to: string;
   activeClassName?: string;
@@ -13,9 +12,13 @@ type LocalizedLinkProps = PropsWithChildren<{
   partiallyActive?: boolean;
   replace?: boolean;
   onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
-}>;
+};
 
-export default function LocalizedLink({
+type LocalizedLinkProps = {
+  children: (args: LinkProps) => JSX.Element;
+} & LinkProps;
+
+export default function GenericLocalizedLink({
   to,
   children,
   className,
@@ -31,17 +34,5 @@ export default function LocalizedLink({
   const getSlug = () => (intl.messages[to] ? intl.formatMessage({ id: to }) : to);
   const localizedPath = to !== '/' ? getSlug() : '/';
   const prefixedPath = intl.defaultLocale === intl.locale ? localizedPath : trimRightSlash(nodePath.join('/', prefix, localizedPath));
-  return (
-    <Link
-      to={prefixedPath}
-      className={className}
-      activeClassName={activeClassName}
-      activeStyle={activeStyle}
-      partiallyActive={partiallyActive}
-      replace={replace}
-      onClick={onClick}
-    >
-      {children}
-    </Link>
-  );
+  return <Fragment>{children({ to: prefixedPath, className, activeClassName, activeStyle, partiallyActive, replace, onClick })}</Fragment>;
 }
