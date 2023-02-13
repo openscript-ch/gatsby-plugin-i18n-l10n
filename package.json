@@ -30,7 +30,7 @@
     "check:types": "tsc --noEmit",
     "dev:test": "jest --watch",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "example": "npm run build && npm run --prefix ./example",
+    "example": "npm run build && npm run --prefix ./examples",
     "postbuild": "node ./postbuild.js",
     "release:major": "standard-version --release-as major && git push --follow-tags",
     "release:minor": "standard-version --release-as minor && git push --follow-tags",

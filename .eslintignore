@@ -4,4 +4,4 @@ dist
 .cache
 *.js
 __mock__
-example
+examples
