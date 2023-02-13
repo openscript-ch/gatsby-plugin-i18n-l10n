@@ -78,6 +78,16 @@ With the built-in `<LanguageSwitcher>` component users can change between the lo
 <LanguageSwitcher resolveLanguageName={(locale) => intl.formatMessage({ id: `languages.${locale}` })} />
 ```
 
+### `<LocalizedLink>`
+
+`<LocalizedLink>` wraps Gatsby `<Link>` component, thus it should be possible to use it in the same way.
+
+```jsx
+<LocalizedLink to="/products">Produkte</LocalizedLink>
+```
+
+If the configuration from above is used and the user views this link inside the i18n context `de-CH` the link will lead him to `/de/produkte`.
+
 ### `<GenericLocalizedLink>`
 
 With the built-in `<GenericLocalizedLink>` component it's possible to use other plugins, which modify Gatsbys `<Link>` component. Here is an example with [Gatsby Plugin Transition Link](https://www.gatsbyjs.com/plugins/gatsby-plugin-transition-link/):
