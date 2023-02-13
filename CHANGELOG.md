@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.3.0](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.2.2...v5.3.0) (2023-02-13)
+
+
+### 🚀 Features
+
+* generic localized link component ([2349d74](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/2349d7401c698302ece5e25d0cc3ee3090292755))
+
+
+### 📚 Documentations
+
+* **readme:** add localized link example ([cbded38](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/cbded388e8a403597c415cb6b7a847b8819b380b))
+
 ### [5.2.2](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.2.1...v5.2.2) (2023-01-09)
 
 
