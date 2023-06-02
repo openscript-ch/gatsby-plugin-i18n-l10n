@@ -1,0 +1,14 @@
+{
+	"name": "gatsby-plugin-i18n-l10n",
+	"image": "mcr.microsoft.com/devcontainers/typescript-node:0-20-bullseye",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"dbaeumer.vscode-eslint",
+				"esbenp.prettier-vscode",
+				"eamodio.gitlens",
+				"firsttris.vscode-jest-runner"
+			]
+		}
+	}
+}
