@@ -1,5 +1,5 @@
-import { PluginOptions } from 'gatsby';
 import { posix as nodePath } from 'path';
+import { PluginOptions } from 'gatsby';
 
 export const trimRightSlash = (path: string) => {
   return path === '/' ? path : path.replace(/\/$/, '');

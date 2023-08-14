@@ -1,5 +1,5 @@
-import { Link } from 'gatsby';
 import { posix as nodePath } from 'path';
+import { Link } from 'gatsby';
 import { PropsWithChildren } from 'react';
 import { useIntl } from 'react-intl';
 import { useI18nL10nContext } from '../contexts/I18nL10nContext';

@@ -1,6 +1,6 @@
+import { posix as path } from 'path';
 import { FileSystemNode } from 'gatsby-source-filesystem';
 import convertToSlug from 'limax';
-import { posix as path } from 'path';
 import { Actions, CreateNodeArgs, Node, NodePluginArgs, PluginOptions } from 'gatsby';
 import { Frontmatter, Translation } from '../../types';
 import { addLocalePrefix, replaceSegmentsWithSlugs, trimRightSlash } from '../utils/path';
