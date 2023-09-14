@@ -34,7 +34,7 @@ jobs:
         run: npm run test
 
       - name: Submit coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         if: matrix.os == 'ubuntu-latest' && matrix.node == '20.x'
 
       - name: Build
