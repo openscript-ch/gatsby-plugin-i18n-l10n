@@ -54,7 +54,7 @@ describe('sourceTranslationNodes', () => {
       3,
       expect.objectContaining({ key: 'key', message: '价值', locale: 'zh-CN' }),
     );
-    expect(argsMock.createNodeId).toBeCalledTimes(3);
-    expect(argsMock.createContentDigest).toBeCalledTimes(3);
+    expect(argsMock.createNodeId).toHaveBeenCalledTimes(3);
+    expect(argsMock.createContentDigest).toHaveBeenCalledTimes(3);
   });
 });
