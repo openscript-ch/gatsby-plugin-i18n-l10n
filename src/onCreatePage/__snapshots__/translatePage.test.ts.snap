@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`translatePage should obey page blacklists 1`] = `
+[MockFunction] {
+  "calls": [
+    [
+      {
+        "component": {},
+        "context": {
+          "locale": "en-US",
+          "localePagesId": "do-not-translate-to-german",
+          "prefix": "en",
+          "translations": [
+            {
+              "locale": "zh-CN",
+              "path": "/zh/do-not-translate-to-german",
+            },
+          ],
+        },
+        "isCreatedByStatefulCreatePages": true,
+        "path": "/do-not-translate-to-german",
+      },
+    ],
+    [
+      {
+        "component": {},
+        "context": {
+          "locale": "zh-CN",
+          "localePagesId": "do-not-translate-to-german",
+          "prefix": "zh",
+          "translations": [
+            {
+              "locale": "en-US",
+              "path": "/do-not-translate-to-german",
+            },
+          ],
+        },
+        "isCreatedByStatefulCreatePages": true,
+        "path": "/zh/do-not-translate-to-german",
+      },
+    ],
+  ],
+  "results": [
+    {
+      "type": "return",
+      "value": undefined,
+    },
+    {
+      "type": "return",
+      "value": undefined,
+    },
+  ],
+}
+`;
