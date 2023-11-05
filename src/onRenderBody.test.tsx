@@ -16,8 +16,8 @@ describe('onRenderBody', () => {
       );
     }
 
-    expect(setHtmlAttributesMock).toBeCalledTimes(0);
-    expect(setHeadComponentsMock).toBeCalledTimes(0);
+    expect(setHtmlAttributesMock).toHaveBeenCalledTimes(0);
+    expect(setHeadComponentsMock).toHaveBeenCalledTimes(0);
   });
   it('should set i18n meta data', () => {
     const loadPageDataSyncMock = jest.fn().mockReturnValue({
@@ -49,7 +49,7 @@ describe('onRenderBody', () => {
       );
     }
 
-    expect(setHtmlAttributesMock).toBeCalledWith({ lang: 'de-CH' });
+    expect(setHtmlAttributesMock).toHaveBeenCalledWith({ lang: 'de-CH' });
     expect(setHeadComponentsMock).toMatchInlineSnapshot(`
       [MockFunction] {
         "calls": [

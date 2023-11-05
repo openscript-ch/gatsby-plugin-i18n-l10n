@@ -8,6 +8,6 @@ describe('customizeSitePageContext', () => {
       },
     };
     customizeSitePageContext(argsMock);
-    expect(argsMock.actions.createTypes).toBeCalled();
+    expect(argsMock.actions.createTypes).toHaveBeenCalled();
   });
 });

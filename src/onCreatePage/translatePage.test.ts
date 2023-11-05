@@ -50,7 +50,7 @@ describe('translatePage', () => {
     };
     translatePage({ page, actions } as any, options);
 
-    expect(actions.deletePage).toBeCalledWith(page);
+    expect(actions.deletePage).toHaveBeenCalledWith(page);
     expect(actions.createPage).toHaveBeenCalledTimes(3);
     expect(actions.createPage).toHaveBeenNthCalledWith(1, {
       ...page,
@@ -118,7 +118,7 @@ describe('translatePage', () => {
     };
     translatePage({ page, actions } as any, options);
 
-    expect(actions.deletePage).toBeCalledWith(page);
+    expect(actions.deletePage).toHaveBeenCalledWith(page);
     expect(actions.createPage).toHaveBeenCalledTimes(1);
     expect(actions.createPage).toHaveBeenNthCalledWith(1, {
       ...page,
@@ -139,7 +139,7 @@ describe('translatePage', () => {
     };
     translatePage({ page, actions } as any, options);
 
-    expect(actions.deletePage).toBeCalledWith(page);
+    expect(actions.deletePage).toHaveBeenCalledWith(page);
     expect(actions.createPage).toHaveBeenCalledTimes(1);
     expect(actions.createPage).toHaveBeenNthCalledWith(1, {
       ...page,
@@ -162,7 +162,7 @@ describe('translatePage', () => {
     };
     translatePage({ page, actions } as any, options);
 
-    expect(actions.deletePage).toBeCalledWith(page);
+    expect(actions.deletePage).toHaveBeenCalledWith(page);
     expect(actions.createPage).toHaveBeenCalledTimes(1);
     expect(actions.createPage).toHaveBeenNthCalledWith(1, {
       ...page,
@@ -186,7 +186,7 @@ describe('translatePage', () => {
     };
     translatePage({ page, actions } as any, options);
 
-    expect(actions.deletePage).toBeCalledWith(page);
+    expect(actions.deletePage).toHaveBeenCalledWith(page);
     expect(actions.createPage).toHaveBeenCalledTimes(1);
     expect(actions.createPage).toHaveBeenNthCalledWith(1, {
       ...page,
@@ -217,7 +217,7 @@ describe('translatePage', () => {
     };
     translatePage({ page, actions } as any, options);
 
-    expect(actions.deletePage).toBeCalledWith(page);
+    expect(actions.deletePage).toHaveBeenCalledWith(page);
     expect(actions.createPage).toHaveBeenCalledTimes(1);
     expect(actions.createPage).toHaveBeenNthCalledWith(1, {
       ...page,
@@ -252,8 +252,8 @@ describe('translatePage', () => {
 
     translatePage({ page, actions } as any, options);
 
-    expect(actions.deletePage).not.toBeCalled();
-    expect(actions.createPage).not.toBeCalled();
+    expect(actions.deletePage).not.toHaveBeenCalled();
+    expect(actions.createPage).not.toHaveBeenCalled();
   });
 
   it('should obey page blacklists', () => {
