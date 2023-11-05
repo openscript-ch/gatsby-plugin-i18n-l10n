@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.5.0](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.4.0...v5.5.0) (2023-11-05)
+
+
+### 🚀 Features
+
+* add page blacklist ([5025a21](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/5025a21dd0855e0b40e578b55c161ff388eb0434))
+
 ## [5.4.0](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.3.0...v5.4.0) (2023-06-02)
 
 
