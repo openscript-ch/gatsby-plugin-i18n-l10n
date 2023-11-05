@@ -56,6 +56,7 @@ Providing i18n and l10n to Gatsby. Besides translating pages and Markdown files,
              '/products#donut-filled-with-jam': '/produkte#berliner',
              '/services/software-development': '/dienstleistungen/softwareentwicklung'
            },
+           pageBlacklist: ['/do-not-translate-to-german'], // If there is a page with the a given path it won't be translated
            messages: {
              "language": "Deutsch"
            },

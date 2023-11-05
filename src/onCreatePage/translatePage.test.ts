@@ -19,6 +19,7 @@ const options: PluginOptions = {
         '/pages/imprint': '/seiten/impressum',
       },
       messages: {},
+      pageBlacklist: ['/do-not-translate-to-german'],
     },
     {
       locale: `zh-CN`,
@@ -253,5 +254,18 @@ describe('translatePage', () => {
 
     expect(actions.deletePage).not.toBeCalled();
     expect(actions.createPage).not.toBeCalled();
+  });
+
+  it('should obey page blacklists', () => {
+    const page: Page = {
+      path: '/do-not-translate-to-german',
+      component: {} as any,
+      context: {},
+      isCreatedByStatefulCreatePages: true,
+    };
+
+    translatePage({ page, actions } as any, options);
+
+    expect(actions.createPage).toMatchSnapshot();
   });
 });

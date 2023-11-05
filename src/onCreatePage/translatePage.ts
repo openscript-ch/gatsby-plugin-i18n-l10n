@@ -1,7 +1,27 @@
-import { CreatePageArgs, PluginOptions } from 'gatsby';
+import { Actions, CreatePageArgs, Page, PluginOptions } from 'gatsby';
 import { SitePageContext, UnstatefulSitePageContext } from '../../types';
 import { createLocalePagesId } from '../utils/i18n';
 import { generatePageContextByPath, translatePagePath, translatePagePaths } from '../utils/path';
+
+const isPagePathBlacklisted = (path: string, options: PluginOptions, locale?: string) => {
+  const localeOptions = options.locales.find((l) => l.locale === locale);
+
+  if (!localeOptions?.pageBlacklist) {
+    return false;
+  }
+
+  if (localeOptions.pageBlacklist.find((pbl) => path.includes(pbl))) {
+    return true;
+  }
+
+  return false;
+};
+
+const createTranslatedPage = (createPage: Actions['createPage'], page: Page<SitePageContext>, options: PluginOptions) => {
+  if (!isPagePathBlacklisted(page.path, options, page.context?.locale)) {
+    createPage(page);
+  }
+};
 
 export const translatePage = async ({ page, actions }: CreatePageArgs<SitePageContext>, options: PluginOptions) => {
   const { createPage, deletePage } = actions;
@@ -11,14 +31,14 @@ export const translatePage = async ({ page, actions }: CreatePageArgs<SitePageCo
     return;
   }
 
-  // Translate statefully created pages from `/src/pages` or gatsby-plugin-page-creator
-  if (options && page.isCreatedByStatefulCreatePages) {
+  if (page.isCreatedByStatefulCreatePages) {
+    // Translate statefully created pages from `/src/pages` or gatsby-plugin-page-creator
     const paths = translatePagePaths(page.path, options);
 
     deletePage(page);
 
     paths.forEach((path) => {
-      const translations = paths.filter((p) => p.locale !== path.locale);
+      const translations = paths.filter((p) => p.locale !== path.locale && !isPagePathBlacklisted(p.path, options, p.locale));
       const locale = options.locales.find((l) => l.locale === path.locale);
       const context = {
         ...page.context,
@@ -28,12 +48,10 @@ export const translatePage = async ({ page, actions }: CreatePageArgs<SitePageCo
         prefix: locale?.prefix,
       };
 
-      createPage({ ...page, path: path.path, context });
+      createTranslatedPage(createPage, { ...page, path: path.path, context }, options);
     });
-  }
-
-  // Translate programmically generated pages
-  if (options && !page.isCreatedByStatefulCreatePages) {
+  } else {
+    // Translate programmically created pages
     deletePage(page);
 
     const { referTranslations, adjustPath, ...restContext } = (page.context as UnstatefulSitePageContext) || {};
@@ -52,7 +70,10 @@ export const translatePage = async ({ page, actions }: CreatePageArgs<SitePageCo
     // Refer translations if requested
     if (referTranslations && Array.isArray(referTranslations) && referTranslations.length > 0) {
       const translations = translatePagePaths(path, options).filter(
-        (p) => p.locale !== localeAndPrefixContext.locale && referTranslations.includes(p.locale),
+        (p) =>
+          p.locale !== localeAndPrefixContext.locale &&
+          referTranslations.includes(p.locale) &&
+          !isPagePathBlacklisted(p.path, options, p.locale),
       );
       context = { ...context, translations };
     }
@@ -62,6 +83,6 @@ export const translatePage = async ({ page, actions }: CreatePageArgs<SitePageCo
       path = translatePagePath(path, optionsLocale.slugs, context.locale, context.prefix, options.defaultLocale);
     }
 
-    createPage({ ...page, context, path });
+    createTranslatedPage(createPage, { ...page, context, path }, options);
   }
 };

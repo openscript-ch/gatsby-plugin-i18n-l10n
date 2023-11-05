@@ -36,6 +36,7 @@ declare module 'gatsby' {
       prefix: string;
       slugs: Record<string, string>;
       messages: Record<string, string>;
+      pageBlacklist?: string[];
     }[];
     pathBlacklist?: string[];
   }
