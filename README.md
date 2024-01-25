@@ -67,6 +67,8 @@ Providing i18n and l10n to Gatsby. Besides translating pages and Markdown files,
        pathBlacklist: [
          '/pages' // /pages/products/gummibears/ becomes /products/gummibears/
        ],
+       // set handling of trailing slashes
+       // set it to the same value as for the rest of Gatsby
        // behaves like https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/#trailingslash
        // default: always
        trailingSlash: 'always'
