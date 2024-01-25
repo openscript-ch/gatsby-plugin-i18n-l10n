@@ -1,13 +1,33 @@
 import { PluginOptions } from 'gatsby';
-import {
-  addLocalePrefix,
-  generatePageContextByPath,
-  handleTrailingSlash,
-  parsePathPrefix,
-  translatePagePaths,
-  trimRightSlash,
-  trimSlashes,
-} from './path';
+import { addLocalePrefix, generatePageContextByPath, handleTrailingSlash, parsePathPrefix, translatePagePaths, trimSlashes } from './path';
+
+const options: PluginOptions = {
+  defaultLocale: `en-US`,
+  siteUrl: '',
+  locales: [
+    {
+      locale: `en-US`,
+      prefix: `en`,
+      slugs: {},
+      messages: {},
+    },
+    {
+      locale: `de-CH`,
+      prefix: `de`,
+      slugs: {
+        '/imprint/': '/impressum/',
+      },
+      messages: {},
+    },
+    {
+      locale: `zh-CN`,
+      prefix: `zh`,
+      slugs: {},
+      messages: {},
+    },
+  ],
+  plugins: [],
+};
 
 describe('handleTrailingSlash', () => {
   it('should leave trailing slahes, when the option is set to always', () => {
@@ -58,18 +78,6 @@ describe('handleTrailingSlash', () => {
   });
 });
 
-describe('trimRightSlash', () => {
-  it('should trim the right slash', () => {
-    const trimmed = trimRightSlash('https://example.com/');
-    expect(trimmed).toBe('https://example.com');
-  });
-
-  it("shouldn't trim the right slash if its only slash", () => {
-    const trimmed = trimRightSlash('/');
-    expect(trimmed).toBe('/');
-  });
-});
-
 describe('trimSlashes', () => {
   it('should trim the slashes', () => {
     const trimmed = trimSlashes('/de/page/');
@@ -99,7 +107,7 @@ describe('addLocalePrefix', () => {
   });
   it("adds locale as prefix if it's not the default locale to index routes", () => {
     const prefixed = addLocalePrefix('/', 'it', 'it', 'en');
-    expect(prefixed).toBe('/it');
+    expect(prefixed).toBe('/it/');
   });
   it("adds no locale if it's default locale", () => {
     const prefixed = addLocalePrefix('/path/to/rome', 'it', 'it', 'it');
@@ -125,71 +133,17 @@ describe('parsePathPrefix', () => {
 describe('translatePagePaths', () => {
   it('returns an array of translated page paths', () => {
     const path = '/imprint';
-    const options: PluginOptions = {
-      defaultLocale: `en-US`,
-      siteUrl: '',
-      locales: [
-        {
-          locale: `en-US`,
-          prefix: `en`,
-          slugs: {},
-          messages: {},
-        },
-        {
-          locale: `de-CH`,
-          prefix: `de`,
-          slugs: {
-            '/imprint': '/impressum',
-          },
-          messages: {},
-        },
-        {
-          locale: `zh-CN`,
-          prefix: `zh`,
-          slugs: {},
-          messages: {},
-        },
-      ],
-      plugins: [],
-    };
 
     const pagePathTranslations = translatePagePaths(path, options);
     expect(pagePathTranslations).toEqual([
-      { locale: 'en-US', path: '/imprint' },
-      { locale: 'de-CH', path: '/de/impressum' },
-      { locale: 'zh-CN', path: '/zh/imprint' },
+      { locale: 'en-US', path: '/imprint/' },
+      { locale: 'de-CH', path: '/de/impressum/' },
+      { locale: 'zh-CN', path: '/zh/imprint/' },
     ]);
   });
 
   describe('generatePageContextByPath', () => {
     const path = '/imprint';
-    const options: PluginOptions = {
-      defaultLocale: `en-US`,
-      siteUrl: '',
-      locales: [
-        {
-          locale: `en-US`,
-          prefix: `en`,
-          slugs: {},
-          messages: {},
-        },
-        {
-          locale: `de-CH`,
-          prefix: `de`,
-          slugs: {
-            '/imprint': '/impressum',
-          },
-          messages: {},
-        },
-        {
-          locale: `zh-CN`,
-          prefix: `zh`,
-          slugs: {},
-          messages: {},
-        },
-      ],
-      plugins: [],
-    };
 
     it('should generate the page context by path', () => {
       const expectation = generatePageContextByPath(path, options);

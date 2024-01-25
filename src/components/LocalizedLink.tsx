@@ -1,9 +1,9 @@
 import { posix as nodePath } from 'path';
-import { Link } from 'gatsby';
+import { Link, PluginOptions } from 'gatsby';
 import { PropsWithChildren } from 'react';
 import { useIntl } from 'react-intl';
 import { useI18nL10nContext } from '../contexts/I18nL10nContext';
-import { trimRightSlash } from '../utils/path';
+import { handleTrailingSlash } from '../utils/path';
 
 type LocalizedLinkProps = PropsWithChildren<{
   className?: string;
@@ -13,6 +13,7 @@ type LocalizedLinkProps = PropsWithChildren<{
   partiallyActive?: boolean;
   replace?: boolean;
   onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
+  trailingSlash?: PluginOptions['trailingSlash'];
 }>;
 
 export default function LocalizedLink({
@@ -24,13 +25,15 @@ export default function LocalizedLink({
   partiallyActive = true,
   replace,
   onClick,
+  trailingSlash,
 }: LocalizedLinkProps) {
   const pageContext = useI18nL10nContext();
   const prefix = pageContext.prefix ?? '';
   const intl = useIntl();
   const getSlug = () => (intl.messages[to] ? intl.formatMessage({ id: to }) : to);
   const localizedPath = to !== '/' ? getSlug() : '/';
-  const prefixedPath = intl.defaultLocale === intl.locale ? localizedPath : trimRightSlash(nodePath.join('/', prefix, localizedPath));
+  const prefixedPath =
+    intl.defaultLocale === intl.locale ? localizedPath : handleTrailingSlash(nodePath.join('/', prefix, localizedPath), trailingSlash);
   return (
     <Link
       to={prefixedPath}

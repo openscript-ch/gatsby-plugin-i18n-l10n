@@ -30,7 +30,7 @@ describe('<LocalizedLink />', () => {
 
     expect(component).toMatchInlineSnapshot(`
       <a
-        href="/de/impressum"
+        href="/de/impressum/"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >
@@ -51,7 +51,7 @@ describe('<LocalizedLink />', () => {
 
     expect(component).toMatchInlineSnapshot(`
       <a
-        href="/de/contact"
+        href="/de/contact/"
         onClick={[Function]}
         onMouseEnter={[Function]}
       >

@@ -13,12 +13,12 @@ exports[`translatePage should obey page blacklists 1`] = `
           "translations": [
             {
               "locale": "zh-CN",
-              "path": "/zh/do-not-translate-to-german",
+              "path": "/zh/do-not-translate-to-german/",
             },
           ],
         },
         "isCreatedByStatefulCreatePages": true,
-        "path": "/do-not-translate-to-german",
+        "path": "/do-not-translate-to-german/",
       },
     ],
     [
@@ -31,12 +31,12 @@ exports[`translatePage should obey page blacklists 1`] = `
           "translations": [
             {
               "locale": "en-US",
-              "path": "/do-not-translate-to-german",
+              "path": "/do-not-translate-to-german/",
             },
           ],
         },
         "isCreatedByStatefulCreatePages": true,
-        "path": "/zh/do-not-translate-to-german",
+        "path": "/zh/do-not-translate-to-german/",
       },
     ],
   ],

@@ -1,8 +1,9 @@
 import { posix as nodePath } from 'path';
 import { Fragment } from 'react';
 import { useIntl } from 'react-intl';
+import { PluginOptions } from 'gatsby';
 import { useI18nL10nContext } from '../contexts/I18nL10nContext';
-import { trimRightSlash } from '../utils/path';
+import { handleTrailingSlash } from '../utils/path';
 
 type LinkProps = {
   className?: string;
@@ -16,6 +17,7 @@ type LinkProps = {
 
 type LocalizedLinkProps = {
   children: (args: LinkProps) => JSX.Element;
+  trailingSlash?: PluginOptions['trailingSlash'];
 } & LinkProps;
 
 export default function GenericLocalizedLink({
@@ -27,12 +29,14 @@ export default function GenericLocalizedLink({
   partiallyActive = true,
   replace,
   onClick,
+  trailingSlash,
 }: LocalizedLinkProps) {
   const pageContext = useI18nL10nContext();
   const prefix = pageContext.prefix ?? '';
   const intl = useIntl();
   const getSlug = () => (intl.messages[to] ? intl.formatMessage({ id: to }) : to);
   const localizedPath = to !== '/' ? getSlug() : '/';
-  const prefixedPath = intl.defaultLocale === intl.locale ? localizedPath : trimRightSlash(nodePath.join('/', prefix, localizedPath));
+  const prefixedPath =
+    intl.defaultLocale === intl.locale ? localizedPath : handleTrailingSlash(nodePath.join('/', prefix, localizedPath), trailingSlash);
   return <Fragment>{children({ to: prefixedPath, className, activeClassName, activeStyle, partiallyActive, replace, onClick })}</Fragment>;
 }

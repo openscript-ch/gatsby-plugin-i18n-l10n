@@ -15,8 +15,8 @@ const options: PluginOptions = {
       locale: `de-CH`,
       prefix: `de`,
       slugs: {
-        '/imprint': '/impressum',
-        '/pages/imprint': '/seiten/impressum',
+        '/imprint/': '/impressum/',
+        '/pages/imprint/': '/seiten/impressum/',
       },
       messages: {},
       pageBlacklist: ['/do-not-translate-to-german'],
@@ -43,7 +43,7 @@ describe('translatePage', () => {
 
   it('should translate stateful created pages', () => {
     const page: Page = {
-      path: '/pages/imprint',
+      path: '/pages/imprint/',
       component: {} as any,
       context: {},
       isCreatedByStatefulCreatePages: true,
@@ -61,11 +61,11 @@ describe('translatePage', () => {
         translations: [
           {
             locale: 'de-CH',
-            path: '/de/seiten/impressum',
+            path: '/de/seiten/impressum/',
           },
           {
             locale: 'zh-CN',
-            path: '/zh/pages/imprint',
+            path: '/zh/pages/imprint/',
           },
         ],
       },
@@ -79,15 +79,15 @@ describe('translatePage', () => {
         translations: [
           {
             locale: 'en-US',
-            path: '/pages/imprint',
+            path: '/pages/imprint/',
           },
           {
             locale: 'zh-CN',
-            path: '/zh/pages/imprint',
+            path: '/zh/pages/imprint/',
           },
         ],
       },
-      path: '/de/seiten/impressum',
+      path: '/de/seiten/impressum/',
     });
     expect(actions.createPage).toHaveBeenNthCalledWith(3, {
       ...page,
@@ -98,21 +98,21 @@ describe('translatePage', () => {
         translations: [
           {
             locale: 'en-US',
-            path: '/pages/imprint',
+            path: '/pages/imprint/',
           },
           {
             locale: 'de-CH',
-            path: '/de/seiten/impressum',
+            path: '/de/seiten/impressum/',
           },
         ],
       },
-      path: '/zh/pages/imprint',
+      path: '/zh/pages/imprint/',
     });
   });
 
   it('should translate unstateful created pages by path with default language', () => {
     const page: Page = {
-      path: '/imprint',
+      path: '/imprint/',
       component: {} as any,
       isCreatedByStatefulCreatePages: false,
     };
@@ -153,7 +153,7 @@ describe('translatePage', () => {
 
   it('should translate unstateful created pages by locale in context', () => {
     const page: Page = {
-      path: '/imprint',
+      path: '/imprint/',
       component: {} as any,
       context: {
         locale: 'de-CH',
@@ -176,7 +176,7 @@ describe('translatePage', () => {
 
   it('should translate unstateful created pages and refer translations', () => {
     const page: Page = {
-      path: '/imprint',
+      path: '/imprint/',
       component: {} as any,
       context: {
         locale: 'en-US',
@@ -197,7 +197,7 @@ describe('translatePage', () => {
         translations: [
           {
             locale: 'de-CH',
-            path: '/de/impressum',
+            path: '/de/impressum/',
           },
         ],
       },
@@ -206,7 +206,7 @@ describe('translatePage', () => {
 
   it('should translate unstateful created pages and adjust the path', () => {
     const page: Page = {
-      path: '/imprint',
+      path: '/imprint/',
       component: {} as any,
       context: {
         locale: 'de-CH',
@@ -221,7 +221,7 @@ describe('translatePage', () => {
     expect(actions.createPage).toHaveBeenCalledTimes(1);
     expect(actions.createPage).toHaveBeenNthCalledWith(1, {
       ...page,
-      path: '/de/impressum',
+      path: '/de/impressum/',
       context: {
         locale: 'de-CH',
         prefix: 'de',
@@ -229,11 +229,11 @@ describe('translatePage', () => {
         translations: [
           {
             locale: 'en-US',
-            path: '/imprint',
+            path: '/imprint/',
           },
           {
             locale: 'zh-CN',
-            path: '/zh/imprint',
+            path: '/zh/imprint/',
           },
         ],
       },
@@ -242,7 +242,7 @@ describe('translatePage', () => {
 
   it('should skip already translated pages', () => {
     const page: Page = {
-      path: '/imprint',
+      path: '/imprint/',
       component: {} as any,
       context: {
         locale: 'de-CH',
