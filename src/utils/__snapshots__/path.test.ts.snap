@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`translatePagePaths generatePageContextByPath should default to empty prefix 1`] = `
+{
+  "locale": undefined,
+  "prefix": undefined,
+}
+`;
+
+exports[`translatePagePaths generatePageContextByPath should generate the page context by path 1`] = `
+{
+  "locale": "en-US",
+  "prefix": "en",
+}
+`;

@@ -19,6 +19,7 @@ export const pluginOptionsSchema: GatsbyNode['pluginOptionsSchema'] = ({ Joi }) 
         }),
       ),
     pathBlacklist: Joi.array().description('Omit certain path segments'),
+    trailingSlash: Joi.string().valid('always', 'never', 'ignore').default('always'),
   });
 };
 
