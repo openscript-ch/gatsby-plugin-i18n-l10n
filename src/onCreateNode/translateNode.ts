@@ -3,7 +3,7 @@ import { FileSystemNode } from 'gatsby-source-filesystem';
 import convertToSlug from 'limax';
 import { Actions, CreateNodeArgs, Node, NodePluginArgs, PluginOptions } from 'gatsby';
 import { Frontmatter, Translation } from '../../types';
-import { addLocalePrefix, replaceSegmentsWithSlugs, trimRightSlash } from '../utils/path';
+import { addLocalePrefix, handleTrailingSlash, replaceSegmentsWithSlugs } from '../utils/path';
 import { findClosestLocale, parseFilenameSuffix } from '../utils/i18n';
 
 const MARKDOWN_TYPES = ['MarkdownRemark', 'Mdx'];
@@ -140,6 +140,9 @@ const translatePath = (filename: string, relativeDirectory: string, locale: stri
     filepath = replaceSegmentsWithSlugs(filepath, localeOption.slugs);
   }
 
+  // handle trailing slash
+  filepath = handleTrailingSlash(filepath, options.trailingSlash);
+
   return { slug, kind: relativeDirectory, filepath };
 };
 
@@ -169,7 +172,7 @@ export const translateNode = async ({ getNode, getNodes, node, actions }: Create
     const siblings = findTranslations(getNodes(), absolutePath, options);
     const translations = getAvailableTranslations(siblings, getNode, options).map((t) => {
       const { filepath: translatedFilepath } = translatePath(t.filename, relativeDirectory, t.locale, options, t.title);
-      return { path: trimRightSlash(translatedFilepath), locale: t.locale };
+      return { path: handleTrailingSlash(translatedFilepath, options.trailingSlash), locale: t.locale };
     });
 
     createNodeField({ node, name: 'locale', value: locale });

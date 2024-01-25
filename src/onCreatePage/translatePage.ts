@@ -80,7 +80,7 @@ export const translatePage = async ({ page, actions }: CreatePageArgs<SitePageCo
 
     // Translate page path if requested
     if (adjustPath && typeof context.locale === 'string' && typeof context.prefix === 'string' && optionsLocale) {
-      path = translatePagePath(path, optionsLocale.slugs, context.locale, context.prefix, options.defaultLocale);
+      path = translatePagePath(path, optionsLocale.slugs, context.locale, context.prefix, options.defaultLocale, options);
     }
 
     createTranslatedPage(createPage, { ...page, context, path }, options);

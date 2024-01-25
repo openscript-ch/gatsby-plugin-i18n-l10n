@@ -127,8 +127,8 @@ const allNodes = [
     },
     fields: {
       translations: [
-        { locale: 'de-CH', path: '/old/translation' },
-        { locale: 'zh-CN', path: '/existing/translation' },
+        { locale: 'de-CH', path: '/old/translation/' },
+        { locale: 'zh-CN', path: '/existing/translation/' },
       ],
     },
   },
@@ -172,14 +172,14 @@ describe('translateNode', () => {
     expect(createNodeField).toHaveBeenNthCalledWith(2, { node, name: 'filename', value: 'imprint' });
     expect(createNodeField).toHaveBeenNthCalledWith(3, { node, name: 'kind', value: 'pages' });
     expect(createNodeField).toHaveBeenNthCalledWith(4, { node, name: 'slug', value: 'impressum' });
-    expect(createNodeField).toHaveBeenNthCalledWith(5, { node, name: 'path', value: '/de/pages/impressum' });
+    expect(createNodeField).toHaveBeenNthCalledWith(5, { node, name: 'path', value: '/de/pages/impressum/' });
     expect(createNodeField).toHaveBeenNthCalledWith(6, { node, name: 'pathPrefix', value: 'de' });
     expect(createNodeField).toHaveBeenNthCalledWith(7, {
       node,
       name: 'translations',
       value: [
-        { locale: 'en-US', path: '/pages/imprint' },
-        { locale: 'fr-FR', path: '/fr/pages/imprimer' },
+        { locale: 'en-US', path: '/pages/imprint/' },
+        { locale: 'fr-FR', path: '/fr/pages/imprimer/' },
       ],
     });
   });
@@ -196,14 +196,14 @@ describe('translateNode', () => {
     expect(createNodeField).toHaveBeenNthCalledWith(2, { node: currentNode, name: 'filename', value: 'imprint' });
     expect(createNodeField).toHaveBeenNthCalledWith(3, { node: currentNode, name: 'kind', value: 'pages' });
     expect(createNodeField).toHaveBeenNthCalledWith(4, { node: currentNode, name: 'slug', value: 'imprint' });
-    expect(createNodeField).toHaveBeenNthCalledWith(5, { node: currentNode, name: 'path', value: '/pages/imprint' });
+    expect(createNodeField).toHaveBeenNthCalledWith(5, { node: currentNode, name: 'path', value: '/pages/imprint/' });
     expect(createNodeField).toHaveBeenNthCalledWith(6, { node: currentNode, name: 'pathPrefix', value: '' });
     expect(createNodeField).toHaveBeenNthCalledWith(7, {
       node: currentNode,
       name: 'translations',
       value: [
-        { locale: 'de-CH', path: '/de/pages/impressum' },
-        { locale: 'fr-FR', path: '/fr/pages/imprimer' },
+        { locale: 'de-CH', path: '/de/pages/impressum/' },
+        { locale: 'fr-FR', path: '/fr/pages/imprimer/' },
       ],
     });
   });
@@ -225,7 +225,7 @@ describe('translateNode', () => {
     expect(createNodeField).toHaveBeenNthCalledWith(2, { node: currentNode, name: 'filename', value: 'more' });
     expect(createNodeField).toHaveBeenNthCalledWith(3, { node: currentNode, name: 'kind', value: 'sections/special' });
     expect(createNodeField).toHaveBeenNthCalledWith(4, { node: currentNode, name: 'slug', value: 'more' });
-    expect(createNodeField).toHaveBeenNthCalledWith(5, { node: currentNode, name: 'path', value: '/de/sections/special/more' });
+    expect(createNodeField).toHaveBeenNthCalledWith(5, { node: currentNode, name: 'path', value: '/de/sections/special/more/' });
     expect(createNodeField).toHaveBeenNthCalledWith(6, { node: currentNode, name: 'pathPrefix', value: 'de' });
     expect(createNodeField).toHaveBeenNthCalledWith(7, {
       node: currentNode,
@@ -246,14 +246,14 @@ describe('translateNode', () => {
     expect(createNodeField).toHaveBeenNthCalledWith(2, { node, name: 'filename', value: 'imprint' });
     expect(createNodeField).toHaveBeenNthCalledWith(3, { node, name: 'kind', value: 'pages' });
     expect(createNodeField).toHaveBeenNthCalledWith(4, { node, name: 'slug', value: 'impressum' });
-    expect(createNodeField).toHaveBeenNthCalledWith(5, { node, name: 'path', value: '/de/impressum' });
+    expect(createNodeField).toHaveBeenNthCalledWith(5, { node, name: 'path', value: '/de/impressum/' });
     expect(createNodeField).toHaveBeenNthCalledWith(6, { node, name: 'pathPrefix', value: 'de' });
     expect(createNodeField).toHaveBeenNthCalledWith(7, {
       node,
       name: 'translations',
       value: [
-        { locale: 'en-US', path: '/imprint' },
-        { locale: 'fr-FR', path: '/fr/imprimer' },
+        { locale: 'en-US', path: '/imprint/' },
+        { locale: 'fr-FR', path: '/fr/imprimer/' },
       ],
     });
   });
@@ -273,7 +273,7 @@ describe('translateNode', () => {
           locale: `de-CH`,
           prefix: `de`,
           slugs: {
-            '/pages': '/seiten',
+            '/pages/': '/seiten/',
           },
           messages: {},
         },
@@ -281,7 +281,7 @@ describe('translateNode', () => {
           locale: `fr-FR`,
           prefix: `fr`,
           slugs: {
-            '/pages': '/feuilles', // I know it's not a literal translation
+            '/pages/': '/feuilles/', // I know it's not a literal translation
           },
           messages: {},
         },
@@ -295,14 +295,14 @@ describe('translateNode', () => {
     expect(createNodeField).toHaveBeenNthCalledWith(2, { node, name: 'filename', value: 'imprint' });
     expect(createNodeField).toHaveBeenNthCalledWith(3, { node, name: 'kind', value: 'pages' });
     expect(createNodeField).toHaveBeenNthCalledWith(4, { node, name: 'slug', value: 'impressum' });
-    expect(createNodeField).toHaveBeenNthCalledWith(5, { node, name: 'path', value: '/de/seiten/impressum' });
+    expect(createNodeField).toHaveBeenNthCalledWith(5, { node, name: 'path', value: '/de/seiten/impressum/' });
     expect(createNodeField).toHaveBeenNthCalledWith(6, { node, name: 'pathPrefix', value: 'de' });
     expect(createNodeField).toHaveBeenNthCalledWith(7, {
       node,
       name: 'translations',
       value: [
-        { locale: 'en-US', path: '/pages/imprint' },
-        { locale: 'fr-FR', path: '/fr/feuilles/imprimer' },
+        { locale: 'en-US', path: '/pages/imprint/' },
+        { locale: 'fr-FR', path: '/fr/feuilles/imprimer/' },
       ],
     });
 
@@ -310,14 +310,14 @@ describe('translateNode', () => {
       node: allNodes.find((n) => n.id === 'm2'),
       name: 'translations',
       value: [
-        { locale: 'de-CH', path: '/de/seiten/impressum' },
-        { locale: 'zh-CN', path: '/existing/translation' },
+        { locale: 'de-CH', path: '/de/seiten/impressum/' },
+        { locale: 'zh-CN', path: '/existing/translation/' },
       ],
     });
     expect(createNodeField).toHaveBeenNthCalledWith(9, {
       node: allNodes.find((n) => n.id === 'm1'),
       name: 'translations',
-      value: [{ locale: 'de-CH', path: '/de/seiten/impressum' }],
+      value: [{ locale: 'de-CH', path: '/de/seiten/impressum/' }],
     });
   });
 
@@ -336,7 +336,7 @@ describe('translateNode', () => {
           locale: `de-CH`,
           prefix: `de`,
           slugs: {
-            '/pages': '/seiten',
+            '/pages/': '/seiten/',
           },
           messages: {},
         },
@@ -344,7 +344,7 @@ describe('translateNode', () => {
           locale: `fr-FR`,
           prefix: `fr`,
           slugs: {
-            '/pages': '/feuilles', // I know it's not a literal translation
+            '/pages/': '/feuilles/', // I know it's not a literal translation
           },
           messages: {},
         },

@@ -18,10 +18,6 @@ export const handleTrailingSlash = (path: string, trailingSlashOption: PluginOpt
   }
 };
 
-export const trimRightSlash = (path: string) => {
-  return path === '/' ? path : path.replace(/\/$/, '');
-};
-
 export const trimSlashes = (path: string) => {
   return path === '/' ? path : path.replace(/^\/|\/$/g, '');
 };
@@ -36,24 +32,34 @@ export const replaceSegmentsWithSlugs = (path: string, slugs: Record<string, str
 };
 
 export const addLocalePrefix = (path: string, locale: string, prefix: string, defaultLocale: string) => {
-  return locale !== defaultLocale ? trimRightSlash(`/${nodePath.join(prefix, path)}`) : path;
+  return locale !== defaultLocale ? `/${nodePath.join(prefix, path)}` : path;
 };
 
-export const translatePagePath = (path: string, slugs: Record<string, string>, locale: string, prefix: string, defaultLocale: string) => {
+export const translatePagePath = (
+  path: string,
+  slugs: Record<string, string>,
+  locale: string,
+  prefix: string,
+  defaultLocale: string,
+  options: PluginOptions,
+) => {
   let translatedPath = path;
 
   translatedPath = replaceSegmentsWithSlugs(translatedPath, slugs);
   translatedPath = addLocalePrefix(translatedPath, locale, prefix, defaultLocale);
+  translatedPath = handleTrailingSlash(translatedPath, options.trailingSlash);
 
   return translatedPath;
 };
 
 export const translatePagePaths = (path: string, options: PluginOptions) => {
   return options.locales.map((locale) => {
-    const trimmedPath = trimRightSlash(path);
-    const newPath = locale.slugs[trimmedPath] ?? trimmedPath;
+    const trimmedPath = handleTrailingSlash(path, options.trailingSlash);
+    let translatedPath = locale.slugs[trimmedPath] ?? trimmedPath;
+    translatedPath = addLocalePrefix(translatedPath, locale.locale, locale.prefix, options.defaultLocale);
+    translatedPath = handleTrailingSlash(translatedPath, options.trailingSlash);
 
-    return { locale: locale.locale, path: addLocalePrefix(newPath, locale.locale, locale.prefix, options.defaultLocale) };
+    return { locale: locale.locale, path: translatedPath };
   });
 };
 

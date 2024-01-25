@@ -52,11 +52,11 @@ Providing i18n and l10n to Gatsby. Besides translating pages and Markdown files,
            locale: `de-CH`,
            prefix: `de`,
            slugs: {
-             '/products': '/produkte',
-             '/products#donut-filled-with-jam': '/produkte#berliner',
-             '/services/software-development': '/dienstleistungen/softwareentwicklung'
+             '/products/': '/produkte/',
+             '/products/#donut-filled-with-jam': '/produkte/#berliner',
+             '/services/software-development/': '/dienstleistungen/softwareentwicklung/'
            },
-           pageBlacklist: ['/do-not-translate-to-german'], // If there is a page with the a given path it won't be translated
+           pageBlacklist: ['/do-not-translate-to-german/'], // If there is a page with the a given path it won't be translated
            messages: {
              "language": "Deutsch"
            },
@@ -65,8 +65,11 @@ Providing i18n and l10n to Gatsby. Besides translating pages and Markdown files,
        // omit certain path segments (relative directories)
        // be careful not to cause path collisions
        pathBlacklist: [
-         '/pages' // /pages/products/gummibears becomes /products/gummibears
-       ]
+         '/pages' // /pages/products/gummibears/ becomes /products/gummibears/
+       ],
+       // behaves like https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/#trailingslash
+       // default: always
+       trailingSlash: 'always'
      },
    }
    ```
@@ -84,7 +87,7 @@ With the built-in `<LanguageSwitcher>` component users can change between the lo
 `<LocalizedLink>` wraps Gatsby `<Link>` component, thus it should be possible to use it in the same way.
 
 ```jsx
-<LocalizedLink to="/products">Produkte</LocalizedLink>
+<LocalizedLink to="/products/">Produkte</LocalizedLink>
 ```
 
 If the configuration from above is used and the user views this link inside the i18n context `de-CH` the link will lead him to `/de/produkte`.
@@ -94,7 +97,7 @@ If the configuration from above is used and the user views this link inside the 
 With the built-in `<GenericLocalizedLink>` component it's possible to use other plugins, which modify Gatsbys `<Link>` component. Here is an example with [Gatsby Plugin Transition Link](https://www.gatsbyjs.com/plugins/gatsby-plugin-transition-link/):
 
 ```jsx
-<GenericLocalizedLink to="/imprint">
+<GenericLocalizedLink to="/imprint/">
   {(args) => (
     <TransitionLink
       to={args.to}
