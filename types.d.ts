@@ -39,5 +39,6 @@ declare module 'gatsby' {
       pageBlacklist?: string[];
     }[];
     pathBlacklist?: string[];
+    trailingSlash?: 'always' | 'never' | 'ignore';
   }
 }

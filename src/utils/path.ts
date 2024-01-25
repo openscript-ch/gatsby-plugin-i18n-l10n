@@ -1,6 +1,23 @@
 import { posix as nodePath } from 'path';
 import { PluginOptions } from 'gatsby';
 
+export const handleTrailingSlash = (path: string, trailingSlashOption: PluginOptions['trailingSlash'] = 'always') => {
+  if (path === '/' || path.length < 1) {
+    return path;
+  }
+
+  const hasTrailingSlash = path.endsWith('/');
+
+  switch (trailingSlashOption) {
+    case 'always':
+      return hasTrailingSlash ? path : `${path}/`;
+    case 'never':
+      return hasTrailingSlash ? path.slice(0, -1) : path;
+    default:
+      return path;
+  }
+};
+
 export const trimRightSlash = (path: string) => {
   return path === '/' ? path : path.replace(/\/$/, '');
 };
