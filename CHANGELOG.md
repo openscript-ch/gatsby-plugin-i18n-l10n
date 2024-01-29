@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.6.0](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.5.0...v5.6.0) (2024-01-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* add trailing slash option
+
+### 🚀 Features
+
+* add trailing slash option ([76dfa83](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/76dfa83402d0126a9ee8a9821ee2c3ea12ce474a))
+
 ## [5.5.0](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.4.0...v5.5.0) (2023-11-05)
 
 
