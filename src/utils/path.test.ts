@@ -77,9 +77,11 @@ describe('handleTrailingSlash', () => {
     expect(expectation).toBe('https://example.com/');
   });
 
-  it('should never add trailing slashes to paths with file extensions', () => {
-    const expectation = handleTrailingSlash('404.html', 'always');
+  it('should never add trailing slashes to error pages', () => {
+    let expectation = handleTrailingSlash('404.html', 'always');
     expect(expectation).toBe('404.html');
+    expectation = handleTrailingSlash('https://example.com/403.html/403.html', 'always');
+    expect(expectation).toBe('https://example.com/403.html/403.html');
   });
 });
 
