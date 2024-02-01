@@ -50,13 +50,13 @@
     }
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.23.9",
+    "@babel/eslint-parser": "^7.23.10",
     "@babel/preset-typescript": "^7.23.3",
-    "@testing-library/react": "^14.1.2",
+    "@testing-library/react": "^14.2.0",
     "@types/jest": "^29.5.11",
     "@types/react-test-renderer": "^18.0.7",
-    "@typescript-eslint/eslint-plugin": "^6.19.1",
-    "@typescript-eslint/parser": "^6.19.1",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@typescript-eslint/parser": "^6.20.0",
     "babel-jest": "^29.7.0",
     "babel-preset-gatsby": "^3.13.1",
     "conventional-github-releaser": "3.1.5",
