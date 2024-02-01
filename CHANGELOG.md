@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.6.1](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.6.0...v5.6.1) (2024-02-01)
+
+
+### 🐛 Bug Fixes
+
+* never add trailing slashes to error pages ([1bbfecb](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/1bbfecb32606ece54f740fad4a6db7871fbb1574))
+
 ## [5.6.0](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.5.0...v5.6.0) (2024-01-29)
 
 
