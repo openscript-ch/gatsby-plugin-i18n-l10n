@@ -1,8 +1,10 @@
 import { posix as nodePath } from 'path';
 import { PluginOptions } from 'gatsby';
 
+const ERROR_PAGE_PATH_PATTERN = /[0-9]{3}\.([0-9a-z]+)(?:[?#]|$)/gim;
+
 export const handleTrailingSlash = (path: string, trailingSlashOption: PluginOptions['trailingSlash'] = 'always') => {
-  if (path === '/' || path.length < 1) {
+  if (path === '/' || path.length < 1 || path.match(ERROR_PAGE_PATH_PATTERN)) {
     return path;
   }
 
