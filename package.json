@@ -42,7 +42,7 @@
   "peerDependencies": {
     "gatsby": "^5.x",
     "gatsby-source-filesystem": "^5.x",
-    "react-intl": "^7.x"
+    "react-intl": "^6.x|^7.x"
   },
   "peerDependenciesMeta": {
     "gatsby-source-filesystem": {
