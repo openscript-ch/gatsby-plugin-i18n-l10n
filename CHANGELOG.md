@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.14.1](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.7.0...v5.14.1) (2025-02-28)
+
+
+### 🐛 Bug Fixes
+
+* peer dependency notation ([00f4f44](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/commit/00f4f44b81e62167791158d78d710cf6ad0031c4)), closes [#222](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/issues/222)
+
 ## [5.7.0](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.6.3...v5.7.0) (2024-11-29)
 
 ### [5.6.3](https://github.com/openscript-ch/gatsby-plugin-i18n-l10n/compare/v5.6.2...v5.6.3) (2024-07-26)
